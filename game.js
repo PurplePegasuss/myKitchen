@@ -1,5 +1,9 @@
 var gameSettings = {
     currGold: 10000,
+<<<<<<< Updated upstream
+=======
+    currEnergy: 60,
+>>>>>>> Stashed changes
     currPage: 0,
     currentCraftPage: 0
 }
