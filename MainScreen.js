@@ -721,11 +721,17 @@ class MainScreen extends Phaser.Scene {
                         key: "spinButton"
                     }
                 ],
-                repeat: -1
+                repeat: 0,
             });
 
 
-            var spinButton = this.add.sprite(config.width / 2, config.height * 0.9, "spinButton");
+            this.anims.create({
+                key: "slamming",
+                frames: this.anims.generateFrameNumbers("slammingFridgeDoor"),
+                repeat: 1
+            })
+
+            var spinButton = this.add.sprite(config.width * 0.45, config.height * 0.9, "spinButton");
             spinButton.setActive(false).setVisible(false).setFrame(0).setDepth(1.1);
 
             var energyBar = this.add.sprite(config.width * 0.47, config.height * 0.77, "energyBar");
@@ -745,256 +751,209 @@ class MainScreen extends Phaser.Scene {
             energyText0.setActive(false).setVisible(false).setDepth(1.1);
             var firstRowParameter, secondRowParameter, thirdRowParameter;
 
-            var firstSlot1 = this.add.sprite(config.width * 0.27, config.height * 0.2, "randomPrize", "SC");
-            firstSlot1.setActive(false).setVisible(false);
-            var secondSlot1 = this.add.sprite(config.width * 0.27, config.height * 0.2, "randomPrize", "challenge");
-            secondSlot1.setActive(false).setVisible(false);
-            var thirdSlot1 = this.add.sprite(config.width * 0.27, config.height * 0.2, "randomPrize", "challenge");
-            thirdSlot1.setActive(false).setVisible(false);
+            {
 
-            var firstSlot2 = this.add.sprite(config.width * 0.45, config.height * 0.2, "randomPrize", "SC");
-            firstSlot2.setActive(false).setVisible(false);
-            var secondSlot2 = this.add.sprite(config.width * 0.45, config.height * 0.2, "randomPrize", "challenge");
-            secondSlot2.setActive(false).setVisible(false);
-            var thirdSlot2 = this.add.sprite(config.width * 0.45, config.height * 0.2, "randomPrize", "challenge");
-            thirdSlot2.setActive(false).setVisible(false);
+                var firstSlot1 = this.add.sprite(config.width * 0.27, config.height * 0.2, "randomPrize", "SC");
+                firstSlot1.setActive(false).setVisible(false);
+                var secondSlot1 = this.add.sprite(config.width * 0.27, config.height * 0.2, "randomPrize", "challenge");
+                secondSlot1.setActive(false).setVisible(false);
+                var thirdSlot1 = this.add.sprite(config.width * 0.27, config.height * 0.2, "randomPrize", "challenge");
+                thirdSlot1.setActive(false).setVisible(false);
 
-            var firstSlot3 = this.add.sprite(config.width * 0.63, config.height * 0.2, "randomPrize", "SC");
-            firstSlot3.setActive(false).setVisible(false);
-            var secondSlot3 = this.add.sprite(config.width * 0.63, config.height * 0.2, "randomPrize", "challenge");
-            secondSlot3.setActive(false).setVisible(false);
-            var thirdSlot3 = this.add.sprite(config.width * 0.63, config.height * 0.2, "randomPrize", "challenge");
-            thirdSlot3.setActive(false).setVisible(false);
+                var firstSlot2 = this.add.sprite(config.width * 0.45, config.height * 0.2, "randomPrize", "SC");
+                firstSlot2.setActive(false).setVisible(false);
+                var secondSlot2 = this.add.sprite(config.width * 0.45, config.height * 0.2, "randomPrize", "challenge");
+                secondSlot2.setActive(false).setVisible(false);
+                var thirdSlot2 = this.add.sprite(config.width * 0.45, config.height * 0.2, "randomPrize", "challenge");
+                thirdSlot2.setActive(false).setVisible(false);
 
-
-            var firstSlotB1 = this.add.sprite(config.width * 0.27, config.height * 0.01, "randomPrizeSequence");
-            firstSlotB1.setActive(false).setVisible(false);
-            var secondSlotB1 = this.add.sprite(config.width * 0.27, config.height * 0.01, "randomPrizeSequence");
-            secondSlotB1.setActive(false).setVisible(false);
-
-            var firstSlotB2 = this.add.sprite(config.width * 0.45, config.height * 0.01, "randomPrizeSequence");
-            firstSlotB2.setActive(false).setVisible(false);
-            var secondSlotB2 = this.add.sprite(config.width * 0.45, config.height * 0.01, "randomPrizeSequence");
-            secondSlotB2.setActive(false).setVisible(false);
-
-            var firstSlotB3 = this.add.sprite(config.width * 0.63, config.height * 0.01, "randomPrizeSequence");
-            firstSlotB3.setActive(false).setVisible(false);
-            var secondSlotB3 = this.add.sprite(config.width * 0.63, config.height * 0.01, "randomPrizeSequence");
-            secondSlotB3.setActive(false).setVisible(false);
+                var firstSlot3 = this.add.sprite(config.width * 0.63, config.height * 0.2, "randomPrize", "SC");
+                firstSlot3.setActive(false).setVisible(false);
+                var secondSlot3 = this.add.sprite(config.width * 0.63, config.height * 0.2, "randomPrize", "challenge");
+                secondSlot3.setActive(false).setVisible(false);
+                var thirdSlot3 = this.add.sprite(config.width * 0.63, config.height * 0.2, "randomPrize", "challenge");
+                thirdSlot3.setActive(false).setVisible(false);
 
 
-            var firstSlotTimeLine = this.tweens.createTimeline();
-            var secondSlotTimeLine = this.tweens.createTimeline();
-            var thirdSlotTimeLine = this.tweens.createTimeline();
+                var firstSlotB1 = this.add.sprite(config.width * 0.27, config.height * 0.01, "randomPrizeSequence");
+                firstSlotB1.setActive(false).setVisible(false);
+                var secondSlotB1 = this.add.sprite(config.width * 0.27, config.height * 0.01, "randomPrizeSequence");
+                secondSlotB1.setActive(false).setVisible(false);
 
-            firstSlotTimeLine.add({
-                paused: true,
-                delay: 200,
-                targets: firstSlotB1,
-                ease: 'Linear',
-                duration: 10000,
-                offset: 0,
-                repeat: 1,
-            });
+                var firstSlotB2 = this.add.sprite(config.width * 0.45, config.height * 0.01, "randomPrizeSequence");
+                firstSlotB2.setActive(false).setVisible(false);
+                var secondSlotB2 = this.add.sprite(config.width * 0.45, config.height * 0.01, "randomPrizeSequence");
+                secondSlotB2.setActive(false).setVisible(false);
 
-            secondSlotTimeLine.add({
-                paused: true,
-                delay: 600,
-                targets: firstSlotB2,
-                y: config.height * 1.25,
-                ease: 'Linear',
-                duration: 1000,
-                offset: 0,
-                repeat: 1,
-            });
+                var firstSlotB3 = this.add.sprite(config.width * 0.63, config.height * 0.01, "randomPrizeSequence");
+                firstSlotB3.setActive(false).setVisible(false);
+                var secondSlotB3 = this.add.sprite(config.width * 0.63, config.height * 0.01, "randomPrizeSequence");
+                secondSlotB3.setActive(false).setVisible(false);
 
-            thirdSlotTimeLine.add({
-                paused: true,
-                delay: 1000,
-                targets: firstSlotB3,
-                y: config.height * 1.25,
-                ease: 'Linear',
-                duration: 1000,
-                offset: 0,
-                repeat: 1,
-            });
+                var firstSlotT5 = this.tweens.add({
+                    paused: true,
+                    targets: firstSlot1,
+                    y: config.height * 0.4,
+                    ease: 'Linear',
+                    duration: 184.615,
+                    delay: 2100,
+                });
 
-            firstSlotTimeLine.add({
-                paused: true,
-                delay: 700,
-                targets: secondSlotB1,
-                y: config.height * 1.25,
-                ease: 'Linear',
-                duration: 1000,
-                offset: 0,
-                repeat: 1,
-            });
+                var firstSlotT4 = this.tweens.add({
+                    paused: true,
+                    targets: secondSlot1,
+                    y: config.height * 0.53,
+                    ease: 'Linear',
+                    duration: 244.615,
+                    delay: 2050,
 
-            secondSlotTimeLine.add({
-                paused: true,
-                delay: 1100,
-                targets: secondSlotB2,
-                y: config.height * 1.25,
-                ease: 'Linear',
-                duration: 1000,
-                offset: 0,
-                repeat: 1,
-            })
+                });
 
-            thirdSlotTimeLine.add({
-                paused: true,
-                delay: 1500,
-                targets: secondSlotB3,
-                y: config.height * 1.25,
-                ease: 'Linear',
-                duration: 1000,
-                offset: 0,
-                repeat: 1,
-            });
+                var firstSlotT3 = this.tweens.add({
+                    paused: true,
+                    targets: thirdSlot1,
+                    y: config.height * 0.65,
+                    ease: 'Linear',
+                    duration: 300,
+                    delay: 2000,
+                    repeat: 0,
+                });
 
-            firstSlotTimeLine.add({
-                paused: true,
-                targets: thirdSlot1,
-                onStart: randomFrame(firstSlot1, secondSlot1, thirdSlot1, firstRowParameter),
-                y: config.height * 0.65,
-                ease: 'Linear',
-                duration: 300,
-                offset: "-=500",
-                repeat: 0,
-            });
+                var firstSlotT2 = this.tweens.add({
+                    paused: true,
+                    delay: 500,
+                    targets: secondSlotB1,
+                    y: config.height * 1.25,
+                    ease: 'Linear',
+                    duration: 1000,
+                    repeat: 1,
+                });
 
+                var firstSlotT1 = this.tweens.add({
+                    paused: true,
+                    delay: 0,
+                    targets: firstSlotB1,
+                    y: config.height * 1.25,
+                    ease: 'Linear',
+                    duration: 1000,
+                    repeat: 1,
+                });
 
-            secondSlotTimeLine.add({
-                paused: true,
-                targets: thirdSlot2,
-                onStart: randomFrame(firstSlot2, secondSlot2, thirdSlot2, secondRowParameter),
-                y: config.height * 0.65,
-                ease: 'Linear',
-                duration: 300,
-                offset: "-=500",
-                repeat: 0
-            });
+                var secondSlotT5 = this.tweens.add({
+                    paused: true,
+                    targets: firstSlot2,
+                    y: config.height * 0.4,
+                    ease: 'Linear',
+                    duration: 184.615,
+                    delay: 2500,
+                });
 
-            thirdSlotTimeLine.add({
-                paused: true,
-                targets: thirdSlot3,
-                onStart: randomFrame(firstSlot3, secondSlot3, thirdSlot3, thirdRowParameter),
-                y: config.height * 0.65,
-                ease: 'Linear',
-                duration: 300,
-                offset: "-=500",
-                repeat: 0
-            });
+                var secondSlotT4 = this.tweens.add({
+                    paused: true,
+                    targets: secondSlot2,
+                    y: config.height * 0.53,
+                    ease: 'Linear',
+                    duration: 244.615,
+                    delay: 2450,
+                });
 
-            firstSlotTimeLine.add({
-                paused: true,
-                targets: secondSlot1,
-                y: config.height * 0.53,
-                ease: 'Linear',
-                duration: 244.615,
-                offset: "-=100",
-                repeat: 0,
-            });
+                var secondSlotT3 = this.tweens.add({
+                    paused: true,
+                    targets: thirdSlot2,
+                    y: config.height * 0.65,
+                    ease: 'Linear',
+                    duration: 300,
+                    delay: 2400,
+                    repeat: 0
+                });
 
+                var secondSlotT2 = this.tweens.add({
+                    paused: true,
+                    delay: 900,
+                    targets: secondSlotB2,
+                    y: config.height * 1.25,
+                    ease: 'Linear',
+                    duration: 1000,
+                    repeat: 1,
+                });
 
-            secondSlotTimeLine.add({
-                paused: true,
-                targets: secondSlot2,
-                y: config.height * 0.53,
-                ease: 'Linear',
-                duration: 244.615,
-                offset: "-=100",
-                repeat: 0,
-            });
-
-            thirdSlotTimeLine.add({
-                paused: true,
-                targets: secondSlot3,
-                y: config.height * 0.53,
-                ease: 'Linear',
-                duration: 244.615,
-                offset: "-=100",
-                repeat: 0,
-            });
-
-            firstSlotTimeLine.add({
-                paused: true,
-                targets: firstSlot1,
-                y: config.height * 0.4,
-                ease: 'Linear',
-                duration: 184.615,
-                offset: "-=150",
-                repeat: 0,
-            });
+                var secondSlotT1 = this.tweens.add({
+                    paused: true,
+                    delay: 400,
+                    targets: firstSlotB2,
+                    y: config.height * 1.25,
+                    ease: 'Linear',
+                    duration: 1000,
+                    repeat: 1,
+                });
 
 
-            secondSlotTimeLine.add({
-                paused: true,
-                targets: firstSlot2,
-                y: config.height * 0.4,
-                ease: 'Linear',
-                duration: 184.615,
-                offset: "-=150",
-                repeat: 0,
-            });
+                var thirdSlotT1 = this.tweens.add({
+                    paused: true,
+                    delay: 800,
+                    targets: firstSlotB3,
+                    y: config.height * 1.25,
+                    ease: 'Linear',
+                    duration: 1000,
+                    repeat: 1,
+                });
 
-            thirdSlotTimeLine.add({
-                paused: true,
-                targets: firstSlot3,
-                y: config.height * 0.4,
-                ease: 'Linear',
-                duration: 184.615,
-                offset: "-=150",
-                repeat: 0,
-            });
+                var thirdSlotT2 = this.tweens.add({
+                    paused: true,
+                    delay: 1300,
+                    targets: secondSlotB3,
+                    y: config.height * 1.25,
+                    ease: 'Linear',
+                    duration: 1000,
+                    offset: 0,
+                    repeat: 1,
+                });
 
+                var thirdSlotT3 = this.tweens.add({
+                    paused: true,
+                    targets: thirdSlot3,
+                    y: config.height * 0.65,
+                    ease: 'Linear',
+                    duration: 300,
+                    delay: 2800,
+                    repeat: 0
+                });
+                var thirdSlotT4 = this.tweens.add({
+                    paused: true,
+                    targets: secondSlot3,
+                    y: config.height * 0.53,
+                    ease: 'Linear',
+                    duration: 244.615,
+                    delay: 2850,
+                });
 
-            function randomFrame(firstSlot, secondSlot, thirdSlot, argument) {
-                let a = Math.random();
-                if (a < 0.15) {
-                    firstSlot.setFrame("energy");
-                    secondSlot.setFrame("gift");
-                    argument = "gift";
-                    thirdSlot.setFrame("tripleSC");
-                } else if (a < 0.5) {
-                    firstSlot.setFrame("challenge");
-                    secondSlot.setFrame("SC");
-                    argument = "SC";
-                    thirdSlot.setFrame("energy");
+                var thirdSlotT5 = this.tweens.add({
+                    paused: true,
+                    targets: firstSlot3,
+                    y: config.height * 0.4,
+                    ease: 'Linear',
+                    duration: 184.615,
+                    delay: 2900,
+                });
 
-                } else if (a < 0.67) {
-                    firstSlot.setFrame("gift");
-                    secondSlot.setFrame("tripleSC");
-                    argument = "tripleSC";
-                    thirdSlot.setFrame("challenge");
-                } else if (a < 0.75) {
-                    firstSlot.setFrame("SC");
-                    secondSlot.setFrame("energy");
-                    argument = "energy";
-                    thirdSlot.setFrame("gift");
-                } else {
-                    firstSlot.setFrame("tripleSC");
-                    secondSlot.setFrame("challenge");
-                    argument = "challenge";
-                    thirdSlot.setFrame("SC");
-                };
-            };
+            } // анимации
+
             var shopStub = this.add.sprite(config.width / 2, config.height / 2, "shopStub");
             shopStub.setScale(3);
             shopStub.setActive(false).setVisible(false);
 
 
 
-            var spinGroup = this.add.group([spinsBG, fridgeRear, fridgeFrame, fridgeShadow, fridgeDoor, spinButton, energyBar, energyIcon, energyText0, firstSlot1, secondSlot1, thirdSlot1, firstSlot2, secondSlot2, thirdSlot2,firstSlot3, secondSlot3, thirdSlot3, firstSlotB1, secondSlotB1, firstSlotB2, secondSlotB2, firstSlotB3, secondSlotB3]);
+            var spinGroup = this.add.group([spinsBG, fridgeRear, fridgeFrame, fridgeShadow, fridgeDoor, spinButton, energyBar, energyIcon, energyText0, firstSlot1, secondSlot1, thirdSlot1, firstSlot2, secondSlot2, thirdSlot2, firstSlot3, secondSlot3, thirdSlot3, firstSlotB1, secondSlotB1, firstSlotB2, secondSlotB2, firstSlotB3, secondSlotB3]);
 
         } // спавним экраны
 
         {
 
-            var uiFixUpgradeGeneral = this.add.sprite(config.width*0.5, config.height*0.72, "uiFixUpgrade");
+            var uiFixUpgradeGeneral = this.add.sprite(config.width * 0.5, config.height * 0.72, "uiFixUpgrade");
             var uiFixUpgradeScale = 1.2;
             uiFixUpgradeGeneral.setScale(uiFixUpgradeScale).setInteractive().setActive(false).setVisible(false);
-            var uiTextGeneral = this.add.text(uiFixUpgradeGeneral.x+24*uiFixUpgradeScale, uiFixUpgradeGeneral.y-76*uiFixUpgradeScale, 0, {
+            var uiTextGeneral = this.add.text(uiFixUpgradeGeneral.x + 24 * uiFixUpgradeScale, uiFixUpgradeGeneral.y - 76 * uiFixUpgradeScale, 0, {
                 font: '108px Arial',
                 color: 'brown'
             });
@@ -1103,51 +1062,122 @@ class MainScreen extends Phaser.Scene {
                 }
             });
 
+            function randomFrame(firstSlot, secondSlot, thirdSlot, argument) {
+                let a = Math.random();
+                if (a < 0.15) {
+                    firstSlot.setFrame("energy");
+                    secondSlot.setFrame("gift");
+                    argument = "gift";
+                    thirdSlot.setFrame("tripleSC");
+                } else if (a < 0.5) {
+                    firstSlot.setFrame("challenge");
+                    secondSlot.setFrame("SC");
+                    argument = "SC";
+                    thirdSlot.setFrame("energy");
+
+                } else if (a < 0.67) {
+                    firstSlot.setFrame("gift");
+                    secondSlot.setFrame("tripleSC");
+                    argument = "tripleSC";
+                    thirdSlot.setFrame("challenge");
+                } else if (a < 0.75) {
+                    firstSlot.setFrame("SC");
+                    secondSlot.setFrame("energy");
+                    argument = "energy";
+                    thirdSlot.setFrame("gift");
+                } else {
+                    firstSlot.setFrame("tripleSC");
+                    secondSlot.setFrame("challenge");
+                    argument = "challenge";
+                    thirdSlot.setFrame("SC");
+                };
+                console.log(argument);
+            };
+
             function roll() {
                 if (gameSettings.currEnergy > 0) {
+
+                    firstSlot1.setPosition(config.width * 0.27, config.height * 0.2);
+                    secondSlot1.setPosition(config.width * 0.27, config.height * 0.2);
+                    thirdSlot1.setPosition(config.width * 0.27, config.height * 0.2);
+
+                    firstSlot2.setPosition(config.width * 0.45, config.height * 0.2);
+                    secondSlot2.setPosition(config.width * 0.45, config.height * 0.2);
+                    thirdSlot2.setPosition(config.width * 0.45, config.height * 0.2);
+
+                    firstSlot3.setPosition(config.width * 0.63, config.height * 0.2);
+                    secondSlot3.setPosition(config.width * 0.63, config.height * 0.2);
+                    thirdSlot3.setPosition(config.width * 0.63, config.height * 0.2);
+
+                    firstSlotB1.setPosition(config.width * 0.27, config.height * 0.01);
+                    secondSlotB1.setPosition(config.width * 0.27, config.height * 0.01);
+
+                    firstSlotB2.setPosition(config.width * 0.45, config.height * 0.01);
+                    secondSlotB2.setPosition(config.width * 0.45, config.height * 0.01);
+
+                    firstSlotB3.setPosition(config.width * 0.63, config.height * 0.01);
+                    secondSlotB3.setPosition(config.width * 0.63, config.height * 0.01);
+
                     gameSettings.currEnergy--;
-                    firstSlotTimeLine.play();
-                    secondSlotTimeLine.play();
-                    thirdSlotTimeLine.play();
+
+                    randomFrame(firstSlot1, secondSlot1, thirdSlot1, firstRowParameter);
+                    randomFrame(firstSlot3, secondSlot3, thirdSlot3, thirdRowParameter);
+                    randomFrame(firstSlot2, secondSlot2, thirdSlot2, secondRowParameter);
+
+                    firstSlotT1.play();
+                    firstSlotT2.play();
+                    firstSlotT3.play();
+                    firstSlotT4.play();
+                    firstSlotT5.play();
+                    secondSlotT1.play();
+                    secondSlotT2.play();
+                    secondSlotT3.play();
+                    secondSlotT4.play();
+                    secondSlotT5.play();
+                    thirdSlotT1.play();
+                    thirdSlotT2.play();
+                    thirdSlotT3.play();
+                    thirdSlotT4.play();
+                    thirdSlotT5.play();
                 }
             }
 
         } // взаимодействия на экране спинов
 
-        
-          
+
+
         {
             var FixObjects = {
-                "CurrentObject" : false,
-                "Costs" : {
-                    "Table" : 100,
-                    "Wall" : 200,
-                    "Kitchen" : 300,
-                    "Window" : 400,
+                "CurrentObject": false,
+                "Costs": {
+                    "Table": 100,
+                    "Wall": 200,
+                    "Kitchen": 300,
+                    "Window": 400,
                 },
-                "AreFixed" : {
-                    "Table" : false,
-                    "Wall" : false,
-                    "Kitchen" : false,
-                    "Window" : false,
+                "AreFixed": {
+                    "Table": false,
+                    "Wall": false,
+                    "Kitchen": false,
+                    "Window": false,
                 },
-                "UnfixedObjects" : {
-                    "Table" : unfixedTable,
-                    "Wall" : unfixedWall,
-                    "Kitchen" : unfixedKitchen,
-                    "Window" : unfixedWindow,
+                "UnfixedObjects": {
+                    "Table": unfixedTable,
+                    "Wall": unfixedWall,
+                    "Kitchen": unfixedKitchen,
+                    "Window": unfixedWindow,
                 },
-                "FixedObjects" : {
-                    "Table" : fixedTable,
-                    "Wall" : fixedWall,
-                    "Kitchen" : fixedKitchen,
-                    "Window" : fixedWindow,
+                "FixedObjects": {
+                    "Table": fixedTable,
+                    "Wall": fixedWall,
+                    "Kitchen": fixedKitchen,
+                    "Window": fixedWindow,
                 }
             }; // для взаимодействия с объектами кухни
-            function getNextCost(text){
-                var cost=-1;
-                for(var object in FixObjects["Costs"]){
-                    if(!FixObjects["AreFixed"][object]){
+            function getNextCost(text) {
+                var cost = -1;
+                for (var object in FixObjects["Costs"]) {
+                    if (!FixObjects["AreFixed"][object]) {
                         cost = FixObjects["Costs"][object];
                         FixObjects["CurrentObject"] = object;
                         break;
@@ -1178,8 +1208,8 @@ class MainScreen extends Phaser.Scene {
             function closeOrOpenUpgrades(sign) {
                 getNextCost(uiTextGeneral);
                 // if(uiTextGeneral.text!='-1'){
-                    uiFixUpgradeGeneral.setActive(sign).setVisible(sign);
-                    uiTextGeneral.setActive(sign).setVisible(sign);
+                uiFixUpgradeGeneral.setActive(sign).setVisible(sign);
+                uiTextGeneral.setActive(sign).setVisible(sign);
                 // }
             } // перед показом корректируем цену
 
@@ -1263,26 +1293,26 @@ class MainScreen extends Phaser.Scene {
             {
                 uiFixUpgradeGeneral.on("pointerdown", function upgradeCurrObject() {
                     var currObj = FixObjects["CurrentObject"];
-                    upgradeSmth(FixObjects["UnfixedObjects"][currObj], 
-                                FixObjects["FixedObjects"][currObj],
-                                uiFixUpgradeGeneral, uiTextGeneral);
+                    upgradeSmth(FixObjects["UnfixedObjects"][currObj],
+                        FixObjects["FixedObjects"][currObj],
+                        uiFixUpgradeGeneral, uiTextGeneral);
                 });
 
                 function upgradeSmth(element, newElement, upgradeBar, upgradeText) {
                     element.destroy();
                     newElement.setActive(true).setVisible(true);
-                    
+
                     goldOperation(-upgradeText.text);
 
-                    FixObjects["AreFixed"][FixObjects["CurrentObject"]]=true;
+                    FixObjects["AreFixed"][FixObjects["CurrentObject"]] = true;
                     getNextCost(upgradeText);
-                    if(upgradeText.text=='-1'){
+                    if (upgradeText.text == '-1') {
                         upgradeBar.destroy();
                         upgradeText.destroy();
-                    }  
+                    }
                 } // функция улучшающая элемент
-                function goldOperation(sum){
-                    gameSettings.currGold+=sum;
+                function goldOperation(sum) {
+                    gameSettings.currGold += sum;
                 }
             } // взаимодействия на экране апгрейдов
 
