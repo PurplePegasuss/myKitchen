@@ -112,13 +112,8 @@ class MainScreen extends Phaser.Scene {
                 frameHeight: config.height,
             });
 
-            this.load.spritesheet("spinFridge", "assets/Objects/Object_Fridge.png", {
-                frameWidth: config.width,
-                frameHeight: config.height,
-            });
-
             this.load.image("spinButton", "assets/UI/UI_SpinButton.png");
-            this.load.image("pressedSpinButton", "assets/UI/UI_SpinButtonPressed.png");
+            this.load.image("pressedSpinButton", "assets/UI/UI_PressedSpinButton.png");
 
             this.load.spritesheet("fridgeRear", "assets/Objects/Object_FridgeRear.png", {
                 frameWidth: config.width,
@@ -262,135 +257,6 @@ class MainScreen extends Phaser.Scene {
     }]
             };
 
-            var atlasBlurredJSON = {
-                "frames": [
-                    {
-                        "filename": "SCB",
-                        "frame": {
-                            "x": 0,
-                            "y": 0,
-                            "w": 177,
-                            "h": 213,
-                        },
-                        "rotated": false,
-                        "trimmed": false,
-                        "spriteSourceSize": {
-                            "x": 0,
-                            "y": 0,
-                            "w": 177,
-                            "h": 213
-                        },
-                        "sourceSize": {
-                            "w": 177,
-                            "h": 213
-                        },
-                        "pivot": {
-                            "x": 0.5,
-                            "y": 0.5
-                        }
-    },
-                    {
-                        "filename": "energyB",
-                        "frame": {
-                            "x": 0,
-                            "y": 213,
-                            "w": 177,
-                            "h": 213,
-                        },
-                        "rotated": false,
-                        "trimmed": false,
-                        "spriteSourceSize": {
-                            "x": 0,
-                            "y": 0,
-                            "w": 177,
-                            "h": 213
-                        },
-                        "sourceSize": {
-                            "w": 177,
-                            "h": 213
-                        },
-                        "pivot": {
-                            "x": 0.5,
-                            "y": 0.5
-                        }
-    },
-                    {
-                        "filename": "giftB",
-                        "frame": {
-                            "x": 0,
-                            "y": 426,
-                            "w": 177,
-                            "h": 213,
-                        },
-                        "rotated": false,
-                        "trimmed": false,
-                        "spriteSourceSize": {
-                            "x": 0,
-                            "y": 0,
-                            "w": 177,
-                            "h": 213
-                        },
-                        "sourceSize": {
-                            "w": 177,
-                            "h": 213
-                        },
-                        "pivot": {
-                            "x": 0.5,
-                            "y": 0.5
-                        }
-    },
-                    {
-                        "filename": "tripleSCB",
-                        "frame": {
-                            "x": 0,
-                            "y": 639,
-                            "w": 177,
-                            "h": 213
-                        },
-                        "rotated": false,
-                        "trimmed": false,
-                        "spriteSourceSize": {
-                            "x": 0,
-                            "y": 0,
-                            "w": 177,
-                            "h": 213
-                        },
-                        "sourceSize": {
-                            "w": 177,
-                            "h": 213
-                        },
-                        "pivot": {
-                            "x": 0.5,
-                            "y": 0.5
-                        }
-    },
-                    {
-                        "filename": "challengeB",
-                        "frame": {
-                            "x": 0,
-                            "y": 852,
-                            "w": 177,
-                            "h": 213,
-                        },
-                        "rotated": false,
-                        "trimmed": false,
-                        "spriteSourceSize": {
-                            "x": 0,
-                            "y": 0,
-                            "w": 177,
-                            "h": 213
-                        },
-                        "sourceSize": {
-                            "w": 177,
-                            "h": 213
-                        },
-                        "pivot": {
-                            "x": 0.5,
-                            "y": 0.5
-                        }
-    }]
-            };
-
             this.load.atlas("randomPrize", "assets/Icons/Icon_SlotsSequence.png", atlasJSON);
 
             this.load.spritesheet("randomPrizeBlurred", "assets/Icons/Icon_SlotsSequenceDistorted.png", {
@@ -431,10 +297,6 @@ class MainScreen extends Phaser.Scene {
                 frameWidth: config.width,
                 frameHeight: config.height,
             });
-            this.load.spritesheet("iconFix", "assets/Icons/Icon_Challenge.png", {
-                frameWidth: config.width,
-                frameHeight: config.height,
-            });
             this.load.spritesheet("iconAllert", "assets/Icons/Icon_Sound.png", {
                 frameWidth: config.width,
                 frameHeight: config.height,
@@ -471,12 +333,13 @@ class MainScreen extends Phaser.Scene {
                 frameWidth: config.width,
                 frameHeight: config.height,
             });
-
-            this.load.spritesheet("craftNameBar", "assets/UI/UI_RecipeNameUnderlay.png", {
+            /*
+            this.load.spritesheet("craftProgressBar", "???", {
                 frameWidth: config.width,
                 frameHeight: config.height,
             });
-            this.load.spritesheet("buyFoodButton", "assets/UI/UI_BuyFoodButton.png", {
+            */
+            this.load.spritesheet("buyFoodButton", "assets/UI/UI_StepActionButton.png", {
                 frameWidth: config.width,
                 frameHeight: config.height,
             });
@@ -539,7 +402,7 @@ class MainScreen extends Phaser.Scene {
                 frameWidth: 500,
                 frameHeight: 500
             });
-            this.load.spritesheet("PirozhkiWithCabbage", "assets/Food/Food_Pirozhki with cabbage.png", {
+            this.load.spritesheet("PirozhkiWithCabbage", "assets/Food/Food_PirozhkiWithCabbage.png", {
                 frameWidth: 500,
                 frameHeight: 500
             });
@@ -721,7 +584,7 @@ class MainScreen extends Phaser.Scene {
                         key: "spinButton"
                     }
                 ],
-                repeat: 0,
+                repeat: -1,
             });
 
 
