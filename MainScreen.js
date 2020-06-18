@@ -333,6 +333,7 @@ class MainScreen extends Phaser.Scene {
                 frameWidth: config.width,
                 frameHeight: config.height,
             });
+
             /*
             this.load.spritesheet("craftProgressBar", "???", {
                 frameWidth: config.width,
@@ -542,10 +543,60 @@ class MainScreen extends Phaser.Scene {
 
             var craftGroup = this.add.group([craftBar, leftArrow, rightArrow, craftBG, uiBackCraftButton]);
             craftGroup.setVisible(false);
-
-            var recipesArr = [
-                ""
-            ]
+            
+            
+            var recipes = {
+                1: {
+                    name: "Жареный Картофель",
+                    progress: 0,
+                    numberOfCrafts: 2, // количество полных крафтов
+                    1: {
+                        numberOfSteps: 2, // количество шагов, не включая итоговый 
+                        1: {
+                            name: "Картофель",
+                            done: false,
+                            cost: "200"
+                        },
+                        2: {
+                            name: "Нож",
+                            done: false,
+                            cost: "Нарезать"
+                        },
+                        result: {
+                            name: "Нарезанный картофель",
+                            done: false,
+                            transition: "instant"
+                        }
+                    },
+                    2: {
+                        numberOfSteps: 4,
+                        1: {
+                            name: "Нарезанный картофель",
+                            done: false,
+                            cost: ""
+                        },
+                        2: {
+                            name: "Растительное масло",
+                            done: false,
+                            cost: "150"
+                        },
+                        3:{
+                            name: "Соль",
+                            done: false,
+                            cost: "200"
+                        },
+                        4:{
+                            name: "Сковорода",
+                            done: false,
+                            cost: "400"
+                        },
+                        result:{
+                            name: "Жареный Картофель",
+                            transition: "no"
+                        }
+                    }
+                }
+            }
         } // спавним элементы крафта
 
         {
