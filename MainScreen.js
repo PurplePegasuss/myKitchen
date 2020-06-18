@@ -50,6 +50,12 @@ class MainScreen extends Phaser.Scene {
                 frameWidth: config.width,
                 frameHeight: config.height,
             });
+
+
+            this.load.spritesheet("building", "assets/Anim/Anim_Building/Anim_Building.png", {
+                frameWidth: 360,
+                frameHeight: 360
+            });
         } // Furniture Preload
 
         {
@@ -600,9 +606,33 @@ class MainScreen extends Phaser.Scene {
 
             var unfixedTable = this.add.sprite(config.width * 0.5, config.height * 0.78, "unfixedTable");
 
-
             var fixedTable = this.add.sprite(config.width * 0.5, config.height * 0.78, "fixedTable");
             fixedTable.setActive(false).setVisible(false);
+
+            var buildingSmokeWindow = this.add.sprite(unfixedWindow.x, unfixedWindow.y, "building");
+            buildingSmokeWindow.setActive(false).setVisible(false);
+
+            var buildingSmokeWall1 = this.add.sprite(49*4, 49*4, "building");
+            buildingSmokeWall1.setActive(false).setVisible(false);
+
+            var buildingSmokeWall2 = this.add.sprite(172*4, 88*4, "building");
+            buildingSmokeWall2.setActive(false).setVisible(false);
+
+            var buildingSmokeTable1 = this.add.sprite(76*4, 303*4, "building");
+            buildingSmokeTable1.setActive(false).setVisible(false);
+
+            var buildingSmokeTable2 = this.add.sprite(210*4, 357*4, "building");
+            buildingSmokeTable2.setActive(false).setVisible(false);
+
+            var buildingSmokeTable3 = this.add.sprite(55*4, 427*4, "building");
+            buildingSmokeTable3.setActive(false).setVisible(false);
+
+            var buildingSmokeKitchen1 = this.add.sprite(config.width*0.79, config.height*0.175, "building");
+            buildingSmokeKitchen1.setActive(false).setVisible(false);
+
+            var buildingSmokeKitchen2 = this.add.sprite(config.width*0.5, config.height*0.45, "building");
+            buildingSmokeKitchen2.setActive(false).setVisible(false);
+
 
         } //спавним мебель
 
@@ -712,7 +742,7 @@ class MainScreen extends Phaser.Scene {
                         key: "pressedSpinButton"
                     }
                 ],
-                repeat: -1
+                repeat: -1,
             });
             this.anims.create({
                 key: "notPressed",
@@ -729,7 +759,15 @@ class MainScreen extends Phaser.Scene {
                 key: "slamming",
                 frames: this.anims.generateFrameNumbers("slammingFridgeDoor"),
                 repeat: 1
-            })
+            });
+
+
+            this.anims.create({
+                key: "buildingSmoke",
+                frames: this.anims.generateFrameNumbers("building"),
+                repeat: 0,
+                frameRate: 1,
+            });
 
             var spinButton = this.add.sprite(config.width * 0.45, config.height * 0.9, "spinButton");
             spinButton.setActive(false).setVisible(false).setFrame(0).setDepth(1.1);
@@ -1172,10 +1210,17 @@ class MainScreen extends Phaser.Scene {
                     "Wall": fixedWall,
                     "Kitchen": fixedKitchen,
                     "Window": fixedWindow,
+                },
+                "buildingSmokes" : {
+                    "Table": [buildingSmokeTable1, buildingSmokeTable2, buildingSmokeTable3],
+                    "Wall": [buildingSmokeWall1, buildingSmokeWall2],
+                    "Kitchen": [buildingSmokeKitchen1, buildingSmokeKitchen2],
+                    "Window": [buildingSmokeWindow],
                 }
             }; // для взаимодействия с объектами кухни
             function getNextCost(text) {
                 var cost = -1;
+                FixObjects["CurrentObject"] = false;
                 for (var object in FixObjects["Costs"]) {
                     if (!FixObjects["AreFixed"][object]) {
                         cost = FixObjects["Costs"][object];
@@ -1183,6 +1228,7 @@ class MainScreen extends Phaser.Scene {
                         break;
                     }
                 }
+                console.log(cost);
                 text.setText(cost);
             } // получаем цену первого сломанного объекта и сохраняем этот объект в FixObjects
 
@@ -1206,11 +1252,13 @@ class MainScreen extends Phaser.Scene {
             }
 
             function closeOrOpenUpgrades(sign) {
-                getNextCost(uiTextGeneral);
-                // if(uiTextGeneral.text!='-1'){
-                uiFixUpgradeGeneral.setActive(sign).setVisible(sign);
-                uiTextGeneral.setActive(sign).setVisible(sign);
-                // }
+                if(sign){
+                    getNextCost(uiTextGeneral);
+                }
+                if(!sign||uiTextGeneral.text!='-1'){
+                    uiFixUpgradeGeneral.setActive(sign).setVisible(sign);
+                    uiTextGeneral.setActive(sign).setVisible(sign);
+                }
             } // перед показом корректируем цену
 
 
@@ -1293,27 +1341,49 @@ class MainScreen extends Phaser.Scene {
             {
                 uiFixUpgradeGeneral.on("pointerdown", function upgradeCurrObject() {
                     var currObj = FixObjects["CurrentObject"];
-                    upgradeSmth(FixObjects["UnfixedObjects"][currObj],
+                    startUpgrade(FixObjects["UnfixedObjects"][currObj],
                         FixObjects["FixedObjects"][currObj],
                         uiFixUpgradeGeneral, uiTextGeneral);
                 });
 
-                function upgradeSmth(element, newElement, upgradeBar, upgradeText) {
+                function startUpgrade(element, newElement, upgradeBar, upgradeText){
+                    upgradeBar.setActive(false).setVisible(false);
+                    upgradeText.setActive(false).setVisible(false);
+                    goldOperation(-upgradeText.text);
+                    
+                    var currObj = FixObjects["CurrentObject"];
+                    var smokes = FixObjects["buildingSmokes"][currObj];
+                    smokes.forEach(function(smoke, index, array) {
+                        smoke.on('animationcomplete', function(){
+                            smoke.setActive(false).setVisible(false);
+                            if(index==array.length-1){
+                                finishUpgrade(element, newElement, upgradeBar, upgradeText);
+                            }
+                        });
+                        setTimeout(function(){
+                            smoke.setActive(true).setVisible(true);
+                            smoke.play("buildingSmoke");
+                        }, 100*index);
+                    });
+                    
+
+                } // функция начала улучшения предмета
+
+                function finishUpgrade(element, newElement, upgradeBar, upgradeText){
                     element.destroy();
                     newElement.setActive(true).setVisible(true);
-
-                    goldOperation(-upgradeText.text);
-
-                    FixObjects["AreFixed"][FixObjects["CurrentObject"]] = true;
+                    FixObjects["AreFixed"][FixObjects["CurrentObject"]]=true;
                     getNextCost(upgradeText);
-                    if (upgradeText.text == '-1') {
-                        upgradeBar.destroy();
-                        upgradeText.destroy();
+                    if(uiCloseButton.visible&&upgradeText.text!='-1'){
+                        upgradeBar.setActive(true).setVisible(true);
+                        upgradeText.setActive(true).setVisible(true);
                     }
-                } // функция улучшающая элемент
-                function goldOperation(sum) {
-                    gameSettings.currGold += sum;
-                }
+                } // функция завершения улучшения предмета
+
+                function goldOperation(sum){
+                    gameSettings.currGold+=sum;
+                } // операция с золотом
+
             } // взаимодействия на экране апгрейдов
 
             {
