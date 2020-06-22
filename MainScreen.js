@@ -414,6 +414,11 @@ class MainScreen extends Phaser.Scene {
                 frameHeight: config.height,
             });
 
+            this.load.spritesheet("slammingFridgeDoor", "assets/Anim/Anim_SlammingFridgeDoor/Anim_SlammingFridgeDoor.png", {
+                frameWidth: 1282,
+                frameHeight: 1800,
+            });
+
 
         } // Spins + Shop Preload
 
@@ -617,21 +622,44 @@ class MainScreen extends Phaser.Scene {
 
             var buildingSmokeWall2 = this.add.sprite(172*4, 88*4, "building");
             buildingSmokeWall2.setActive(false).setVisible(false);
+           
+            var buildingSmokeTable1 = this.add.sprite(config.width*0.281437, config.height*0.655518, "building");
+            buildingSmokeTable1.setActive(false).setVisible(false).setScale(1.7);
 
-            var buildingSmokeTable1 = this.add.sprite(76*4, 303*4, "building");
-            buildingSmokeTable1.setActive(false).setVisible(false);
+            var buildingSmokeTable2 = this.add.sprite(config.width*0.655689, config.height*0.635451, "building");
+            buildingSmokeTable2.setActive(false).setVisible(false).setScale(1.7);
 
-            var buildingSmokeTable2 = this.add.sprite(210*4, 357*4, "building");
-            buildingSmokeTable2.setActive(false).setVisible(false);
+            var buildingSmokeTable3 = this.add.sprite(config.width*0.128743, config.height*0.834448, "building");
+            buildingSmokeTable3.setActive(false).setVisible(false).setScale(1.7);
 
-            var buildingSmokeTable3 = this.add.sprite(55*4, 427*4, "building");
-            buildingSmokeTable3.setActive(false).setVisible(false);
+            var buildingSmokeTable4 = this.add.sprite(config.width*0.497006, config.height*0.809365, "building");
+            buildingSmokeTable4.setActive(false).setVisible(false).setScale(1.7);
+
+            var buildingSmokeTable5 = this.add.sprite(config.width*0.862275, config.height*0.809365, "building");
+            buildingSmokeTable5.setActive(false).setVisible(false).setScale(1.7);
+
+            var buildingSmokeTable6 = this.add.sprite(config.width*0.8, config.height*0.976589, "building");
+            buildingSmokeTable6.setActive(false).setVisible(false).setScale(1.7);
+
+            var buildingSmokeTable7 = this.add.sprite(config.width*0.362275, config.height*0.976589, "building");
+            buildingSmokeTable7.setActive(false).setVisible(false).setScale(1.7);
+
+            var buildingSmokeTable8 = this.add.sprite(config.width*0.05, config.height*0.95, "building");
+            buildingSmokeTable8.setActive(false).setVisible(false).setScale(1);
+
+            
 
             var buildingSmokeKitchen1 = this.add.sprite(config.width*0.79, config.height*0.175, "building");
             buildingSmokeKitchen1.setActive(false).setVisible(false);
 
             var buildingSmokeKitchen2 = this.add.sprite(config.width*0.5, config.height*0.45, "building");
             buildingSmokeKitchen2.setActive(false).setVisible(false);
+
+            this.anims.create({
+                key: "buildingSmoke",
+                frames: this.anims.generateFrameNumbers("building"),
+                repeat: 0
+            });
 
 
         } //спавним мебель
@@ -723,17 +751,19 @@ class MainScreen extends Phaser.Scene {
             var fridgeRear = this.add.sprite(config.width * 0.48, config.height * 0.555, "fridgeRear");
             fridgeRear.setActive(false).setVisible(false);
 
-            var fridgeShadow = this.add.sprite(config.width / 2, config.height * 0.23, "fridgeShadow");
-            fridgeShadow.setActive(false).setVisible(false).setDepth(1.05);
+            // var fridgeShadow = this.add.sprite(config.width / 2, config.height * 0.23, "fridgeShadow");
+            // fridgeShadow.setActive(false).setVisible(false).setDepth(1.05);
 
-            var fridgeFrame = this.add.sprite(config.width / 2, config.height / 2, "fridgeFrame");
-            fridgeFrame.setActive(false).setVisible(false).setDepth(1.07);
+            // var fridgeFrame = this.add.sprite(config.width / 2, config.height / 2, "fridgeFrame");
+            // fridgeFrame.setActive(false).setVisible(false).setDepth(1.07);
 
-            var fridgeDoor = this.add.sprite(config.width * 1.02, config.height * 0.55, "fridgeDoor");
-            fridgeDoor.setActive(false).setVisible(false).setInteractive().setDepth(1.08);
+            // var fridgeDoor = this.add.sprite(config.width * 1.02, config.height * 0.55, "fridgeDoor");
+            // fridgeDoor.setActive(false).setVisible(false).setInteractive().setDepth(1.08);
 
             var flag = false;
 
+            var slammingFridgeDoorObject = this.add.sprite(config.width*0.645, config.height*0.54, "slammingFridgeDoor").setDepth(1.08);
+            slammingFridgeDoorObject.setActive(false).setVisible(false).setInteractive().setDepth(1.08);
 
             this.anims.create({
                 key: "pressed",
@@ -757,17 +787,10 @@ class MainScreen extends Phaser.Scene {
 
             this.anims.create({
                 key: "slamming",
-                frames: this.anims.generateFrameNumbers("slammingFridgeDoor"),
-                repeat: 1
+                frames: this.anims.generateFrameNumbers("slammingFridgeDoor", { start: 0, end: 44}),
+                repeat: 0
             });
 
-
-            this.anims.create({
-                key: "buildingSmoke",
-                frames: this.anims.generateFrameNumbers("building"),
-                repeat: 0,
-                frameRate: 1,
-            });
 
             var spinButton = this.add.sprite(config.width * 0.45, config.height * 0.9, "spinButton");
             spinButton.setActive(false).setVisible(false).setFrame(0).setDepth(1.1);
@@ -982,7 +1005,7 @@ class MainScreen extends Phaser.Scene {
 
 
 
-            var spinGroup = this.add.group([spinsBG, fridgeRear, fridgeFrame, fridgeShadow, fridgeDoor, spinButton, energyBar, energyIcon, energyText0, firstSlot1, secondSlot1, thirdSlot1, firstSlot2, secondSlot2, thirdSlot2, firstSlot3, secondSlot3, thirdSlot3, firstSlotB1, secondSlotB1, firstSlotB2, secondSlotB2, firstSlotB3, secondSlotB3]);
+            var spinGroup = this.add.group([spinsBG, fridgeRear, /*fridgeFrame, fridgeShadow, fridgeDoor*/slammingFridgeDoorObject, spinButton, energyBar, energyIcon, energyText0, firstSlot1, secondSlot1, thirdSlot1, firstSlot2, secondSlot2, thirdSlot2, firstSlot3, secondSlot3, thirdSlot3, firstSlotB1, secondSlotB1, firstSlotB2, secondSlotB2, firstSlotB3, secondSlotB3]);
 
         } // спавним экраны
 
@@ -1070,19 +1093,26 @@ class MainScreen extends Phaser.Scene {
         {
             var downX, upX, downY, upY, threshold = 50;
 
-            fridgeDoor.on('pointerdown', function (pointer) {
+            slammingFridgeDoorObject.on('pointerdown', function (pointer) {
                 downX = pointer.x;
                 downY = pointer.y;
+                console.log(downX);
                 flag = true
             });
 
-            spinsBG.on('pointerup', function (pointer) {
+            slammingFridgeDoorObject.on('pointerup', function (pointer) {
                 if (flag) {
                     upX = pointer.x;
                     upY = pointer.y;
+                    console.log(upX);
                     if (upX < downX - threshold) {
-                        roll();
+                        slammingFridgeDoorObject.play("slamming");
+                        setTimeout(function(){
+                            roll();
+                        }, 900);
+                        
                     };
+                    flag = false;
                 }
             });
 
@@ -1212,7 +1242,7 @@ class MainScreen extends Phaser.Scene {
                     "Window": fixedWindow,
                 },
                 "buildingSmokes" : {
-                    "Table": [buildingSmokeTable1, buildingSmokeTable2, buildingSmokeTable3],
+                    "Table": [buildingSmokeTable3, buildingSmokeTable2, buildingSmokeTable6, buildingSmokeTable1, buildingSmokeTable5, buildingSmokeTable8, buildingSmokeTable4, buildingSmokeTable7],
                     "Wall": [buildingSmokeWall1, buildingSmokeWall2],
                     "Kitchen": [buildingSmokeKitchen1, buildingSmokeKitchen2],
                     "Window": [buildingSmokeWindow],
@@ -1353,25 +1383,39 @@ class MainScreen extends Phaser.Scene {
                     
                     var currObj = FixObjects["CurrentObject"];
                     var smokes = FixObjects["buildingSmokes"][currObj];
+                    var max=0, idx=0;
                     smokes.forEach(function(smoke, index, array) {
+
                         smoke.on('animationcomplete', function(){
                             smoke.setActive(false).setVisible(false);
-                            if(index==array.length-1){
-                                finishUpgrade(element, newElement, upgradeBar, upgradeText);
-                            }
+                            console.log("finish");
                         });
+                        var r=Math.random();
+                        if(max<r){
+                            max=r;
+                            idx=index;
+                        }
                         setTimeout(function(){
                             smoke.setActive(true).setVisible(true);
                             smoke.play("buildingSmoke");
-                        }, 100*index);
+                            if(index==0){
+                                setTimeout(function(){
+                                    element.destroy();
+                                    newElement.setActive(true).setVisible(true);
+                                }, 3000);
+                            }
+                        }, 1000*r+500);
+                    });
+                    smokes[idx].on('animationcomplete', function(){
+                        smokes[idx].setActive(false).setVisible(false);
+                        finishUpgrade(element, newElement, upgradeBar, upgradeText);
                     });
                     
 
                 } // функция начала улучшения предмета
 
                 function finishUpgrade(element, newElement, upgradeBar, upgradeText){
-                    element.destroy();
-                    newElement.setActive(true).setVisible(true);
+                    console.log("f");
                     FixObjects["AreFixed"][FixObjects["CurrentObject"]]=true;
                     getNextCost(upgradeText);
                     if(uiCloseButton.visible&&upgradeText.text!='-1'){
