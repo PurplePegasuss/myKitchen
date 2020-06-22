@@ -340,6 +340,12 @@ class MainScreen extends Phaser.Scene {
                 frameHeight: config.height,
             });
             */
+            
+            this.load.spritesheet("StepPictureUnderlay", "assets/UI/UI_StepPictureUnderlay.png", {
+                frameWidth: config.width,
+                frameHeight: config.height,
+            });  
+            
             this.load.spritesheet("buyFoodButton", "assets/UI/UI_StepActionButton.png", {
                 frameWidth: config.width,
                 frameHeight: config.height,
@@ -543,66 +549,13 @@ class MainScreen extends Phaser.Scene {
 
             var craftGroup = this.add.group([craftBar, leftArrow, rightArrow, craftBG, uiBackCraftButton]);
             craftGroup.setVisible(false);
-            
-            
-            var recipes = {
-                1: {
-                    name: "Жареный Картофель",
-                    progress: 0,
-                    numberOfCrafts: 2, // количество полных крафтов
-                    1: {
-                        numberOfSteps: 2, // количество шагов, не включая итоговый 
-                        1: {
-                            name: "Картофель",
-                            done: false,
-                            cost: "200"
-                        },
-                        2: {
-                            name: "Нож",
-                            done: false,
-                            cost: "Нарезать"
-                        },
-                        result: {
-                            name: "Нарезанный картофель",
-                            done: false,
-                            transition: "instant"
-                        }
-                    },
-                    2: {
-                        numberOfSteps: 4,
-                        1: {
-                            name: "Нарезанный картофель",
-                            done: false,
-                            cost: ""
-                        },
-                        2: {
-                            name: "Растительное масло",
-                            done: false,
-                            cost: "150"
-                        },
-                        3:{
-                            name: "Соль",
-                            done: false,
-                            cost: "200"
-                        },
-                        4:{
-                            name: "Сковорода",
-                            done: false,
-                            cost: "400"
-                        },
-                        result:{
-                            name: "Жареный Картофель",
-                            transition: "no"
-                        }
-                    }
-                }
-            }
+
+
         } // спавним элементы крафта
 
         {
             var spinsBG = this.add.sprite(config.width / 2, config.height / 2, "spinsBG");
             spinsBG.setActive(false).setVisible(false);
-
 
             var fridgeRear = this.add.sprite(config.width * 0.48, config.height * 0.555, "fridgeRear");
             fridgeRear.setActive(false).setVisible(false);
@@ -855,8 +808,6 @@ class MainScreen extends Phaser.Scene {
             var shopStub = this.add.sprite(config.width / 2, config.height / 2, "shopStub");
             shopStub.setScale(3);
             shopStub.setActive(false).setVisible(false);
-
-
 
             var spinGroup = this.add.group([spinsBG, fridgeRear, fridgeFrame, fridgeShadow, fridgeDoor, spinButton, energyBar, energyIcon, energyText0, firstSlot1, secondSlot1, thirdSlot1, firstSlot2, secondSlot2, thirdSlot2, firstSlot3, secondSlot3, thirdSlot3, firstSlotB1, secondSlotB1, firstSlotB2, secondSlotB2, firstSlotB3, secondSlotB3]);
 
@@ -1269,6 +1220,62 @@ class MainScreen extends Phaser.Scene {
             } // взаимодействия на экране меню
 
             {
+                var recipes = {
+                    1: {
+                        name: "Жареный Картофель",
+                        progress: 0,
+                        numberOfCrafts: 2, // количество полных крафтов
+                        1: {
+                            numberOfSteps: 2, // количество шагов, не включая итоговый 
+                            1: {
+                                name: "Картофель",
+                                done: false,
+                                cost: "200"
+                            },
+                            2: {
+                                name: "Нож",
+                                done: false,
+                                cost: "Нарезать"
+                            },
+                            result: {
+                                name: "Нарезанный картофель",
+                                done: false,
+                                transition: "instant"
+                            }
+                        },
+                        2: {
+                            numberOfSteps: 4,
+                            1: {
+                                name: "Нарезанный картофель",
+                                done: false,
+                                cost: ""
+                            },
+                            2: {
+                                name: "Растительное масло",
+                                done: false,
+                                cost: "150"
+                            },
+                            3: {
+                                name: "Соль",
+                                done: false,
+                                cost: "200"
+                            },
+                            4: {
+                                name: "Сковорода",
+                                done: false,
+                                cost: "400"
+                            },
+                            result: {
+                                name: "Жареный Картофель",
+                                transition: "no"
+                            }
+                        }
+                    }
+                };
+                
+                var currCraftPage = 1; // текущая страница
+                var stepX = config.width * 0.5; // координата Х для шага (неизменяемая)
+                var stepY = config.height * 0.2; // координата Y для шага (изменяемая)
                 uiCraft.on("pointerdown", function openCraft() {
                     craftGroup.setVisible(true);
                     closeUI();
@@ -1279,6 +1286,13 @@ class MainScreen extends Phaser.Scene {
                     goldText0
                         .setX(goldText0
                             .x + 280);
+                    for (var subRecipe in recipes[currCraftPage]){ // проходимся по всем подрецептам
+                        for (var i = 1; i <= subRecipe["numberOfSteps"];i++){ // итератор для прохожденеия по шагам подрецептов
+                            eval("var ${i} = this.add.sprite(${stepX*0.5}, ${stepY}, 'StepPictureUnderlay');");
+                            eval("check${i}.setDepth(2).setVisible(true);")
+                            stepY+=200;
+                        }
+                    }
                 });
 
                 uiBackCraftButton.on("pointerdown", function closeCraft() {
