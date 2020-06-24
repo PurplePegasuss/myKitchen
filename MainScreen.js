@@ -8,16 +8,14 @@ class MainScreen extends Phaser.Scene {
     preload() {
 
         {
+            var urlPlugin;
+            urlPlugin = 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexscrollerplugin.min.js';
+            this.load.plugin('rexscrollerplugin', urlPlugin, true);
+
             this.load.spritesheet("floor", "assets/Objects/Object_BasicFloor.png", {
                 frameWidth: config.width,
                 frameHeight: config.height / 2,
             });
-
-            var urlPlugin;
-
-            urlPlugin = 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexscrollerplugin.min.js';
-            this.load.plugin('rexscrollerplugin', urlPlugin, true);
-
 
             this.load.spritesheet("unfixedKitchen", "assets/Objects/Object_BasicKitchenSet.png", {
                 frameWidth: config.width,
@@ -56,7 +54,6 @@ class MainScreen extends Phaser.Scene {
                 frameWidth: config.width,
                 frameHeight: config.height,
             });
-
 
             this.load.spritesheet("building", "assets/Anim/Anim_Building/Anim_Building.png", {
                 frameWidth: 360,
@@ -113,12 +110,13 @@ class MainScreen extends Phaser.Scene {
                 frameWidth: config.width,
                 frameHeight: config.height,
             });
-            this.load.spritesheet("uiBackButton", "assets/UI/UI_BackButton.png", {
+
+            this.load.spritesheet("shopStub", "assets/Temporary backs for prototype [delete on uselessness]/ShopStub.png", {
                 frameWidth: config.width,
                 frameHeight: config.height,
             });
 
-            this.load.spritesheet("spinFridge", "assets/Objects/Object_Fridge.png", {
+            this.load.spritesheet("uiBackButton", "assets/UI/UI_BackButton.png", {
                 frameWidth: config.width,
                 frameHeight: config.height,
             });
@@ -268,135 +266,6 @@ class MainScreen extends Phaser.Scene {
     }]
             };
 
-            var atlasBlurredJSON = {
-                "frames": [
-                    {
-                        "filename": "SCB",
-                        "frame": {
-                            "x": 0,
-                            "y": 0,
-                            "w": 177,
-                            "h": 213,
-                        },
-                        "rotated": false,
-                        "trimmed": false,
-                        "spriteSourceSize": {
-                            "x": 0,
-                            "y": 0,
-                            "w": 177,
-                            "h": 213
-                        },
-                        "sourceSize": {
-                            "w": 177,
-                            "h": 213
-                        },
-                        "pivot": {
-                            "x": 0.5,
-                            "y": 0.5
-                        }
-    },
-                    {
-                        "filename": "energyB",
-                        "frame": {
-                            "x": 0,
-                            "y": 213,
-                            "w": 177,
-                            "h": 213,
-                        },
-                        "rotated": false,
-                        "trimmed": false,
-                        "spriteSourceSize": {
-                            "x": 0,
-                            "y": 0,
-                            "w": 177,
-                            "h": 213
-                        },
-                        "sourceSize": {
-                            "w": 177,
-                            "h": 213
-                        },
-                        "pivot": {
-                            "x": 0.5,
-                            "y": 0.5
-                        }
-    },
-                    {
-                        "filename": "giftB",
-                        "frame": {
-                            "x": 0,
-                            "y": 426,
-                            "w": 177,
-                            "h": 213,
-                        },
-                        "rotated": false,
-                        "trimmed": false,
-                        "spriteSourceSize": {
-                            "x": 0,
-                            "y": 0,
-                            "w": 177,
-                            "h": 213
-                        },
-                        "sourceSize": {
-                            "w": 177,
-                            "h": 213
-                        },
-                        "pivot": {
-                            "x": 0.5,
-                            "y": 0.5
-                        }
-    },
-                    {
-                        "filename": "tripleSCB",
-                        "frame": {
-                            "x": 0,
-                            "y": 639,
-                            "w": 177,
-                            "h": 213
-                        },
-                        "rotated": false,
-                        "trimmed": false,
-                        "spriteSourceSize": {
-                            "x": 0,
-                            "y": 0,
-                            "w": 177,
-                            "h": 213
-                        },
-                        "sourceSize": {
-                            "w": 177,
-                            "h": 213
-                        },
-                        "pivot": {
-                            "x": 0.5,
-                            "y": 0.5
-                        }
-    },
-                    {
-                        "filename": "challengeB",
-                        "frame": {
-                            "x": 0,
-                            "y": 852,
-                            "w": 177,
-                            "h": 213,
-                        },
-                        "rotated": false,
-                        "trimmed": false,
-                        "spriteSourceSize": {
-                            "x": 0,
-                            "y": 0,
-                            "w": 177,
-                            "h": 213
-                        },
-                        "sourceSize": {
-                            "w": 177,
-                            "h": 213
-                        },
-                        "pivot": {
-                            "x": 0.5,
-                            "y": 0.5
-                        }
-    }]
-            };
-
             this.load.atlas("randomPrize", "assets/Icons/Icon_SlotsSequence.png", atlasJSON);
 
             this.load.spritesheet("randomPrizeBlurred", "assets/Icons/Icon_SlotsSequenceDistorted.png", {
@@ -414,11 +283,7 @@ class MainScreen extends Phaser.Scene {
                 frameHeight: config.height,
             });
 
-            this.load.spritesheet("iconEnergy", "assets/Icons/Icon_SmallEnergy.png", {
-                frameWidth: 177,
-                frameHeight: 177,
-            });
-            this.load.spritesheet("slammingFridgeDoor", "assets/Anim/Anim_SlammingFridgeDoor/Anim_SlammingFridgeDoor.png", {
+            this.load.spritesheet("slammingFridgeDoor", "assets/Anim/Anim_SlammingFridgeDoor/Anim_SlammingFridgeDoor2.png", {
                 frameWidth: 1282,
                 frameHeight: 1800,
             });
@@ -470,112 +335,122 @@ class MainScreen extends Phaser.Scene {
 
         {
             this.load.spritesheet("craftBar", "assets/UI/UI_RecipeUnderlay.png", {
-                frameWidth: config.width,
-                frameHeight: config.height,
+                frameWidth: 884,
+                frameHeight: 1515,
             });
-
             this.load.spritesheet("leftArrow", "assets/UI/UI_LeftArrowButton.png", {
-                frameWidth: config.width,
-                frameHeight: config.height,
+                frameWidth: 100,
+                frameHeight: 240,
             });
             this.load.spritesheet("rightArrow", "assets/UI/UI_RightArrowButton.png", {
-                frameWidth: config.width,
-                frameHeight: config.height,
+                frameWidth: 100,
+                frameHeight: 240,
+            });
+            this.load.spritesheet("StepPictureUnderlay", "assets/UI/UI_StepPictureUnderlay.png", {
+                frameWidth: 286,
+                frameHeight: 286,
             });
 
-            this.load.spritesheet("StepPictureUnderlay", "assets/UI/UI_StepPictureUnderlay.png", {
-                frameWidth: config.width,
-                frameHeight: config.height,
+            this.load.spritesheet("StepActionButton", "assets/UI/UI_StepActionButton.png", {
+                frameWidth: 320,
+                frameHeight: 86,
             });
+
             this.load.spritesheet("plus", "assets/UI/UI_+.png", {
-                frameWidth: config.width,
-                frameHeight: config.height,
+                frameWidth: 118,
+                frameHeight: 118,
             });
             this.load.spritesheet("equals", "assets/UI/UI_=.png", {
-                frameWidth: config.width,
-                frameHeight: config.height,
+                frameWidth: 118,
+                frameHeight: 118,
             });
         } // Craft Preload
-
         {
             this.load.spritesheet("Beet", "assets/Food/Food_Beet.png", {
-                frameWidth: 500,
-                frameHeight: 500
+                frameWidth: 228,
+                frameHeight: 228
             });
             this.load.spritesheet("Borscht", "assets/Food/Food_Borscht.png", {
-                frameWidth: 500,
-                frameHeight: 500
+                frameWidth: 228,
+                frameHeight: 228
             });
             this.load.spritesheet("Cabbage", "assets/Food/Food_Cabbage.png", {
-                frameWidth: 500,
-                frameHeight: 500
+                frameWidth: 228,
+                frameHeight: 228
             });
             this.load.spritesheet("CutBeet", "assets/Food/Food_CutBeet.png", {
-                frameWidth: 500,
-                frameHeight: 500
+                frameWidth: 228,
+                frameHeight: 228
             });
             this.load.spritesheet("CutCabbage", "assets/Food/Food_CutCabbage.png", {
-                frameWidth: 500,
-                frameHeight: 500
+                frameWidth: 228,
+                frameHeight: 228
             });
             this.load.spritesheet("CutPotato", "assets/Food/Food_CutPotato.png", {
-                frameWidth: 500,
-                frameHeight: 500
+                frameWidth: 228,
+                frameHeight: 228
             });
             this.load.spritesheet("Dough", "assets/Food/Food_Dough.png", {
-                frameWidth: 500,
-                frameHeight: 500
+                frameWidth: 228,
+                frameHeight: 228
             });
             this.load.spritesheet("Flour", "assets/Food/Food_Flour.png", {
-                frameWidth: 500,
-                frameHeight: 500
+                frameWidth: 228,
+                frameHeight: 228
             });
             this.load.spritesheet("FriedPotatoes", "assets/Food/Food_FriedPotatoes.png", {
-                frameWidth: 500,
-                frameHeight: 500
+                frameWidth: 228,
+                frameHeight: 228
             });
             this.load.spritesheet("LingonBerry", "assets/Food/Food_LingonBerry.png", {
-                frameWidth: 500,
-                frameHeight: 500
+                frameWidth: 228,
+                frameHeight: 228
             });
             this.load.spritesheet("LingonberryCompote", "assets/Food/Food_LingonberryCompote.png", {
-                frameWidth: 500,
-                frameHeight: 500
+                frameWidth: 228,
+                frameHeight: 228
             });
             this.load.spritesheet("Meat", "assets/Food/Food_Meat.png", {
-                frameWidth: 500,
-                frameHeight: 500
+                frameWidth: 228,
+                frameHeight: 228
             });
             this.load.spritesheet("PirozhkiWithCabbage", "assets/Food/Food_PirozhkiWithCabbage.png", {
-                frameWidth: 500,
-                frameHeight: 500
+                frameWidth: 228,
+                frameHeight: 228
             });
             this.load.spritesheet("Potato", "assets/Food/Food_Potato.png", {
-                frameWidth: 500,
-                frameHeight: 500
+                frameWidth: 228,
+                frameHeight: 228
             });
             this.load.spritesheet("Salt", "assets/Food/Food_Salt.png", {
-                frameWidth: 500,
-                frameHeight: 500
+                frameWidth: 228,
+                frameHeight: 228
             });
             this.load.spritesheet("Sugar", "assets/Food/Food_Sugar.png", {
-                frameWidth: 500,
-                frameHeight: 500
+                frameWidth: 228,
+                frameHeight: 228
             });
             this.load.spritesheet("VegetableOil", "assets/Food/Food_VegetableOil.png", {
-                frameWidth: 500,
-                frameHeight: 500
+                frameWidth: 228,
+                frameHeight: 228
             });
-
             this.load.spritesheet("Water", "assets/Food/Food_Water.png", {
-                frameWidth: 500,
-                frameHeight: 500
+                frameWidth: 228,
+                frameHeight: 228
             });
             this.load.spritesheet("Yeast", "assets/Food/Food_Yeast.png", {
-                frameWidth: 500,
-                frameHeight: 500
+                frameWidth: 228,
+                frameHeight: 228
             });
-        } // Food Preload
+            this.load.spritesheet("Knife", "assets/Tools/Tool_Knife.png", {
+                frameWidth: 228,
+                frameHeight: 228
+            });
+            this.load.spritesheet("FryingPan", "assets/Tools/Tool_FryingPan.png", {
+                frameWidth: 228,
+                frameHeight: 228
+            });
+        } // Food + Tools Preload
     }
 
 
@@ -607,77 +482,231 @@ class MainScreen extends Phaser.Scene {
 
             var unfixedTable = this.add.sprite(config.width * 0.5, config.height * 0.78, "unfixedTable");
 
+
             var fixedTable = this.add.sprite(config.width * 0.5, config.height * 0.78, "fixedTable");
             fixedTable.setActive(false).setVisible(false);
 
+            //building smoke objects
+            var buildingSmokeTable1, buildingSmokeTable2, buildingSmokeTable3, buildingSmokeTable4, buildingSmokeTable5,
+                buildingSmokeTable6, buildingSmokeTable7, buildingSmokeTable8;
+
+            var buildingSmokeWall1, buildingSmokeWall2, buildingSmokeWall3, buildingSmokeWall4, buildingSmokeWall5, buildingSmokeWall6,
+                buildingSmokeWall7, buildingSmokeWall8, buildingSmokeWall9, buildingSmokeWall10, buildingSmokeWall11, buildingSmokeWall12;
+
+            var buildingSmokeKitchen1, buildingSmokeKitchen2, buildingSmokeKitchen3, buildingSmokeKitchen4, buildingSmokeKitchen5,
+                buildingSmokeKitchen6, buildingSmokeKitchen7, buildingSmokeKitchen8;
+
+            var buildingSmokeWindow1, buildingSmokeWindow2, buildingSmokeWindow3;
+
             var buildingSmokes = {
                 "wall": {
-                    "objArr": [],
-                    "coordArr": []
+                    "objArr": [buildingSmokeWall1, buildingSmokeWall2, buildingSmokeWall3, buildingSmokeWall4, buildingSmokeWall5, buildingSmokeWall6,
+                                buildingSmokeWall7, buildingSmokeWall8, buildingSmokeWall9, buildingSmokeWall10, buildingSmokeWall11, buildingSmokeWall12],
+                    "optsArr": [{
+                            "x": config.width * 0.03,
+                            "y": config.height * 0.04,
+                            "scale": 1.6
+                        },
+                        {
+                            "x": config.width * 0.29,
+                            "y": config.height * 0.064,
+                            "scale": 1.5
+                        },
+                        {
+                            "x": config.width * 0.59,
+                            "y": config.height * 0.02,
+                            "scale": 1.6
+                        },
+                        {
+                            "x": config.width * 0.92,
+                            "y": config.height * 0.02,
+                            "scale": 1
+                        },
+                        {
+                            "x": config.width * (-0.145),
+                            "y": config.height * 0.2,
+                            "scale": 1.6
+                        },
+                        {
+                            "x": config.width * 0.6,
+                            "y": config.height * 0.16,
+                            "scale": 1
+                        },
+                        {
+                            "x": config.width * 1.08,
+                            "y": config.height * 0.13,
+                            "scale": 1.6
+                        },
+                        {
+                            "x": config.width * 0.03,
+                            "y": config.height * 0.335,
+                            "scale": 0.7
+                        },
+                        {
+                            "x": config.width * 0.24,
+                            "y": config.height * 0.35,
+                            "scale": 0.7
+                        },
+                        {
+                            "x": config.width * 0.42,
+                            "y": config.height * 0.35,
+                            "scale": 0.7
+                        },
+                        {
+                            "x": config.width * 0.61,
+                            "y": config.height * 0.29,
+                            "scale": 1.2
+                        },
+                        {
+                            "x": config.width * 0.91,
+                            "y": config.height * 0.31,
+                            "scale": 1.2
+                        }]
                 },
                 "window": {
-                    "objArr": [],
-                    "coordArr": []
+                    "objArr": [buildingSmokeWindow1, buildingSmokeWindow2, buildingSmokeWindow3],
+                    "optsArr": [{
+                            "x": config.width * 0.13,
+                            "y": config.height * 0.22,
+                            "scale": 1.6
+                        },
+                        {
+                            "x": config.width * 0.38,
+                            "y": config.height * 0.17,
+                            "scale": 1
+                        },
+                        {
+                            "x": config.width * 0.38,
+                            "y": config.height * 0.29,
+                            "scale": 0.7
+                        }]
                 },
                 "kitchen": {
-                    "objArr": [],
-                    "coordArr": []
+                    "objArr": [buildingSmokeKitchen1, buildingSmokeKitchen2, buildingSmokeKitchen3, buildingSmokeKitchen4, buildingSmokeKitchen5,
+                                buildingSmokeKitchen6, buildingSmokeKitchen7, buildingSmokeKitchen8],
+                    "optsArr": [{
+                            "x": config.width * 0.78,
+                            "y": config.height * 0.156,
+                            "scale": 1.7
+                        },
+                        {
+                            "x": config.width * 0.095,
+                            "y": config.height * 0.38,
+                            "scale": 1
+                        },
+                        {
+                            "x": config.width * 0.29,
+                            "y": config.height * 0.4,
+                            "scale": 0.7
+                        },
+                        {
+                            "x": config.width * 0.66,
+                            "y": config.height * 0.4,
+                            "scale": 0.7
+                        },
+                        {
+                            "x": config.width * 0.1,
+                            "y": config.height * 0.534,
+                            "scale": 1.6
+                        },
+                        {
+                            "x": config.width * 0.5,
+                            "y": config.height * 0.47,
+                            "scale": 1.6
+                        },
+                        {
+                            "x": config.width * 0.87,
+                            "y": config.height * 0.47,
+                            "scale": 1.6
+                        },
+                        {
+                            "x": config.width * 0.93,
+                            "y": config.height * 0.6,
+                            "scale": 0.7
+                        }]
                 },
                 "table": {
-                    "objArr": [],
-                    "coordArr": []
+                    "objArr": [buildingSmokeTable1, buildingSmokeTable2, buildingSmokeTable3, buildingSmokeTable4, buildingSmokeTable5,
+                                buildingSmokeTable6, buildingSmokeTable7, buildingSmokeTable8],
+                    "optsArr": [{
+                            "x": config.width * 0.28,
+                            "y": config.height * 0.66,
+                            "scale": 1.7
+                        },
+                        {
+                            "x": config.width * 0.66,
+                            "y": config.height * 0.64,
+                            "scale": 1.7
+                        },
+                        {
+                            "x": config.width * 0.13,
+                            "y": config.height * 0.83,
+                            "scale": 1.7
+                        },
+                        {
+                            "x": config.width * 0.5,
+                            "y": config.height * 0.81,
+                            "scale": 1.7
+                        },
+                        {
+                            "x": config.width * 0.86,
+                            "y": config.height * 0.81,
+                            "scale": 1.7
+                        },
+                        {
+                            "x": config.width * 0.8,
+                            "y": config.height * 0.98,
+                            "scale": 1.7
+                        },
+                        {
+                            "x": config.width * 0.36,
+                            "y": config.height * 0.98,
+                            "scale": 1.7
+                        },
+                        {
+                            "x": config.width * 0.05,
+                            "y": config.height * 0.95,
+                            "scale": 1.7
+                        }]
                 }
             };
 
-            // var i;
-            // for(i=0; i<buildingSmokes["table"]["objArr"].)
-            var buildingSmokeWindow = this.add.sprite(unfixedWindow.x, unfixedWindow.y, "building");
-            buildingSmokeWindow.setActive(false).setVisible(false);
+            var i;
+            //table
+            var arr = buildingSmokes.table.objArr,
+                optsArr = buildingSmokes.table.optsArr;
+            for (i = 0; i < arr.length; i++) {
+                arr[i] = this.add.sprite(optsArr[i].x, optsArr[i].y, "building");
+                arr[i].setActive(false).setVisible(false).setScale(optsArr[i].scale);
+            }
 
-            var buildingSmokeWall1 = this.add.sprite(49 * 4, 49 * 4, "building");
-            buildingSmokeWall1.setActive(false).setVisible(false);
+            //wall
+            arr = buildingSmokes.wall.objArr, optsArr = buildingSmokes.wall.optsArr;
+            for (i = 0; i < arr.length; i++) {
+                arr[i] = this.add.sprite(optsArr[i].x, optsArr[i].y, "building");
+                arr[i].setActive(false).setVisible(false).setScale(optsArr[i].scale);
+            }
 
-            var buildingSmokeWall2 = this.add.sprite(172 * 4, 88 * 4, "building");
-            buildingSmokeWall2.setActive(false).setVisible(false);
+            //kitchen
+            arr = buildingSmokes.kitchen.objArr, optsArr = buildingSmokes.kitchen.optsArr;
+            for (i = 0; i < arr.length; i++) {
+                arr[i] = this.add.sprite(optsArr[i].x, optsArr[i].y, "building");
+                arr[i].setActive(false).setVisible(false).setScale(optsArr[i].scale);
+            }
 
-            var buildingSmokeTable1 = this.add.sprite(config.width * 0.281437, config.height * 0.655518, "building");
-            buildingSmokeTable1.setActive(false).setVisible(false).setScale(1.7);
+            //window
+            arr = buildingSmokes.window.objArr, optsArr = buildingSmokes.window.optsArr;
+            for (i = 0; i < arr.length; i++) {
+                arr[i] = this.add.sprite(optsArr[i].x, optsArr[i].y, "building");
+                arr[i].setActive(false).setVisible(false).setScale(optsArr[i].scale);
+            }
 
-            var buildingSmokeTable2 = this.add.sprite(config.width * 0.655689, config.height * 0.635451, "building");
-            buildingSmokeTable2.setActive(false).setVisible(false).setScale(1.7);
+            this.anims.create({
+                key: "buildingSmoke",
+                frames: this.anims.generateFrameNumbers("building"),
+                repeat: 0
+            });
 
-            var buildingSmokeTable3 = this.add.sprite(config.width * 0.128743, config.height * 0.834448, "building");
-            buildingSmokeTable3.setActive(false).setVisible(false).setScale(1.7);
-
-            var buildingSmokeTable4 = this.add.sprite(config.width * 0.497006, config.height * 0.809365, "building");
-            buildingSmokeTable4.setActive(false).setVisible(false).setScale(1.7);
-
-            var buildingSmokeTable5 = this.add.sprite(config.width * 0.862275, config.height * 0.809365, "building");
-            buildingSmokeTable5.setActive(false).setVisible(false).setScale(1.7);
-
-            var buildingSmokeTable6 = this.add.sprite(config.width * 0.8, config.height * 0.976589, "building");
-            buildingSmokeTable6.setActive(false).setVisible(false).setScale(1.7);
-
-            var buildingSmokeTable7 = this.add.sprite(config.width * 0.362275, config.height * 0.976589, "building");
-            buildingSmokeTable7.setActive(false).setVisible(false).setScale(1.7);
-
-            var buildingSmokeTable8 = this.add.sprite(config.width * 0.05, config.height * 0.95, "building");
-            buildingSmokeTable8.setActive(false).setVisible(false).setScale(1);
-
-            var buildingSmokeTable1 = this.add.sprite(76 * 4, 303 * 4, "building");
-            buildingSmokeTable1.setActive(false).setVisible(false);
-
-            var buildingSmokeTable2 = this.add.sprite(210 * 4, 357 * 4, "building");
-            buildingSmokeTable2.setActive(false).setVisible(false);
-
-            var buildingSmokeTable3 = this.add.sprite(55 * 4, 427 * 4, "building");
-            buildingSmokeTable3.setActive(false).setVisible(false);
-
-            var buildingSmokeKitchen1 = this.add.sprite(config.width * 0.79, config.height * 0.175, "building");
-            buildingSmokeKitchen1.setActive(false).setVisible(false);
-
-            var buildingSmokeKitchen2 = this.add.sprite(config.width * 0.5, config.height * 0.45, "building");
-            buildingSmokeKitchen2.setActive(false).setVisible(false);
 
 
         } //спавним мебель
@@ -698,6 +727,7 @@ class MainScreen extends Phaser.Scene {
 
             var goldText0 = this.goldText;
             goldText0.setOrigin(0.5);
+
             var uiPlay = this.add.sprite(config.width / 2, config.height * 0.93, "uiPlay");
             uiPlay.setInteractive();
 
@@ -706,10 +736,9 @@ class MainScreen extends Phaser.Scene {
                 fontSize: '80px',
                 color: "brown"
             });
-
             var playText0 = this.playText;
             playText0.setActive(true).setVisible(true).setOrigin(0.5);
-
+            
             var uiMenu = this.add.sprite(config.width * 0.89, config.height * 0.06, "uiMenu");
             uiMenu.setInteractive();
 
@@ -763,18 +792,85 @@ class MainScreen extends Phaser.Scene {
             uiBackCraftButton.setInteractive();
             uiBackCraftButton.setActive(false).setVisible(false);
 
+            var recipesArr = [
+                ""
+            ];
+            var recipes = {
+                1: {
+                    name: "Жареный Картофель",
+                    progress: 0,
+                    numberOfCrafts: 7, // количество полных крафтов
+                    1: {
+                        name: "Картофель",
+                        iconName: "Potato",
+                        done: false,
+                        cost: "200",
+                    },
+                    2: {
+                        name: "Нож",
+                        iconName: "Knife",
+                        done: false,
+                        cost: "Нарезать",
+                        beforeResult: true
+                    },
+                    3: {
+                        name: "Нарезанный картофель",
+                        iconName: "CutPotato",
+                        done: false,
+                        cost: ""
+                    },
+                    4: {
+                        name: "Растительное масло",
+                        iconName: "VegetableOil",
+                        done: false,
+                        cost: "150"
+                    },
+                    5: {
+                        name: "Соль",
+                        iconName: "Salt",
+                        done: false,
+                        cost: "200"
+                    },
+                    6: {
+                        name: "Сковорода",
+                        iconName: "FryingPan",
+                        done: false,
+                        cost: "400",
+                        beforeResult: true
+                    },
+                    7: {
+                        name: "Жареный Картофель",
+                        done: false,
+                        cost: ""
+                    }
+                }
+            };
+            /*
+            var stepPictureUnderlays = [];
+            var stepActionButtons = [];
+            
+            var stepX = config.width / 2;
+            var stepY = config.height * 0.3;
+            var currCraftPage = 1;
+            for (var i = 1; i <= recipes[currCraftPage].numberOfCrafts; i++) {
+                stepPictureUnderlays.push("stepPictureUnderlay" + i);
+                stepActionButtons.push("actionButton"+ i);
+                eval(`var ${stepPictureUnderlays[i-1]} = this.add.sprite(stepX * 0.5,stepY,"StepPictureUnderlay")`);
+                eval(`var ${stepActionButtons[i-1]} = this.add.sprite(stepX * 1.3,stepY+config.height*0.02,"StepActionButton")`);
+                eval(`var ${recipes[currCraftPage][i]["iconName"]} = this.add.sprite(stepX * 0.5,stepY,"${recipes[currCraftPage][i].iconName}")`);
+                stepY+=config.height * 0.2;
+            };
+            */
+
             var craftGroup = this.add.group([craftBar, leftArrow, rightArrow, craftBG, uiBackCraftButton]);
             craftGroup.setVisible(false);
 
-            var recipesArr = [
-                ""
-            ]
+
         } // спавним элементы крафта
 
         {
             var spinsBG = this.add.sprite(config.width / 2, config.height / 2, "spinsBG");
             spinsBG.setActive(false).setVisible(false);
-
 
             var fridgeRear = this.add.sprite(config.width * 0.48, config.height * 0.555, "fridgeRear");
             fridgeRear.setActive(false).setVisible(false);
@@ -785,13 +881,14 @@ class MainScreen extends Phaser.Scene {
             var fridgeFrame = this.add.sprite(config.width / 2, config.height / 2, "fridgeFrame");
             fridgeFrame.setActive(false).setVisible(false).setDepth(1.07);
 
-            var fridgeDoor = this.add.sprite(config.width * 1.02, config.height * 0.55, "fridgeDoor");
-            fridgeDoor.setActive(false).setVisible(false).setInteractive().setDepth(1.08);
+            // var fridgeDoor = this.add.sprite(config.width * 1.02, config.height * 0.55, "fridgeDoor");
+            // fridgeDoor.setActive(false).setVisible(false).setInteractive().setDepth(1.08);
+
+            var slammingFridgeDoorObject = this.add.sprite(config.width * 0.645, config.height * 0.54, "slammingFridgeDoor")
+            slammingFridgeDoorObject.setActive(false).setVisible(false).setInteractive().setDepth(1.105); //Depth to be higher than spinButton
 
             var flag = false;
 
-            var slammingFridgeDoorObject = this.add.sprite(config.width * 0.645, config.height * 0.54, "slammingFridgeDoor").setDepth(1.08);
-            slammingFridgeDoorObject.setActive(false).setVisible(false).setInteractive().setDepth(1.08);
 
             this.anims.create({
                 key: "pressed",
@@ -800,7 +897,7 @@ class MainScreen extends Phaser.Scene {
                         key: "pressedSpinButton"
                     }
                 ],
-                repeat: -1,
+                repeat: -1
             });
             this.anims.create({
                 key: "notPressed",
@@ -809,7 +906,7 @@ class MainScreen extends Phaser.Scene {
                         key: "spinButton"
                     }
                 ],
-                repeat: 0,
+                repeat: -1,
             });
 
 
@@ -821,14 +918,6 @@ class MainScreen extends Phaser.Scene {
                 }),
                 repeat: 0
             });
-
-            this.anims.create({
-                key: "buildingSmoke",
-                frames: this.anims.generateFrameNumbers("building"),
-                repeat: 0,
-                frameRate: 30,
-            });
-
 
             var spinButton = this.add.sprite(config.width * 0.45, config.height * 0.9, "spinButton");
             spinButton.setActive(false).setVisible(false).setFrame(0).setDepth(1.1);
@@ -851,6 +940,7 @@ class MainScreen extends Phaser.Scene {
             var firstRowParameter, secondRowParameter, thirdRowParameter;
 
             {
+
                 var firstSlot1 = this.add.sprite(config.width * 0.27, config.height * 0.2, "randomPrize", "SC");
                 firstSlot1.setActive(false).setVisible(false);
                 var secondSlot1 = this.add.sprite(config.width * 0.27, config.height * 0.2, "randomPrize", "challenge");
@@ -1016,7 +1106,6 @@ class MainScreen extends Phaser.Scene {
                     delay: 2800,
                     repeat: 0
                 });
-
                 var thirdSlotT4 = this.tweens.add({
                     paused: true,
                     targets: secondSlot3,
@@ -1034,13 +1123,14 @@ class MainScreen extends Phaser.Scene {
                     duration: 184.615,
                     delay: 2900,
                 });
-            }; // анимации
+
+            } // анимации
 
             var shopStub = this.add.sprite(config.width / 2, config.height / 2, "shopStub");
             shopStub.setScale(3);
             shopStub.setActive(false).setVisible(false);
 
-            var spinGroup = this.add.group([spinsBG, fridgeRear, fridgeFrame, fridgeShadow, fridgeDoor, slammingFridgeDoorObject, spinButton, energyBar, energyIcon, energyText0, firstSlot1, secondSlot1, thirdSlot1, firstSlot2, secondSlot2, thirdSlot2, firstSlot3, secondSlot3, thirdSlot3, firstSlotB1, secondSlotB1, firstSlotB2, secondSlotB2, firstSlotB3, secondSlotB3]);
+            var spinGroup = this.add.group([spinsBG, fridgeRear, fridgeFrame, fridgeShadow, /*fridgeDoor*/ slammingFridgeDoorObject, spinButton, energyBar, energyIcon, energyText0, firstSlot1, secondSlot1, thirdSlot1, firstSlot2, secondSlot2, thirdSlot2, firstSlot3, secondSlot3, thirdSlot3, firstSlotB1, secondSlotB1, firstSlotB2, secondSlotB2, firstSlotB3, secondSlotB3]);
 
         } // спавним экраны
 
@@ -1136,10 +1226,10 @@ class MainScreen extends Phaser.Scene {
         {
             var downX, upX, downY, upY, threshold = 50;
 
+            //because door is highest layer
             slammingFridgeDoorObject.on('pointerdown', function (pointer) {
                 downX = pointer.x;
                 downY = pointer.y;
-                console.log(downX);
                 flag = true
             });
 
@@ -1147,7 +1237,7 @@ class MainScreen extends Phaser.Scene {
                 if (flag) {
                     upX = pointer.x;
                     upY = pointer.y;
-                    console.log(upX);
+                    //console.log(upX);
                     if (upX < downX - threshold) {
                         slammingFridgeDoorObject.play("slamming");
                         setTimeout(function () {
@@ -1202,7 +1292,6 @@ class MainScreen extends Phaser.Scene {
                     argument = "challenge";
                     thirdSlot.setFrame("SC");
                 };
-                console.log(argument);
             };
 
             function roll() {
@@ -1258,157 +1347,164 @@ class MainScreen extends Phaser.Scene {
 
 
         {
-                var FixObjects = {
-                    "CurrentObject": false,
-                    "Costs": {
-                        "Table": 100,
-                        "Wall": 200,
-                        "Kitchen": 300,
-                        "Window": 400,
-                    },
-                    "AreFixed": {
-                        "Table": false,
-                        "Wall": false,
-                        "Kitchen": false,
-                        "Window": false,
-                    },
-                    "UnfixedObjects": {
-                        "Table": unfixedTable,
-                        "Wall": unfixedWall,
-                        "Kitchen": unfixedKitchen,
-                        "Window": unfixedWindow,
-                    },
-                    "FixedObjects": {
-                        "Table": fixedTable,
-                        "Wall": fixedWall,
-                        "Kitchen": fixedKitchen,
-                        "Window": fixedWindow,
-                    },
-                    "buildingSmokes": {
-                        "Table": [buildingSmokeTable1, buildingSmokeTable2, buildingSmokeTable3],
-                        "Wall": [buildingSmokeWall1, buildingSmokeWall2],
-                        "Kitchen": [buildingSmokeKitchen1, buildingSmokeKitchen2],
-                        "Window": [buildingSmokeWindow],
-                    }
-                }; // для взаимодействия с объектами кухни
-                function getNextCost(text) {
-                    var cost = -1;
-                    FixObjects["CurrentObject"] = false;
-                    for (var object in FixObjects["Costs"]) {
-                        if (!FixObjects["AreFixed"][object]) {
-                            cost = FixObjects["Costs"][object];
-                            FixObjects["CurrentObject"] = object;
-                            break;
-                        }
-                    }
-                    console.log(cost);
-                    text.setText(cost);
-                } // получаем цену первого сломанного объекта и сохраняем этот объект в FixObjects
+            var FixObjects = {
+                "CurrentObject": false,
 
-                function closeUI() {
-                    uiCraft.setActive(false).setVisible(false);
-                    uiUpgrades.setActive(false).setVisible(false);
-                    uiPlay.setActive(false).setVisible(false);
-                    playText0.setActive(false).setVisible(false);
-                    uiMenu.setActive(false).setVisible(false);
-                    uiLikes.setActive(false).setVisible(false);
-                    menu.setVisible(false).setVisible(false);
-                    uiMenuBar.setActive(false).setVisible(false);
-                };
+                //ORDER
+                "Costs": {
+                    "Wall": 500,
+                    "Table": 900,
+                    "Window": 1500,
+                    "Kitchen": 2600,
+                },
 
-                function openUI() {
-                    uiCraft.setActive(true).setVisible(true);
-                    uiUpgrades.setActive(true).setVisible(true);
-                    uiCloseButton.setActive(false).setVisible(false);
-                    uiPlay.setActive(true).setVisible(true);
-                    playText0.setActive(true).setVisible(true);
-                    uiMenu.setActive(true).setVisible(true);
-                    uiLikes.setActive(true).setVisible(true);
+                "AreFixed": {
+                    "Wall": false,
+                    "Table": false,
+                    "Window": false,
+                    "Kitchen": false,
+                },
+                "UnfixedObjects": {
+                    "Table": unfixedTable,
+                    "Wall": unfixedWall,
+                    "Kitchen": unfixedKitchen,
+                    "Window": unfixedWindow,
+                },
+                "FixedObjects": {
+                    "Table": fixedTable,
+                    "Wall": fixedWall,
+                    "Kitchen": fixedKitchen,
+                    "Window": fixedWindow,
+                },
+                "buildingSmokes": {
+                    "Table": buildingSmokes.table.objArr,
+                    "Wall": buildingSmokes.wall.objArr,
+                    "Kitchen": buildingSmokes.kitchen.objArr,
+                    "Window": buildingSmokes.window.objArr,
                 }
-
-                function closeOrOpenUpgrades(sign) {
-                    if (sign) {
-                        getNextCost(uiTextGeneral);
+            }; // для взаимодействия с объектами кухни
+            function getNextCost(text) {
+                var cost = -1;
+                FixObjects["CurrentObject"] = false;
+                for (var object in FixObjects["Costs"]) {
+                    if (!FixObjects["AreFixed"][object]) {
+                        cost = FixObjects["Costs"][object];
+                        FixObjects["CurrentObject"] = object;
+                        break;
                     }
-                    if (!sign || uiTextGeneral.text != '-1') {
-                        uiFixUpgradeGeneral.setActive(sign).setVisible(sign);
-                        uiTextGeneral.setActive(sign).setVisible(sign);
-                    }
-                } // перед показом корректируем цену
+                }
+                //console.log(cost);
+                text.setText(cost);
+            } // получаем цену первого сломанного объекта и сохраняем этот объект в FixObjects
+
+            function closeUI() {
+                uiCraft.setActive(false).setVisible(false);
+                uiUpgrades.setActive(false).setVisible(false);
+                uiPlay.setActive(false).setVisible(false);
+                playText0.setActive(false).setVisible(false);
+                uiMenu.setActive(false).setVisible(false);
+                uiLikes.setActive(false).setVisible(false);
+                menu.setVisible(false).setVisible(false);
+                uiMenuBar.setActive(false).setVisible(false);
+            };
+
+            function openUI() {
+                uiCraft.setActive(true).setVisible(true);
+                uiUpgrades.setActive(true).setVisible(true);
+                uiCloseButton.setActive(false).setVisible(false);
+                uiPlay.setActive(true).setVisible(true);
+                playText0.setActive(true).setVisible(true);                
+                uiMenu.setActive(true).setVisible(true);
+                uiLikes.setActive(true).setVisible(true);
+            }
+
+            function closeOrOpenUpgrades(sign) {
+                if (sign) {
+                    getNextCost(uiTextGeneral);
+                }
+                if (!sign || uiTextGeneral.text != '-1') {
+                    uiFixUpgradeGeneral.setActive(sign).setVisible(sign);
+                    uiTextGeneral.setActive(sign).setVisible(sign);
+                }
+            } // перед показом корректируем цену
 
 
-                uiCloseButton.on("pointerdown", function moveToMain() {
-                    openUI();
-                    closeOrOpenUpgrades(false);
-                }); // если нажат крест, переходим на главный экран
+            uiCloseButton.on("pointerdown", function moveToMain() {
+                openUI();
+                closeOrOpenUpgrades(false);
+            }); // если нажат крест, переходим на главный экран
 
-                uiUpgrades.on("pointerdown", function moveToUpgrade() {
-                    closeUI();
-                    uiCloseButton.setActive(true).setVisible(true);
-                    closeOrOpenUpgrades(true);
-                }); //если нажимаем апргейд, переходим на экран апргрейдов
+            uiUpgrades.on("pointerdown", function moveToUpgrade() {
+                closeUI();
+                uiCloseButton.setActive(true).setVisible(true);
+                closeOrOpenUpgrades(true);
+            }); //если нажимаем апргейд, переходим на экран апргрейдов
 
-                uiPlay.on("pointerdown", function openSpins() {
+            uiPlay.on("pointerdown", function openSpins() {
 
-                    spinsBG.setInteractive();
-                    spinsBG.setActive(true).setVisible(true);
-                    uiBackSpinButton.setActive(true).setVisible(true).setDepth(1.1);
-                    uiSC.setActive(true).setVisible(true);
+                spinsBG.setInteractive();
+                spinsBG.setActive(true).setVisible(true);
+                uiBackSpinButton.setActive(true).setVisible(true).setDepth(1.11);
+                uiSC.setActive(true).setVisible(true);
 
-                    spinGroup.getChildren().forEach(setAllVisible);
+                spinGroup.getChildren().forEach(setAllVisible);
 
-                    function setAllVisible(element, index) {
-                        element.setActive(true).setVisible(true);
-                    }
-                    uiSC.setX(config.width / 2).setY(config.height * 0.06).setDepth(1.1);
-                    goldText0.setActive(true).setVisible(true).setDepth(1.11).setX(config.width / 2).setY(config.height * 0.06);
-                    closeUI();
-                }); //если нажимаем кнопку "play", то открываются спины
+                function setAllVisible(element, index) {
+                    element.setActive(true).setVisible(true);
+                }
+                uiSC.setX(config.width / 2).setY(config.height * 0.06).setDepth(1.1);
+                goldText0.setActive(true).setVisible(true).setDepth(1.11).setX(config.width / 2).setY(config.height * 0.06);
+                closeUI();
+            }); //если нажимаем кнопку "play", то открываются спины
 
 
 
-                uiMenu.on("pointerdown", function openMenu() {
-                    closeUI();
-                    uiMenuBar.setActive(true).setVisible(true);
-                    uiLikes.setActive(false).setVisible(false);
-                    uiSC.setActive(false).setVisible(false);
-                    goldText0.setActive(false).setVisible(false);
-                    touchBar.setActive(true).setVisible(true).setAlpha(0.000000001);
-                    menu.setVisible(true);
-                }); //при нажатии на кнопку меню - открываем меню
+            uiMenu.on("pointerdown", function openMenu() {
+                closeUI();
+                uiMenuBar.setActive(true).setVisible(true);
+                uiLikes.setActive(false).setVisible(false);
+                uiSC.setActive(false).setVisible(false);
+                goldText0.setActive(false).setVisible(false);
+                touchBar.setActive(true).setVisible(true).setAlpha(0.000000001);
+                menu.setVisible(true);
+            }); //при нажатии на кнопку меню - открываем меню
 
-                touchBar.on("pointerdown", function closeMenu() {
-                    uiMenuBar.setActive(false).setVisible(false);
-                    openUI();
-                    uiSC.setActive(true).setVisible(true);
-                    goldText0
-                        .setActive(true).setVisible(true);
-                    touchBar.setActive(false).setVisible(false);
-                    menu.setVisible(false);
-                }); //при нажатии на любое место вне меню - выходим из меню
+            touchBar.on("pointerdown", function closeMenu() {
+                uiMenuBar.setActive(false).setVisible(false);
+                openUI();
+                uiSC.setActive(true).setVisible(true);
+                goldText0
+                    .setActive(true).setVisible(true);
+                touchBar.setActive(false).setVisible(false);
+                menu.setVisible(false);
+            }); //при нажатии на любое место вне меню - выходим из меню
 
-                uiBackSpinButton.on("pointerdown", function closeSpinsAndShop() {
-                    firstClick = false;
-                    spinsBG.setActive(false).setVisible(false);
-                    uiBackSpinButton.setActive(false).setVisible(false);
-                    uiSC.setX(initialSCX).setY(initialSCY);
-                    goldText0.setX(initialSCX).setY(initialSCY);
-                    spinGroup.getChildren().forEach(setAllVisible);
+            uiBackSpinButton.on("pointerdown", function closeSpinsAndShop() {
+                firstClick = false;
+                spinsBG.setActive(false).setVisible(false);
+                uiBackSpinButton.setActive(false).setVisible(false);
+                uiSC.setX(initialSCX).setY(initialSCY);
+                goldText0.setX(uiSC.x * 0.7).setY(uiSC.y * 0.55);
+                goldText0.setX(initialSCX).setY(initialSCY);
+                spinGroup.getChildren().forEach(setAllVisible);
+                
+                function setAllVisible(element, index) {
+                    element.setActive(false).setVisible(false);
+                }
+                openUI();
+            }); // при нажатии на кнопку назад - закрываем либо спины, либо магащин
 
-                    function setAllVisible(element, index) {
-                        element.setActive(false).setVisible(false);
-                    }
-                    openUI();
-                }); // при нажатии на кнопку назад - закрываем либо спины, либо магащин
+            uiSC.on("pointerdown", function openShop() {
+                shopStub.setActive(true).setVisible(true);
+                shopStub.setDepth(4);
+                uiBackShopButton.setActive(true).setVisible(true);
+                uiBackShopButton.setDepth(5);
+            }); // при нажатии на голду открываем заглушку
 
-                uiSC.on("pointerdown", function openShop() {
-                    uiBackShopButton.setActive(true).setVisible(true);
-                    uiBackShopButton.setDepth(5);
-                }); // при нажатии на голду открываем заглушку
-
-                uiBackShopButton.on("pointerdown", function closeShop() {
-                    uiBackShopButton.setActive(false).setVisible(false);
-                });
+            uiBackShopButton.on("pointerdown", function closeShop() {
+                shopStub.setActive(false).setVisible(false);
+                uiBackShopButton.setActive(false).setVisible(false);
+            });
 
             {
                 uiFixUpgradeGeneral.on("pointerdown", function upgradeCurrObject() {
@@ -1454,6 +1550,7 @@ class MainScreen extends Phaser.Scene {
                         finishUpgrade(element, newElement, upgradeBar, upgradeText);
                     });
 
+
                 } // функция начала улучшения предмета
 
                 function finishUpgrade(element, newElement, upgradeBar, upgradeText) {
@@ -1468,8 +1565,7 @@ class MainScreen extends Phaser.Scene {
 
                 function goldOperation(sum) {
                     gameSettings.currGold += sum;
-                } // операция с золотом
-
+                }
             } // взаимодействия на экране апгрейдов
 
             {
@@ -1487,11 +1583,15 @@ class MainScreen extends Phaser.Scene {
                 }); // при нажатии на Ремонт в меню переходим в ремонт
 
                 buyMenuText.on("pointerdown", function openShop() {
+                    shopStub.setActive(true).setVisible(true);
                     uiBackShopButton.setActive(true).setVisible(true);
+                    shopStub.setDepth(4);
                     uiBackShopButton.setDepth(5);
                 }); // При нажатии на купить переходим в покупку
 
                 playMenuText.on("pointerdown", function openSpins() {
+                    spinsStub.setActive(true).setVisible(true);
+                    spinsStub.setDepth(2);
                     uiBackSpinButton.setActive(true).setVisible(true);
                     uiBackSpinButton.setDepth(2);
                     closeMenuActions();
@@ -1507,6 +1607,62 @@ class MainScreen extends Phaser.Scene {
             } // взаимодействия на экране меню
 
             {
+                var recipes = {
+                    1: {
+                        name: "Жареный Картофель",
+                        progress: 0,
+                        numberOfCrafts: 2, // количество полных крафтов
+                        1: {
+                            numberOfSteps: 2, // количество шагов, не включая итоговый 
+                            1: {
+                                name: "Картофель",
+                                done: false,
+                                cost: "200"
+                            },
+                            2: {
+                                name: "Нож",
+                                done: false,
+                                cost: "Нарезать"
+                            },
+                            result: {
+                                name: "Нарезанный картофель",
+                                done: false,
+                                transition: "instant"
+                            }
+                        },
+                        2: {
+                            numberOfSteps: 4,
+                            1: {
+                                name: "Нарезанный картофель",
+                                done: false,
+                                cost: ""
+                            },
+                            2: {
+                                name: "Растительное масло",
+                                done: false,
+                                cost: "150"
+                            },
+                            3: {
+                                name: "Соль",
+                                done: false,
+                                cost: "200"
+                            },
+                            4: {
+                                name: "Сковорода",
+                                done: false,
+                                cost: "400"
+                            },
+                            result: {
+                                name: "Жареный Картофель",
+                                transition: "no"
+                            }
+                        }
+                    }
+                };
+
+                var currCraftPage = 1; // текущая страница
+                var stepX = config.width * 0.5; // координата Х для шага (неизменяемая)
+                var stepY = config.height * 0.2; // координата Y для шага (изменяемая)
                 uiCraft.on("pointerdown", function openCraft() {
                     craftGroup.setVisible(true);
                     closeUI();
@@ -1517,6 +1673,13 @@ class MainScreen extends Phaser.Scene {
                     goldText0
                         .setX(goldText0
                             .x + 280);
+                    for (var subRecipe in recipes[currCraftPage]) { // проходимся по всем подрецептам
+                        for (var i = 1; i <= subRecipe["numberOfSteps"]; i++) { // итератор для прохожденеия по шагам подрецептов
+                            eval("var ${i} = this.add.sprite(${stepX*0.5}, ${stepY}, 'StepPictureUnderlay');");
+                            eval("check${i}.setDepth(2).setVisible(true);")
+                            stepY += 200;
+                        }
+                    }
                 });
 
                 uiBackCraftButton.on("pointerdown", function closeCraft() {
