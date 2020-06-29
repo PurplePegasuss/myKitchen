@@ -472,6 +472,22 @@ class MainScreen extends Phaser.Scene {
             this.load.image("rays", "assets/UI/UI_Rays.png");
 
         } // Challenge Preload
+
+        {
+
+        } // Settings Preload
+            this.load.image("Icon_Music", "assets/Icons/Icon_Music.png");
+            this.load.image("Icon_Sound", "assets/Icons/Icon_Sound.png");
+            this.load.image("ToggleOff", "assets/UI/UI_ToggleOff.png");
+            this.load.image("ToggleOn", "assets/UI/UI_ToggleOn.png");
+            this.load.image("SettingsUnderlay", "assets/UI/UI_SettingsUnderlay.png");
+        {
+
+        } // Shop Preload
+
+        {
+
+        } // Levels Preload
     }
 
 
@@ -757,6 +773,9 @@ class MainScreen extends Phaser.Scene {
                 fontSize: '80px',
                 color: "brown"
             });
+
+            
+
             var playText0 = this.playText;
             playText0.setActive(true).setVisible(true).setOrigin(0.5);
             
@@ -1284,10 +1303,28 @@ class MainScreen extends Phaser.Scene {
                 indicators[i+27].setActive(false).setVisible(false).setDepth(1.2);
             }
 
+            var challengeTileTexts = [];
+            for(i=0; i<9; i++){
+                challengeTileTexts[i] = this.add.text(0, 0, i+1, {
+                                            fontFamily: 'font1',
+                                            fontSize: '108px',
+                                            color: "white",
+                                            align: "center"
+                                        });
+                challengeTileTexts[i].setActive(false).setVisible(false).setDepth(1.2).setOrigin(0.5, 0.5);
+                challengeTileTexts[i+9] = this.add.text(0, 0, i+1, {
+                                            fontFamily: 'font1',
+                                            fontSize: '108px',
+                                            color: "white",
+                                            align: "center"
+                                        });
+                challengeTileTexts[i+9].setActive(false).setVisible(false).setDepth(1.2).setOrigin(0.5, 0.5);
+            }
 
             var challengeObjects = [opponentAvatar, opponentUnderlay, challengeMediumGift, challengeBG];
             Array.prototype.push.apply(challengeObjects, tiles);
             Array.prototype.push.apply(challengeObjects, indicators);
+            Array.prototype.push.apply(challengeObjects, challengeTileTexts);
 
             var consolationPrizeUnderlay = this.add.sprite(config.width*0.5, config.height*0.58, "consolationPrizeUnderlay");
             consolationPrizeUnderlay.setActive(false).setVisible(false).setDepth(1.3);
@@ -1301,7 +1338,48 @@ class MainScreen extends Phaser.Scene {
             var defeatUnderlay = this.add.sprite(config.width*0.5, config.height*0.47, "defeatUnderlay");
             defeatUnderlay.setActive(false).setVisible(false).setDepth(1.2);
 
-            var challengeDefeatObjects = [consolationPrizeUnderlay, consolationPrizeButton, challengeDefeatBG, defeatUnderlay];
+            var defeatText1 = this.add.text(defeatUnderlay.x, defeatUnderlay.y-defeatUnderlay.height*0.4, "Поражение", {
+                                            fontFamily: 'font1',
+                                            fontSize: '110px',
+                                            color: "white",
+                                            align: "center"
+                                        });
+            defeatText1.setActive(false).setVisible(false).setDepth(1.4).setOrigin(0.5, 0.5);
+
+            var defeatText2 = this.add.text(defeatUnderlay.x, defeatUnderlay.y-defeatUnderlay.height*0.21, "Не переживайте,\nв следующий раз\nточно получится!", {
+                                            fontFamily: 'font1',
+                                            fontSize: '80px',
+                                            color: "white",
+                                            align: "justify"
+                                        });
+            defeatText2.setActive(false).setVisible(false).setDepth(1.4).setOrigin(0.5, 0.5);
+
+            var defeatText3 = this.add.text(defeatUnderlay.x, defeatUnderlay.y-defeatUnderlay.height*0.02, "Вот. держите:", {
+                                            fontFamily: 'font1',
+                                            fontSize: '90px',
+                                            color: "white",
+                                            align: "center"
+                                        });
+            defeatText3.setActive(false).setVisible(false).setDepth(1.4).setOrigin(0.5, 0.5);
+
+            var defeatTextMoney = this.add.text(consolationPrizeUnderlay.x, consolationPrizeUnderlay.y, 400, {
+                                            fontFamily: 'font1',
+                                            fontSize: '100px',
+                                            color: "white",
+                                            align: "center"
+                                        });
+            defeatTextMoney.setActive(false).setVisible(false).setDepth(1.4).setOrigin(0.5, 0.5);
+
+            var defeatTextButton = this.add.text(consolationPrizeButton.x, consolationPrizeButton.y, "Забрать", {
+                                            fontFamily: 'font1',
+                                            fontSize: '90px',
+                                            color: "white",
+                                            align: "center"
+                                        });
+            defeatTextButton.setActive(false).setVisible(false).setDepth(1.4).setOrigin(0.5, 0.5);
+
+            var challengeDefeatObjects = [consolationPrizeUnderlay, consolationPrizeButton, challengeDefeatBG, defeatUnderlay,
+                                            defeatText1, defeatText2, defeatText3, defeatTextMoney, defeatTextButton];
 
             var largeGift = this.add.sprite(config.width*0.5, config.height*0.36, "largeGift");
             largeGift.setActive(false).setVisible(false).setDepth(1.3);
@@ -1315,8 +1393,85 @@ class MainScreen extends Phaser.Scene {
             var rays = this.add.sprite(config.width*0.5, config.height*0.36, "rays");
             rays.setActive(false).setVisible(false).setDepth(1.2);
 
-            var challengeVictoryObjects = [largeGift, victoryButton, giftBackground, rays];
+            var victoryTextButton = this.add.text(victoryButton.x, victoryButton.y, "Победа", {
+                                            fontFamily: 'font1',
+                                            fontSize: '110px',
+                                            color: "white",
+                                            align: "center"
+                                        });
+            victoryTextButton.setActive(false).setVisible(false).setDepth(1.5).setOrigin(0.5, 0.5);
+
+            var challengeVictoryObjects = [largeGift, victoryButton, giftBackground, rays, victoryTextButton];
+
         } // спавним элементы испытания
+
+        {
+
+            var settingsUnderlay = this.add.sprite(config.width*0.5, config.height*0.45, "SettingsUnderlay");
+            var soundIcon = this.add.sprite(settingsUnderlay.x-settingsUnderlay.width*0.28, settingsUnderlay.y-settingsUnderlay.height*0.05, "Icon_Sound");
+            var musicIcon = this.add.sprite(settingsUnderlay.x-settingsUnderlay.width*0.28, settingsUnderlay.y+settingsUnderlay.height*0.15, "Icon_Music");
+            
+
+
+            var settingsIcon = this.add.sprite(settingsUnderlay.x-settingsUnderlay.width*0.3, settingsUnderlay.y-settingsUnderlay.height*0.35, "iconSettings");
+            
+
+            var musicText = this.add.text(musicIcon.x+settingsUnderlay.width*0.05, musicIcon.y, "Музыка", {
+                                            fontFamily: 'font1',
+                                            fontSize: '70px',
+                                            color: "black",
+                                            align: "left"
+                                        });
+            var soundText = this.add.text(soundIcon.x+settingsUnderlay.width*0.05, soundIcon.y, "Звуки", {
+                                            fontFamily: 'font1',
+                                            fontSize: '70px',
+                                            color: "black",
+                                            align: "left"
+                                        });
+            var settingsText = this.add.text(settingsIcon.x+settingsIcon.width*0.75, settingsIcon.y, "Настройки", {
+                                            fontFamily: 'font1',
+                                            fontSize: '90px',
+                                            color: "black",
+                                            align: "center"
+                                        });
+            var settingsID = this.add.text(settingsUnderlay.x, settingsUnderlay.y+settingsUnderlay.height*0.4, "Ваш ID: 12324552", {
+                                            fontFamily: 'font1',
+                                            fontSize: '48px',
+                                            color: "#78781e",
+                                            align: "center"
+                                        });
+            var soundToggleOn = this.add.sprite(settingsUnderlay.x+settingsUnderlay.width*0.3, soundIcon.y, "ToggleOn");
+            var soundToggleOff = this.add.sprite(soundToggleOn.x, soundToggleOn.y, "ToggleOff");
+            var musicToggleOn = this.add.sprite(settingsUnderlay.x+settingsUnderlay.width*0.3, musicIcon.y, "ToggleOn");
+            var musicToggleOff = this.add.sprite(musicToggleOn.x, musicToggleOn.y, "ToggleOff");
+            var settingsBackButton = this.add.sprite(config.width, config.height, "uiBackButton");
+
+            settingsUnderlay.setActive(false).setVisible(false).setDepth(1);
+            soundIcon.setActive(false).setVisible(false).setDepth(1.1).setOrigin(1, 0.5);
+            musicIcon.setActive(false).setVisible(false).setDepth(1.1).setOrigin(1, 0.5);
+            settingsIcon.setActive(false).setVisible(false).setDepth(1.1);
+
+            settingsID.setActive(false).setVisible(false).setDepth(1.1).setOrigin(0.5, 0.5);
+            musicText.setActive(false).setVisible(false).setDepth(1.1).setOrigin(0.0, 0.5);
+            soundText.setActive(false).setVisible(false).setDepth(1.1).setOrigin(0.0, 0.5);
+            settingsText.setActive(false).setVisible(false).setDepth(1.1).setOrigin(0.0, 0.5);
+
+            soundToggleOn.setActive(false).setVisible(false).setDepth(1.2).setOrigin(0.5, 0.5).setInteractive();
+            soundToggleOff.setActive(false).setVisible(false).setDepth(1.1).setOrigin(0.5, 0.5).setInteractive();
+            musicToggleOn.setActive(false).setVisible(false).setDepth(1.2).setOrigin(0.5, 0.5).setInteractive();
+            musicToggleOff.setActive(false).setVisible(false).setDepth(1.1).setOrigin(0.5, 0.5).setInteractive();
+            settingsBackButton.setActive(false).setVisible(false).setDepth(1.1).setOrigin(1.0, 1.0).setInteractive();
+
+            var settingsObjects = [settingsUnderlay, soundIcon, musicIcon, settingsIcon, musicText, soundText, settingsText, settingsID, soundToggleOn, soundToggleOff, musicToggleOn, musicToggleOff, settingsBackButton];
+        } // спавним элементы настроек
+
+        {
+
+        } // спавним элементы нмагазина
+
+        {
+
+        } // спавним элементы уровней
 
 
         {
@@ -1462,20 +1617,95 @@ class MainScreen extends Phaser.Scene {
 
             //Взаимодействие с испытанием
 
-            var i;
-            for(i=0; i<18; i++){
-                tiles[i].on("pointerdown", function(){
-                    moveChallengeToResult(i>=9);
-                });
+            var i, flagEndGame=false;
+            var challengeCurrentNumber, challengeTilesIdxToNumber = [];
+
+            //player tiles
+            tiles[9].on("pointerdown", function(){challengeCheckTile(0);});
+            tiles[10].on("pointerdown", function(){challengeCheckTile(1);});
+            tiles[11].on("pointerdown", function(){challengeCheckTile(2);});
+            tiles[12].on("pointerdown", function(){challengeCheckTile(3);});
+            tiles[13].on("pointerdown", function(){challengeCheckTile(4);});
+            tiles[14].on("pointerdown", function(){challengeCheckTile(5);});
+            tiles[15].on("pointerdown", function(){challengeCheckTile(6);});
+            tiles[16].on("pointerdown", function(){challengeCheckTile(7);});
+            tiles[17].on("pointerdown", function(){challengeCheckTile(8);});
+
+            //check tiles clicks
+            function challengeCheckTile(idx){
+                console.log(idx);
+                console.log(challengeTilesIdxToNumber[idx]);
+                if(challengeTilesIdxToNumber[idx]==challengeCurrentNumber+1){
+                    tiles[idx+9].setInteractive(false);
+                    indicators[challengeCurrentNumber+27].setActive(true).setVisible(true);
+                    challengeCurrentNumber++;
+                }
+                if(challengeCurrentNumber==9){
+                    challengeEndGame(true);
+                }
             }
 
             consolationPrizeButton.on("pointerdown", function(){
+                gameSettings.currGold += parseInt(defeatTextMoney.text);
                 moveChallengeToSpin(false);
             });
             victoryButton.on("pointerdown", function(){
                 moveChallengeToSpin(true);
             });
+
+
+            //to randomly distribute text on tiles
+            function challengeFillTiles(){
+                var i, j;
+
+                //used array for already chosen tiles
+                var used = [false*9];
+                for(i=0; i<9; i++){
+                    used[i]=false;
+                }
+
+                //for each tile we choose random number from not used
+                for(i=0; i<9; i++){
+                    var randomNumber = Math.floor(Math.random()*(9-i)-0.0001);
+                    console.log(randomNumber);
+                    for(j=0; j<9; j++){
+                        if(used[j]==false){
+                            if(randomNumber==0){
+                                used[j]=true;
+                                challengeTilesIdxToNumber[i]=j+1;
+                                randomNumber--;
+                            }else{
+                                randomNumber--;
+                            }
+                        }
+                    }
+                }
+                console.log(challengeTilesIdxToNumber);
+                console.log(challengeTileTexts);
+
+                //move texts on tiles
+                for(i=0; i<9; i++){
+                    challengeTileTexts[challengeTilesIdxToNumber[i]-1].x=tiles[i+9].x;
+                    challengeTileTexts[challengeTilesIdxToNumber[i]-1].y=tiles[i+9].y;
+
+                    challengeTileTexts[challengeTilesIdxToNumber[i]-1+9].x=tiles[i].x;
+                    challengeTileTexts[challengeTilesIdxToNumber[i]-1+9].y=tiles[i].y;
+                }
+
+
+            }
+
+            //end challenge game and move to result
+            function challengeEndGame(playerWon){
+                if(!flagEndGame){
+                    flagEndGame=true;
+                    moveChallengeToResult(playerWon);
+                }
+            }   
+
+            //move from spin to challenge
             function moveSpinToChallenge(){
+                flagEndGame=false;
                 firstClick = false;
                 spinsBG.setActive(false).setVisible(false);
                 uiBackSpinButton.setActive(false).setVisible(false);
@@ -1490,12 +1720,22 @@ class MainScreen extends Phaser.Scene {
                 for(i=0; i<challengeObjects.length; i++){
                     challengeObjects[i].setActive(true).setVisible(true);
                 }
+                for(i=0; i<9; i++){
+                    indicators[i+18].setActive(false).setVisible(false);
+                    indicators[i+27].setActive(false).setVisible(false);
+                    tiles[i+9].setInteractive(true);
+                }
+                challengeCurrentNumber=0;
+                challengeFillTiles();
                 uiLikes.x=config.width*0.76;
                 uiLikes.y=config.height*0.07;
                 uiLikes.setActive(true).setVisible(true).setDepth(opponentAvatar.depth);
-
+                startBot();
             }
+
+            //move from challenge back to spin
             function moveChallengeToSpin(result){
+
                 var arr;
                 if(result){
                     arr=challengeVictoryObjects;
@@ -1518,6 +1758,8 @@ class MainScreen extends Phaser.Scene {
                     element.setActive(true).setVisible(true);
                 }
             }
+
+            //move to result of challenge
             function moveChallengeToResult(result){
 
                 var i;
@@ -1536,6 +1778,69 @@ class MainScreen extends Phaser.Scene {
                 for(i=0; i<arr.length; i++){
                     arr[i].setActive(true).setVisible(true);
                 }
+            }
+
+            //bot functionality
+            function startBot(){
+                var a = Math.random();
+                var i, time;
+                if(a<0.1){
+                    //fast (4-5 secs)
+                    console.log("fast bot");
+                    time=0;
+                    for(i=0; i<9; i++){
+                        time+=Math.random()/9+4/9;
+                        console.log(time);
+                        makeIndicatorOnAfter(i, time*1000);
+                    }
+                }else if(a<0.7){
+                    //one stop (5-6.5 secs)
+                    console.log("medium bot");
+                    time=0;
+                    var st1 = Math.round((Math.random()*5+2));
+                    for(i=0; i<9; i++){
+                        if(i==st1){
+                            time+=Math.random()*5.5/9+0.82;
+                        }else{
+                            time+=Math.random()/9+4.7/9; 
+                        }
+                        makeIndicatorOnAfter(i, time*1000);
+                    }
+
+                }else{
+                    //two stops(6.5-8 secs)
+                    console.log("slow bot");
+                    time=0;
+                    var st1 = Math.round((Math.random()*2+1)), st2 = Math.round((Math.random()*2+5));
+                    for(i=0; i<9; i++){
+                        if(i==st1||i==st2){
+                            time+=Math.random()*3.25/9+8.25/9;
+                        }else{
+                            time+=Math.random()/9+6/9; 
+                        }
+
+                        makeIndicatorOnAfter(i, time*1000);
+                    }
+                }
+                if(!flagEndGame){
+                    setTimeout(function() {
+                        challengeEndGame(false);
+                    }, time*1000+100);
+                }
+                
+            }
+            var flagEndGame=false
+
+            //make indicator green after time
+            function makeIndicatorOnAfter(idx, time){
+                setTimeout(function(){
+                    if(!flagEndGame){
+                        indicators[idx+18].setActive(true).setVisible(true);
+                        console.log('on');
+                    }
+                }, time);
+                
+                
             }
 
         } // взаимодействия на экране спинов
@@ -1678,6 +1983,8 @@ class MainScreen extends Phaser.Scene {
                 menu.setVisible(false);
             }); //при нажатии на любое место вне меню - выходим из меню
 
+            
+
             uiBackSpinButton.on("pointerdown", function closeSpinsAndShop() {
                 firstClick = false;
                 spinsBG.setActive(false).setVisible(false);
@@ -1768,6 +2075,7 @@ class MainScreen extends Phaser.Scene {
             } // взаимодействия на экране апгрейдов
 
             {
+                var musicFlag = true, soundFlag=true;
                 fixMenuText.on("pointerdown", function openMenu() {
                     uiCloseButton.setActive(true).setVisible(true);
                     touchBar.setActive(false).setVisible(false);
@@ -1803,6 +2111,80 @@ class MainScreen extends Phaser.Scene {
                         .setActive(true).setVisible(true);
                     menu.setVisible(false);
                 }
+
+                settingsMenuText.on("pointerdown", function() {
+                    console.log("settings");
+                    touchBar.setActive(false).setVisible(false);
+                    closeUI();
+                    menu.setVisible(false).setVisible(false);
+                    uiMenuBar.setActive(false).setVisible(false);
+                    openSettings();
+                });
+
+                soundToggleOn.on("pointerdown", function() {
+                    soundFlag=!soundFlag;
+                    console.log("sound: "+soundFlag);
+                    soundToggleOff.setActive(true).setVisible(true);
+                    soundToggleOn.setActive(false).setVisible(false);
+                });
+
+                soundToggleOff.on("pointerdown", function() {
+                    soundFlag=!soundFlag;
+                    console.log("sound: "+soundFlag);
+                    soundToggleOn.setActive(true).setVisible(true);
+                    soundToggleOff.setActive(false).setVisible(false);
+                });
+
+                musicToggleOn.on("pointerdown", function() {
+                    musicFlag=!musicFlag;
+                    console.log("music: "+musicFlag);
+                    musicToggleOff.setActive(true).setVisible(true);
+                    musicToggleOn.setActive(false).setVisible(false);
+                });
+
+                musicToggleOff.on("pointerdown", function() {
+
+                    musicFlag=!musicFlag;
+                    console.log("music: "+musicFlag);
+                    musicToggleOn.setActive(true).setVisible(true);
+                    musicToggleOff.setActive(false).setVisible(false);
+                });
+
+                settingsBackButton.on("pointerdown", function() {
+                    closeSettings();
+                    openUI();
+                    uiSC.setActive(true).setVisible(true);
+                    goldText0
+                        .setActive(true).setVisible(true);
+                });
+
+                function openSettings(){
+                    var i;
+                    for(i=0; i<settingsObjects.length; i++){
+                        settingsObjects[i].setVisible(true).setActive(true);
+                    }
+                    if(soundFlag){
+                        soundToggleOff.setActive(false).setVisible(false);
+                    }else{
+                        soundToggleOn.setActive(false).setVisible(false);
+                    }
+                    if(musicFlag){
+                        musicToggleOff.setActive(false).setVisible(false);
+                    }else{
+                        musicToggleOn.setActive(false).setVisible(false);
+                    }
+                }
+
+                function closeSettings(){
+                    var i;
+                    for(i=0; i<settingsObjects.length; i++){
+                        settingsObjects[i].setVisible(false).setActive(false);
+                    }
+                }
+
+
+
+
             } // взаимодействия на экране меню
 
             {
