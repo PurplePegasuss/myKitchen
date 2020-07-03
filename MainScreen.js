@@ -527,9 +527,10 @@ class MainScreen extends Phaser.Scene {
                 'rexUI', 'rexUI');
             
             this.load.image("LevelsBackground", "assets/Objects/Object_LevelsBackground.png");
-            this.load.image("Door1", "assets/Objects/Object_RussianDoor.png");
-            this.load.image("Door2", "assets/Objects/Object_UkranianDoor.png");
-            this.load.image("Door3", "assets/Objects/Object_XmasDoor.png");
+            this.load.image("Door1", "assets/Objects/Object_BasicDoor.png");
+            this.load.image("Door2", "assets/Objects/Object_RussianDoor.png");
+            this.load.image("Door3", "assets/Objects/Object_UkranianDoor.png");
+            this.load.image("Door4", "assets/Objects/Object_XmasDoor.png");
 
             this.load.image("openLevelButton", "assets/UI/UI_OpenLevelButton.png");
             this.load.image("iconLock", "assets/Icons/Icon_Lock.png");
@@ -1788,7 +1789,7 @@ class MainScreen extends Phaser.Scene {
         } // спавним элементы магазина
 
         {
-            var levelTexts=["Русская\nкухня", "Украинская\nкухня", "Новогодняя\nкухня"];
+            var levelTexts=["Базовая\nкухня", "Русская\nкухня"/*, "Украинская\nкухня", "Новогодняя\nкухня"*/];
             var _scene = this;
             var levelObjects;
             var levelPanel;
@@ -2809,7 +2810,7 @@ class MainScreen extends Phaser.Scene {
                 });
 
                 levelEnterButton.on("pointerdown", function () {
-                    gameSettings.currentLevel++;
+                    // gameSettings.currentLevel++;
                     levelsBackButton.setVisible(false).setActive(false);
                     levelPanel.setVisible(false).setActive(false);
                     openUI();
