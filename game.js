@@ -1,8 +1,11 @@
+
+
 var gameSettings = {
     currGold: 10000,
     currEnergy: 60,
     notificationsAmount: 0,
-    currentCraftPage: 0
+    currentCraftPage: 0,
+    currentLevel: 0
 }
 
 var config = {
