@@ -503,18 +503,37 @@ class MainScreen extends Phaser.Scene {
         } // Challenge Preload
 
         {
-
+            this.load.image("Icon_Music", "assets/Icons/Icon_Music.png");
+            this.load.image("Icon_Sound", "assets/Icons/Icon_Sound.png");
+            this.load.image("ToggleOff", "assets/UI/UI_ToggleOff.png");
+            this.load.image("ToggleOn", "assets/UI/UI_ToggleOn.png");
+            this.load.image("SettingsUnderlay", "assets/UI/UI_SettingsUnderlay.png");
         } // Settings Preload
-        this.load.image("Icon_Music", "assets/Icons/Icon_Music.png");
-        this.load.image("Icon_Sound", "assets/Icons/Icon_Sound.png");
-        this.load.image("ToggleOff", "assets/UI/UI_ToggleOff.png");
-        this.load.image("ToggleOn", "assets/UI/UI_ToggleOn.png");
-        this.load.image("SettingsUnderlay", "assets/UI/UI_SettingsUnderlay.png"); {
-
+        {
+            this.load.spritesheet("CoinGlow", "assets/Anim/Anim_Glow/Anim_CoinGlow.png", {
+                frameWidth: 79,
+                frameHeight: 85
+            });
+            this.load.spritesheet("EnergyGlow", "assets/Anim/Anim_Glow/Anim_EnergyGlow.png", {
+                frameWidth: 78,
+                frameHeight: 93
+            });
+            this.load.image("GoodUnderlay", "assets/UI/UI_GoodUnderlay.png");
+            this.load.image("EnergyIndicator", "assets/UI/UI_EnergyIndicator.png");
         } // Shop Preload
 
         {
+            this.load.scenePlugin('rexuiplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js', 
+                'rexUI', 'rexUI');
+            
+            this.load.image("LevelsBackground", "assets/Objects/Object_LevelsBackground.png");
+            this.load.image("Door1", "assets/Objects/Object_RussianDoor.png");
+            this.load.image("Door2", "assets/Objects/Object_UkranianDoor.png");
+            this.load.image("Door3", "assets/Objects/Object_XmasDoor.png");
 
+            this.load.image("openLevelButton", "assets/UI/UI_OpenLevelButton.png");
+            this.load.image("iconLock", "assets/Icons/Icon_Lock.png");
+            this.load.image("mediumCheck", "assets/Icons/Icon_MediumCheck.png");
         } // Levels Preload
     }
 
@@ -1325,7 +1344,7 @@ class MainScreen extends Phaser.Scene {
             var uiFixUpgradeScale = 1.2;
             uiFixUpgradeGeneral.setScale(uiFixUpgradeScale).setInteractive().setActive(false).setVisible(false);
             var uiTextGeneral = this.add.text(uiFixUpgradeGeneral.x + 24 * uiFixUpgradeScale, uiFixUpgradeGeneral.y - 76 * uiFixUpgradeScale, 0, {
-                font: '108px Arial',
+                font: '108px font1',
                 color: 'brown'
             });
             uiTextGeneral.setInteractive().setActive(false).setVisible(false);
@@ -1619,10 +1638,316 @@ class MainScreen extends Phaser.Scene {
         } // спавним элементы настроек
 
         {
+            var shopGoodOpts = [{"quantity":25, "price":20}, {"quantity":70, "price":50}, {"quantity":200, "price":140},
+                            {"quantity":5000, "price":20}, {"quantity":20000, "price":50}, {"quantity":100000, "price":140}];
 
+            // var energyIndicator = this.add.sprite(config.width*0.75, config.height*0.06, "EnergyIndicator");
+            // energyIndicator.setActive(false).setVisible(false).setDepth(4.2).setOrigin(0.5, 0.5);
+
+            var uiBackShopButton = this.add.sprite(config.width, config.height, "uiBackButton");
+            uiBackShopButton.setInteractive();
+            uiBackShopButton.setActive(false).setVisible(false).setDepth(4.2).setOrigin(1.0, 1.0);
+
+            var shopBG = this.add.sprite(config.width*0.5, config.height*0.5, "challengeDefeatBG");
+            shopBG.setActive(false).setVisible(false).setDepth(4.1).setOrigin(0.5, 0.5).setInteractive();
+
+            var energyText = this.add.text(config.width*0.5, config.height*0.15, "Энергия", {
+                                            fontFamily: 'font1',
+                                            fontSize: '90px',
+                                            color: "black",
+                                            align: "center"
+                                        });
+            energyText.setActive(false).setVisible(false).setDepth(4.2).setOrigin(0.5, 0.5);
+            var moneyText = this.add.text(config.width*0.5, config.height*0.51, "Монеты", {
+                                            fontFamily: 'font1',
+                                            fontSize: '90px',
+                                            color: "black",
+                                            align: "center"
+                                        });
+            moneyText.setActive(false).setVisible(false).setDepth(4.2).setOrigin(0.5, 0.5);
+
+            var i;
+
+            var goodUnderlays=[];
+            
+            for(i=-1; i<=1; i++){
+                goodUnderlays[i+1]=this.add.sprite(config.width*0.5+i*config.width*0.3, energyText.y+config.height*0.18, "GoodUnderlay");
+                goodUnderlays[i+1].setActive(false).setVisible(false).setDepth(4.2).setOrigin(0.5, 0.5).setInteractive();
+            }
+            for(i=-1; i<=1; i++){
+                goodUnderlays[i+4]=this.add.sprite(config.width*0.5+i*config.width*0.3, moneyText.y+config.height*0.18, "GoodUnderlay");
+                goodUnderlays[i+4].setActive(false).setVisible(false).setDepth(4.2).setOrigin(0.5, 0.5).setInteractive();
+            }
+
+            var shopEnergies = [];
+            i=0;
+            shopEnergies[0]=this.add.sprite(goodUnderlays[i].x, goodUnderlays[i].y, "EnergyGlow");
+
+            i=1;
+            shopEnergies[1]=this.add.sprite(goodUnderlays[i].x-goodUnderlays[i].width*0.1,
+                                            goodUnderlays[i].y-goodUnderlays[i].height*0.07, "EnergyGlow");
+            shopEnergies[2]=this.add.sprite(goodUnderlays[i].x,
+                                            goodUnderlays[i].y+goodUnderlays[i].height*0.05, "EnergyGlow");
+            shopEnergies[3]=this.add.sprite(goodUnderlays[i].x+goodUnderlays[i].width*0.12,
+                                            goodUnderlays[i].y-goodUnderlays[i].height*0.045, "EnergyGlow");
+
+            i=2;
+            shopEnergies[4]=this.add.sprite(goodUnderlays[i].x-goodUnderlays[i].width*0.17,
+                                            goodUnderlays[i].y, "EnergyGlow");
+            shopEnergies[5]=this.add.sprite(goodUnderlays[i].x-goodUnderlays[i].width*0.085,
+                                            goodUnderlays[i].y-goodUnderlays[i].height*0.1, "EnergyGlow");
+            shopEnergies[6]=this.add.sprite(goodUnderlays[i].x,
+                                            goodUnderlays[i].y+goodUnderlays[i].height*0.02, "EnergyGlow");
+            shopEnergies[7]=this.add.sprite(goodUnderlays[i].x+goodUnderlays[i].width*0.17,
+                                            goodUnderlays[i].y-goodUnderlays[i].height*0.02, "EnergyGlow");
+            shopEnergies[8]=this.add.sprite(goodUnderlays[i].x+goodUnderlays[i].width*0.085,
+                                            goodUnderlays[i].y-goodUnderlays[i].height*0.08, "EnergyGlow");
+
+            for(i=0; i<9; i++){
+                shopEnergies[i].setActive(false).setVisible(false).setDepth(4.3+0.1*i);
+            }
+
+
+            var shopCoins = [];
+            i=3;
+            shopCoins[0]=this.add.sprite(goodUnderlays[i].x, goodUnderlays[i].y, "CoinGlow");
+
+            i=4;
+            shopCoins[1]=this.add.sprite(goodUnderlays[i].x,
+                                            goodUnderlays[i].y-goodUnderlays[i].height*0.1, "CoinGlow");
+            shopCoins[2]=this.add.sprite(goodUnderlays[i].x+goodUnderlays[i].width*0.13,
+                                            goodUnderlays[i].y, "CoinGlow");
+            shopCoins[3]=this.add.sprite(goodUnderlays[i].x-goodUnderlays[i].width*0.06,
+                                            goodUnderlays[i].y+goodUnderlays[i].height*0.04, "CoinGlow");
+
+            i=5;
+            shopCoins[4]=this.add.sprite(goodUnderlays[i].x-goodUnderlays[i].width*0.12,
+                                            goodUnderlays[i].y-goodUnderlays[i].height*0.13, "CoinGlow");
+            shopCoins[5]=this.add.sprite(goodUnderlays[i].x-goodUnderlays[i].width*0.2,
+                                            goodUnderlays[i].y, "CoinGlow");
+            shopCoins[6]=this.add.sprite(goodUnderlays[i].x+goodUnderlays[i].width*0.08,
+                                            goodUnderlays[i].y-goodUnderlays[i].height*0.12, "CoinGlow");
+            shopCoins[7]=this.add.sprite(goodUnderlays[i].x+goodUnderlays[i].width*0.18,
+                                            goodUnderlays[i].y-goodUnderlays[i].height*0.03, "CoinGlow");
+            shopCoins[8]=this.add.sprite(goodUnderlays[i].x,
+                                            goodUnderlays[i].y, "CoinGlow");
+            
+            for(i=0; i<9; i++){
+                shopCoins[i].setActive(false).setVisible(false).setDepth(4.3+0.1*i);
+            }
+
+            var shopQuantityTexts = [];
+            var shopPrices = [];
+            var shopNames = [];
+            for(i=0; i<6; i++){
+                shopQuantityTexts[i]=this.add.text(goodUnderlays[i].x, goodUnderlays[i].y-goodUnderlays[i].height*0.33, 0, {
+                                            fontFamily: 'font1',
+                                            fontSize: '50px',
+                                            color: "black",
+                                            align: "center"
+                                        });
+                shopQuantityTexts[i].setActive(false).setVisible(false).setDepth(4.3).setOrigin(0.5, 0.5);
+                shopPrices[i]=this.add.text(goodUnderlays[i].x, goodUnderlays[i].y+goodUnderlays[i].height*0.25, 0, {
+                                            fontFamily: 'font1',
+                                            fontSize: '40px',
+                                            color: "black",
+                                            align: "center"
+                                        });
+                shopPrices[i].setActive(false).setVisible(false).setDepth(4.3).setOrigin(0.5, 0.5);
+                shopNames[i]=this.add.text(goodUnderlays[i].x, goodUnderlays[i].y+goodUnderlays[i].height*0.36, "голосов", {
+                                            fontFamily: 'font1',
+                                            fontSize: '40px',
+                                            color: "black",
+                                            align: "center"
+                                        });
+                shopNames[i].setActive(false).setVisible(false).setDepth(4.3).setOrigin(0.5, 0.5);
+            }
+
+            this.anims.create({
+                key: "coinGlow",
+                frames: this.anims.generateFrameNumbers("CoinGlow", {
+                    start: 0,
+                    end: 31
+                }),
+                repeat: -1
+            });
+            this.anims.create({
+                key: "energyGlow",
+                frames: this.anims.generateFrameNumbers("EnergyGlow", {
+                    start: 0,
+                    end: 31
+                }),
+                repeat: -1
+            });
+        
+            var shopObjects = [uiBackShopButton, shopBG, energyText, moneyText];
+            Array.prototype.push.apply(shopObjects, goodUnderlays);
+            Array.prototype.push.apply(shopObjects, shopEnergies);
+            Array.prototype.push.apply(shopObjects, shopCoins);
+            Array.prototype.push.apply(shopObjects, shopPrices);
+            Array.prototype.push.apply(shopObjects, shopNames);
+            Array.prototype.push.apply(shopObjects, shopQuantityTexts);
         } // спавним элементы магазина
 
         {
+            var levelTexts=["Русская\nкухня", "Украинская\nкухня", "Новогодняя\nкухня"];
+            
+            var levelCurrent=1;
+
+            var levelObjects = [];
+            for(let i=0; i<levelTexts.length; i++){
+                let rows=4, proportions=[5, 0, 2, 8];
+                if(levelCurrent==i){
+                    rows=3;
+                    proportions=[1, 0, 2];
+                }
+                levelObjects[i] = this.rexUI.add.gridSizer({
+                    height : config.height*0.65,
+                    width : config.width*0.58,
+                    column: 1,
+                    row: rows,
+                    rowProportions: proportions,
+                    space: { column: 0, row: 0, top: config.height*0.3 },
+                    name: i  // Search this name to get table back
+                })
+                    .addBackground(this.add.sprite(0, 0, "Door"+(i+1)).setDepth(1.1), 
+                        { expand: false })
+                    .add(this.add.text(0, 0, levelTexts[i], {
+                        fontFamily: 'font1',
+                        fontSize: '65px',
+                        color: "black",
+                        align: "center"
+                    }).setDepth(1.2), { 
+                        expand: false, 
+                    })
+                    .add(this.rexUI.add.roundRectangle(0, 0, config.width*0.58, 0, 0, 0x000000).setDepth(1.2), 
+                        { expand: false }, {align: 'center'});
+                if(levelCurrent==i){
+                    // let button = this.rexUI.add.gridSizer({});
+                    levelObjects[i].add(this.add.sprite(0, 0, "openLevelButton").setDepth(1.2), { 
+                        expand: false, 
+                    });
+                }else if(levelCurrent>i){
+                    levelObjects[i].add(this.add.text(0, 0, "Пройдено", {
+                        fontFamily: 'font1',
+                        fontSize: '55px',
+                        color: "black",
+                        align: "center"
+                    }).setDepth(1.2), { padding : { top : config.height*0.1, bottom: config.height*0.02 }, expand: false, })
+                    .add(this.add.sprite(0, 0, "mediumCheck").setDepth(1.2), 
+                        { expand: false, });
+                }else{
+                    levelObjects[i].add(this.add.text(0, 0, "Заблокировано", {
+                        fontFamily: 'font1',
+                        fontSize: '55px',
+                        color: "black",
+                        align: "center"
+                    }).setDepth(1.2), { padding : { top : config.height*0.1, bottom: config.height*0.02},  expand: false })
+                    .add(this.add.sprite(0, 0, "iconLock").setDepth(1.2), 
+                        { expand: false, });
+                }
+                    
+            }
+            // timur   x : config.width*0.518182,      y : config.height*0.145548
+            // timur_overlay   x : config.width*0.493939,      y : config.height*0.797945
+            // likes   x : config.width*0.224242,      y : config.height*0.496575
+            // gift    x : config.width*0.80303,       y : config.height*0.493151
+            // sq_1    x : config.width*0.924242,      y : config.height*0.501712
+            // this.load.image("openLevelButton", "UI_OpenLevelButton");
+            // this.load.image("iconLock", "Icon_Lock.png");
+            // this.load.image("mediumCheck", "Icon_MediumCheck.png");
+
+
+
+ 
+
+            var levelPanel = this.rexUI.add.scrollablePanel({
+                x : config.width*0.5,
+                y : config.height*0.5,
+
+                width : config.width, 
+                height : config.height,
+
+                scrollMode : 1,
+
+                background : this.add.sprite(0, 0, "LevelsBackground").setDepth(1), 
+
+                panel: {
+                    child: createLevels(this),
+                    mask: {
+                        padding: 0,
+                        updateMode: 0
+                    }
+                },
+
+                slider: false,
+
+                scroller: {
+                    threshold: 10,
+                    slidingDeceleration: 5000,
+                    backDeceleration: 2000,
+                },
+
+                clamplChildOY: false,
+
+                header: false,
+                footer: false,
+
+                space: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+
+                    panel: 0,
+                    // panel: {
+                    //    top: 0,
+                    //    bottom: 0,
+                    //    left: 0,
+                    //    right: 0,
+                    //},
+                    header: 0,
+                    footer: 0,
+                },
+
+                expand: {
+                    header: true,
+                    footer: true,
+                },
+
+                align: {
+                    header: 'center',
+                    footer: 'center',
+                },
+
+                // name: '',
+                draggable: false
+            }).layout();
+
+            function createLevels(scene){
+                var gridSizer = scene.rexUI.add.gridSizer({
+
+                    column: levelObjects.length,
+                    row: 1,
+                    rowProportions: 1,
+                    space: { column: config.width*0.12, 
+                            left: config.width*0.21, 
+                            right: config.width*0.21,
+                            top: config.height*0.15,
+                            bottom: config.height*0.2 },
+                    name: "sizer"   // Search this name to get table back
+                });
+
+                for(let i=0; i<levelObjects.length; i++){
+                    gridSizer.add(levelObjects[i]);
+                }
+
+                return gridSizer;
+            }
+
+            var levelsBackButton = this.add.sprite(config.width, config.height, "uiBackButton")
+                .setActive(false).setVisible(false).setDepth(1.1).setInteractive().setOrigin(1, 1);
+            levelPanel.setActive(false).setVisible(false);
 
         } // спавним элементы уровней
 
@@ -1650,7 +1975,6 @@ class MainScreen extends Phaser.Scene {
                 if (flag) {
                     upX = pointer.x;
                     upY = pointer.y;
-                    //console.log(upX);
                     if (upX < downX - threshold) {
                         slammingFridgeDoorObject.play("slamming");
                         setTimeout(function () {
@@ -1805,8 +2129,6 @@ class MainScreen extends Phaser.Scene {
 
             //check tiles clicks
             function challengeCheckTile(idx) {
-                console.log(idx);
-                console.log(challengeTilesIdxToNumber[idx]);
                 if (challengeTilesIdxToNumber[idx] == challengeCurrentNumber + 1) {
                     tiles[idx + 9].setInteractive(false);
                     indicators[challengeCurrentNumber + 27].setActive(true).setVisible(true);
@@ -1839,7 +2161,6 @@ class MainScreen extends Phaser.Scene {
                 //for each tile we choose random number from not used
                 for (i = 0; i < 9; i++) {
                     var randomNumber = Math.floor(Math.random() * (9 - i) - 0.0001);
-                    console.log(randomNumber);
                     for (j = 0; j < 9; j++) {
                         if (used[j] == false) {
                             if (randomNumber == 0) {
@@ -1852,8 +2173,6 @@ class MainScreen extends Phaser.Scene {
                         }
                     }
                 }
-                console.log(challengeTilesIdxToNumber);
-                console.log(challengeTileTexts);
 
                 //move texts on tiles
                 for (i = 0; i < 9; i++) {
@@ -1956,18 +2275,15 @@ class MainScreen extends Phaser.Scene {
             function startBot() {
                 var a = Math.random();
                 var i, time;
-                if (a < 0.1) {
+                if (a < 0.2) {
                     //fast (4-5 secs)
-                    console.log("fast bot");
                     time = 0;
                     for (i = 0; i < 9; i++) {
                         time += Math.random() / 9 + 4 / 9;
-                        console.log(time);
                         makeIndicatorOnAfter(i, time * 1000);
                     }
                 } else if (a < 0.7) {
                     //one stop (5-6.5 secs)
-                    console.log("medium bot");
                     time = 0;
                     var st1 = Math.round((Math.random() * 5 + 2));
                     for (i = 0; i < 9; i++) {
@@ -1981,7 +2297,6 @@ class MainScreen extends Phaser.Scene {
 
                 } else {
                     //two stops(6.5-8 secs)
-                    console.log("slow bot");
                     time = 0;
                     var st1 = Math.round((Math.random() * 2 + 1)),
                         st2 = Math.round((Math.random() * 2 + 5));
@@ -2009,7 +2324,6 @@ class MainScreen extends Phaser.Scene {
                 setTimeout(function () {
                     if (!flagEndGame) {
                         indicators[idx + 18].setActive(true).setVisible(true);
-                        console.log('on');
                     }
                 }, time);
 
@@ -2067,7 +2381,6 @@ class MainScreen extends Phaser.Scene {
                         break;
                     }
                 }
-                //console.log(cost);
                 text.setText(cost);
             } // получаем цену первого сломанного объекта и сохраняем этот объект в FixObjects
 
@@ -2209,13 +2522,88 @@ class MainScreen extends Phaser.Scene {
                 openUI();
             }); // при нажатии на кнопку назад - закрываем либо спины, либо магазин
 
-            uiSC.on("pointerdown", function openShop() {
-                uiBackShopButton.setActive(true).setVisible(true);
-                uiBackShopButton.setDepth(5);
-            }); // при нажатии на голду открываем заглушку
+            var prevUIScOpts, prevUIScTextOpts, prevEnergyTextOpts, prevEnergyOpts;
+            uiSC.on("pointerdown", function openShop(){
+                let i;
+                for(i=0; i<shopObjects.length; i++){
+                    shopObjects[i].setActive(true).setVisible(true);
+                }
+
+                for(i=0; i<6; i++){
+                    shopQuantityTexts[i].text=shopGoodOpts[i].quantity;
+                    shopQuantityTexts[i].setFontSize(70-(shopQuantityTexts[i].text.length*3.5));
+                    shopPrices[i].text=shopGoodOpts[i].price;
+                    var p = shopGoodOpts[i].price;
+                    if(p%10==1&&p%100!=11){
+                        shopNames[i].text="голос";
+                    }else if(p%10<5&&p%10>1&&Math.round(p%100/10)!=1){
+                        shopNames[i].text="голоса";
+                    }else{
+                        shopNames[i].text="голосов";
+                    }
+                }
+                for(i=0; i<9; i++){
+                    shopCoins[i].play("coinGlow");
+                    shopEnergies[i].play("energyGlow");
+                }
+                prevUIScOpts={"x":uiSC.x, "y":uiSC.y, "depth":uiSC.depth, "visibility":uiSC.active};
+                prevUIScTextOpts={"x":goldText0.x, "y":goldText0.y, "depth":goldText0.depth, "visibility":goldText0.active};
+
+                prevEnergyOpts={"x":uiEnergyBar.x, "y":uiEnergyBar.y, "depth":uiEnergyBar.depth, "visibility":uiEnergyBar.active};
+                prevEnergyTextOpts={"x":energyText0.x, "y":energyText0.y, "depth":energyText0.depth, "visibility":energyText0.active,
+                                    "origin": [energyText0.originX, energyText0.originY], "color":energyText0.style.color, "fontFamily":energyText0.style.fontFamily};
+                uiSC.disableInteractive();
+                uiSC.setDepth(4.2);
+                uiSC.setActive(true).setVisible(true);
+                uiSC.x=config.width*0.36;
+                uiSC.y=config.height*0.06;
+
+                uiEnergyBar.setActive(true).setVisible(true).setDepth(4.2);
+
+                uiEnergyBar.x=config.width*0.75;
+                uiEnergyBar.y=config.height*0.06;
+                
+
+                goldText0.setActive(true).setVisible(true);
+                goldText0.setDepth(4.3);
+                goldText0.setX(uiSC.x).setY(uiSC.y);
+
+                energyText0.x=uiEnergyBar.x;
+                energyText0.y=uiEnergyBar.y;
+                energyText0.setDepth(4.3);
+                energyText0.setActive(true).setVisible(true);
+                energyText0.setFontFamily("font1");
+                energyText0.setColor("white");
+                energyText0.setOrigin(0.25, 0.5);
+
+                
+                
+            }); // при нажатии на голду открываем магазин 
 
             uiBackShopButton.on("pointerdown", function closeShop() {
-                uiBackShopButton.setActive(false).setVisible(false);
+                var i;
+                for(i=0; i<shopObjects.length; i++){
+                    shopObjects[i].setActive(false).setVisible(false);
+                }
+                uiSC.setX(prevUIScOpts.x).setY(prevUIScOpts.y);
+                uiSC.setActive(prevUIScOpts.visibility).setVisible(prevUIScOpts.visibility);
+                uiSC.setDepth(prevUIScOpts.depth);
+                uiSC.setInteractive();
+
+                goldText0.setActive(prevUIScTextOpts.visibility).setVisible(prevUIScTextOpts.visibility);
+                goldText0.setX(prevUIScTextOpts.x).setY(prevUIScTextOpts.y);
+                goldText0.setDepth(prevUIScTextOpts.depth);
+
+                uiEnergyBar.setX(prevEnergyOpts.x).setY(prevEnergyOpts.y);
+                uiEnergyBar.setActive(prevEnergyOpts.visibility).setVisible(prevEnergyOpts.visibility);
+                uiEnergyBar.setDepth(prevEnergyOpts.depth);
+
+                energyText0.setX(prevEnergyTextOpts.x).setY(prevEnergyTextOpts.y);
+                energyText0.setActive(prevEnergyTextOpts.visibility).setVisible(prevEnergyTextOpts.visibility);
+                energyText0.setDepth(prevEnergyTextOpts.depth);
+                energyText0.setColor(prevEnergyTextOpts.color);
+                energyText0.setOrigin(prevEnergyTextOpts.origin[0], prevEnergyTextOpts.origin[1]);
+                energyText0.setFontFamily(prevEnergyTextOpts.fontFamily);
             });
 
             {
@@ -2239,7 +2627,6 @@ class MainScreen extends Phaser.Scene {
 
                         smoke.on('animationcomplete', function () {
                             smoke.setActive(false).setVisible(false);
-                            console.log("finish");
                         });
                         var r = Math.random();
                         if (max < r) {
@@ -2266,7 +2653,6 @@ class MainScreen extends Phaser.Scene {
                 } // функция начала улучшения предмета
 
                 function finishUpgrade(element, newElement, upgradeBar, upgradeText) {
-                    console.log("f");
                     FixObjects["AreFixed"][FixObjects["CurrentObject"]] = true;
                     getNextCost(upgradeText);
                     if (uiCloseButton.visible && upgradeText.text != '-1') {
@@ -2297,8 +2683,57 @@ class MainScreen extends Phaser.Scene {
                 }); // при нажатии на Ремонт в меню переходим в ремонт
 
                 buyMenuText.on("pointerdown", function openShop() {
-                    uiBackShopButton.setActive(true).setVisible(true);
-                    uiBackShopButton.setDepth(5);
+                    let i;
+                    for(i=0; i<shopObjects.length; i++){
+                        shopObjects[i].setActive(true).setVisible(true);
+                    }
+
+                    for(i=0; i<6; i++){
+                        shopQuantityTexts[i].text=shopGoodOpts[i].quantity;
+                        shopQuantityTexts[i].setFontSize(70-(shopQuantityTexts[i].text.length*3.5));
+                        shopPrices[i].text=shopGoodOpts[i].price;
+                        var p = shopGoodOpts[i].price;
+                        if(p%10==1&&p%100!=11){
+                            shopNames[i].text="голос";
+                        }else if(p%10<5&&p%10>1&&Math.round(p%100/10)!=1){
+                            shopNames[i].text="голоса";
+                        }else{
+                            shopNames[i].text="голосов";
+                        }
+                    }
+                    for(i=0; i<9; i++){
+                        shopCoins[i].play("coinGlow");
+                        shopEnergies[i].play("energyGlow");
+                    }
+                    prevUIScOpts={"x":uiSC.x, "y":uiSC.y, "depth":uiSC.depth, "visibility":uiSC.active};
+                    prevUIScTextOpts={"x":goldText0.x, "y":goldText0.y, "depth":goldText0.depth, "visibility":goldText0.active};
+
+                    prevEnergyOpts={"x":uiEnergyBar.x, "y":uiEnergyBar.y, "depth":uiEnergyBar.depth, "visibility":uiEnergyBar.active};
+                    prevEnergyTextOpts={"x":energyText0.x, "y":energyText0.y, "depth":energyText0.depth, "visibility":energyText0.active,
+                                        "origin": [energyText0.originX, energyText0.originY], "color":energyText0.style.color, "fontFamily":energyText0.style.fontFamily};
+                    uiSC.disableInteractive();
+                    uiSC.setDepth(4.2);
+                    uiSC.setActive(true).setVisible(true);
+                    uiSC.x=config.width*0.36;
+                    uiSC.y=config.height*0.06;
+
+                    uiEnergyBar.setActive(true).setVisible(true).setDepth(4.2);
+
+                    uiEnergyBar.x=config.width*0.75;
+                    uiEnergyBar.y=config.height*0.06;
+                    
+
+                    goldText0.setActive(true).setVisible(true);
+                    goldText0.setDepth(4.3);
+                    goldText0.setX(uiSC.x).setY(uiSC.y);
+
+                    energyText0.x=uiEnergyBar.x;
+                    energyText0.y=uiEnergyBar.y;
+                    energyText0.setDepth(4.3);
+                    energyText0.setActive(true).setVisible(true);
+                    energyText0.setFontFamily("font1");
+                    energyText0.setColor("white");
+                    energyText0.setOrigin(0.25, 0.5);
                 }); // При нажатии на купить переходим в покупку
 
                 playMenuText.on("pointerdown", function openSpins() {
@@ -2318,7 +2753,7 @@ class MainScreen extends Phaser.Scene {
                 }
 
                 settingsMenuText.on("pointerdown", function () {
-                    console.log("settings");
+
                     touchBar.setActive(false).setVisible(false);
                     closeUI();
                     menu.setVisible(false).setVisible(false);
@@ -2328,21 +2763,18 @@ class MainScreen extends Phaser.Scene {
 
                 soundToggleOn.on("pointerdown", function () {
                     soundFlag = !soundFlag;
-                    console.log("sound: " + soundFlag);
                     soundToggleOff.setActive(true).setVisible(true);
                     soundToggleOn.setActive(false).setVisible(false);
                 });
 
                 soundToggleOff.on("pointerdown", function () {
                     soundFlag = !soundFlag;
-                    console.log("sound: " + soundFlag);
                     soundToggleOn.setActive(true).setVisible(true);
                     soundToggleOff.setActive(false).setVisible(false);
                 });
 
                 musicToggleOn.on("pointerdown", function () {
                     musicFlag = !musicFlag;
-                    console.log("music: " + musicFlag);
                     musicToggleOff.setActive(true).setVisible(true);
                     musicToggleOn.setActive(false).setVisible(false);
                 });
@@ -2350,7 +2782,6 @@ class MainScreen extends Phaser.Scene {
                 musicToggleOff.on("pointerdown", function () {
 
                     musicFlag = !musicFlag;
-                    console.log("music: " + musicFlag);
                     musicToggleOn.setActive(true).setVisible(true);
                     musicToggleOff.setActive(false).setVisible(false);
                 });
@@ -2386,6 +2817,25 @@ class MainScreen extends Phaser.Scene {
                         settingsObjects[i].setVisible(false).setActive(false);
                     }
                 }
+
+                levelsMenuText.on("pointerdown", function openMenu() {
+                    touchBar.setActive(false).setVisible(false);
+                    closeUI();
+                    menu.setVisible(false).setVisible(false);
+                    uiMenuBar.setActive(false).setVisible(false);
+                    
+                    levelsBackButton.setVisible(true).setActive(true);
+                    levelPanel.setVisible(true).setActive(true);
+                }); // при нажатии на уровни, переходим к уровням
+
+                levelsBackButton.on("pointerdown", function () {
+                    levelsBackButton.setVisible(false).setActive(false);
+                    levelPanel.setVisible(false).setActive(false);
+                    openUI();
+                    uiSC.setActive(true).setVisible(true);
+                    goldText0
+                        .setActive(true).setVisible(true);
+                });
 
 
 
@@ -2477,6 +2927,26 @@ class MainScreen extends Phaser.Scene {
                             .x - 280);
                 });
             } // взаимодействия на экране крафтов
+
+            {
+                goodUnderlays[0].on("pointerdown", function(){shopBuy(0)});
+                goodUnderlays[1].on("pointerdown", function(){shopBuy(1)});
+                goodUnderlays[2].on("pointerdown", function(){shopBuy(2)});
+
+                goodUnderlays[3].on("pointerdown", function(){shopBuy(3)});
+                goodUnderlays[4].on("pointerdown", function(){shopBuy(4)});
+                goodUnderlays[5].on("pointerdown", function(){shopBuy(5)});
+
+                function shopBuy(idx){
+                    if(idx<3){
+                        //energy
+                        gameSettings.currEnergy+=parseInt(shopQuantityTexts[idx].text);
+                    }else{
+                        // money
+                        gameSettings.currGold+=parseInt(shopQuantityTexts[idx].text);
+                    }
+                }
+            } // взамодействия магазина
 
         } // взаимодействия объектов
     }
