@@ -323,7 +323,7 @@ class MainScreen extends Phaser.Scene {
         {
             this.load.spritesheet("uiMenuBar", "assets/UI/UI_Menu.png", {
                 frameWidth: 314,
-                frameHeight: 622,
+                frameHeight: 622
             });
 
             this.load.spritesheet("iconSettings", "assets/Icons/Icon_Settings.png", {
@@ -1333,7 +1333,7 @@ class MainScreen extends Phaser.Scene {
 
             } // анимации
 
-            var spinGroup = this.add.group([spinsBG, fridgeRear, fridgeFrame, fridgeShadow, /*fridgeDoor*/ /*slammingFridgeDoorObject,*/ spinButton, energyBar, energyIcon, energyText0, firstSlot1, secondSlot1, thirdSlot1, firstSlot2, secondSlot2, thirdSlot2, firstSlot3, secondSlot3, thirdSlot3, firstSlotB1, secondSlotB1, firstSlotB2, secondSlotB2, firstSlotB3, secondSlotB3]);
+            var spinGroup = this.add.group([spinsBG, fridgeRear, fridgeFrame, fridgeShadow, /*fridgeDoor*/ slammingFridgeDoorObject, spinButton, energyBar, energyIcon, energyText0, firstSlot1, secondSlot1, thirdSlot1, firstSlot2, secondSlot2, thirdSlot2, firstSlot3, secondSlot3, thirdSlot3, firstSlotB1, secondSlotB1, firstSlotB2, secondSlotB2, firstSlotB3, secondSlotB3]);
 
         } // спавним экраны
 
