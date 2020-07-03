@@ -1820,89 +1820,7 @@ class MainScreen extends Phaser.Scene {
 
 
             levelObjects = [];
-            for(let i=0; i<levelTexts.length; i++){
-                let rows=4, proportions=[5, 0, 2, 8];
-                if(gameSettings.currentLevel==i){
-                    rows=3;
-                    proportions=[1, 0, 2];
-                }
-                levelObjects[i] = _scene.rexUI.add.gridSizer({
-                    height : config.height*0.65,
-                    width : config.width*0.58,
-                    column: 1,
-                    row: rows,
-                    rowProportions: proportions,
-                    space: { column: 0, row: 0, top: config.height*0.3 },
-                    name: i  // Search this name to get table back
-                })
-                    .addBackground(levelDoorObjects[i], { expand: false })
-                    .add(levelTextObjects[i], { expand: false, })
-                    .add(_scene.rexUI.add.roundRectangle(0, 0, config.width*0.58, 0, 0, 0x000000).setDepth(1.2), 
-                        { expand: false }, {align: 'center'});
-                if(gameSettings.currentLevel==i){
-                    let button = _scene.rexUI.add.overlapSizer({})
-                        .add(levelEnterButton, 'bg', 'center').add(levelEnterText, {align: 'center', expand: false});
-                    levelObjects[i].add(button, { expand: false, });
-                }else if(gameSettings.currentLevel>i){
-                    levelObjects[i].add(_scene.add.text(0, 0, "Пройдено", {
-                                        fontFamily: 'font1',
-                                        fontSize: '55px',
-                                        color: "black",
-                                        align: "center"
-                                    }).setDepth(1.2), { padding : { top : config.height*0.1, bottom: config.height*0.02 }, expand: false, })
-                    .add(_scene.add.sprite(0, 0, "mediumCheck").setDepth(1.2), { expand: false, });
-                }else{
-                    levelObjects[i].add(_scene.add.text(0, 0, "Заблокировано", {
-                                        fontFamily: 'font1',
-                                        fontSize: '55px',
-                                        color: "black",
-                                        align: "center"
-                                    }).setDepth(1.2), { padding : { top : config.height*0.1, bottom: config.height*0.02},  expand: false })
-                    .add(_scene.add.sprite(0, 0, "iconLock").setDepth(1.2), { expand: false, });
-                }
-                    
-            }
-
-            levelPanel = _scene.rexUI.add.scrollablePanel({
-                x : config.width*0.5,
-                y : config.height*0.5,
-
-                width : config.width, 
-                height : config.height,
-
-                scrollMode : 1,
-
-                background : levelBackground, 
-
-                panel: {
-                    child: createLevels(_scene),
-                },
-
-            }).layout();
-
-            function createLevels(scene){
-                var gridSizer = scene.rexUI.add.gridSizer({
-
-                    column: levelObjects.length,
-                    row: 1,
-                    rowProportions: 1,
-                    space: { column: config.width*0.12, 
-                            left: config.width*0.21, 
-                            right: config.width*0.21,
-                            top: config.height*0.15,
-                            bottom: config.height*0.2 },
-                    name: "sizer"   // Search this name to get table back
-                });
-
-                for(let i=0; i<levelObjects.length; i++){
-                    gridSizer.add(levelObjects[i]);
-                }
-
-                return gridSizer;
-            }
-
-            levelPanel.setActive(false).setVisible(false);
-
+            
             // timur   x : config.width*0.518182,      y : config.height*0.145548
             // timur_overlay   x : config.width*0.493939,      y : config.height*0.797945
             // likes   x : config.width*0.224242,      y : config.height*0.496575
@@ -2848,7 +2766,7 @@ class MainScreen extends Phaser.Scene {
 
                         scrollMode : 1,
 
-                        background : levelBackground, 
+                        background : levelBackground.setVisible(true).setActive(true), 
 
                         panel: {
                             child: createLevels(_scene),
