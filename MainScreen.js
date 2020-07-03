@@ -965,11 +965,9 @@ class MainScreen extends Phaser.Scene {
 
             var uiBackSpinButton = this.add.sprite(config.width * 0.9, config.height * 0.95, "uiBackButton");
             uiBackSpinButton.setInteractive();
-            uiBackSpinButton.setActive(false).setVisible(false).setDepth(1.11);
+            uiBackSpinButton.setActive(false).setVisible(false).setDepth(2);
 
-            var uiBackShopButton = this.add.sprite(config.width * 0.9, config.height * 0.95, "uiBackButton");
-            uiBackShopButton.setInteractive();
-            uiBackShopButton.setActive(false).setVisible(false);
+            
 
             var uiMenuBar = this.add.sprite(config.width * 0.85, config.height / 2, "uiMenuBar");
             uiMenuBar.setScale(3.6);
@@ -1091,8 +1089,8 @@ class MainScreen extends Phaser.Scene {
             // var fridgeDoor = this.add.sprite(config.width * 1.02, config.height * 0.55, "fridgeDoor");
             // fridgeDoor.setActive(false).setVisible(false).setInteractive().setDepth(1.08);
 
-            var slammingFridgeDoorObject = this.add.sprite(config.width * 0.645, config.height * 0.54, "slammingFridgeDoor")
-            slammingFridgeDoorObject.setActive(false).setVisible(false).setInteractive().setDepth(1.105); //Depth to be higher than spinButton
+            var slammingFridgeDoorObject = this.add.sprite(config.width * 0.655, config.height * 0.54, "slammingFridgeDoor")
+            slammingFridgeDoorObject.setActive(false).setVisible(false).setInteractive().setDepth(1.19); //Depth to be higher than spinButton
 
             var flag = false;
 
@@ -1646,7 +1644,7 @@ class MainScreen extends Phaser.Scene {
 
             var uiBackShopButton = this.add.sprite(config.width, config.height, "uiBackButton");
             uiBackShopButton.setInteractive();
-            uiBackShopButton.setActive(false).setVisible(false).setDepth(4.2).setOrigin(1.0, 1.0);
+            uiBackShopButton.setActive(false).setVisible(false).setDepth(5).setOrigin(1.0, 1.0);
 
             var shopBG = this.add.sprite(config.width*0.5, config.height*0.5, "challengeDefeatBG");
             shopBG.setActive(false).setVisible(false).setDepth(4.1).setOrigin(0.5, 0.5).setInteractive();
@@ -1791,17 +1789,44 @@ class MainScreen extends Phaser.Scene {
 
         {
             var levelTexts=["Русская\nкухня", "Украинская\nкухня", "Новогодняя\nкухня"];
+            var _scene = this;
+            var levelObjects;
+            var levelPanel;
+            var levelTextObjects = [];
+            var levelDoorObjects = [];
             
-            var levelCurrent=1;
+            var levelEnterText = this.add.text(0, 0, "Зайти", {
+                                    fontFamily: 'font1',
+                                    fontSize: '70px',
+                                    color: "white",
+                                    align: "center"
+                                }).setDepth(1.3).setVisible(false).setActive(false);
+            var levelEnterButton = this.add.sprite(0, 0, "openLevelButton").setDepth(1.2).setInteractive().setVisible(false).setActive(false);
 
-            var levelObjects = [];
+            var levelBackground =  this.add.sprite(0, 0, "LevelsBackground").setDepth(1).setVisible(false).setActive(false);
+
+            
+
+            for(let i=0; i<levelTexts.length; i++){
+                levelTextObjects[i] = this.add.text(0, 0, levelTexts[i], {
+                                        fontFamily: 'font1',
+                                        fontSize: '65px',
+                                        color: "black",
+                                        align: "center"
+                                    }).setDepth(1.2).setVisible(false).setActive(false);
+                levelDoorObjects[i] = this.add.sprite(0, 0, "Door"+(i+1)).setDepth(1.1).setVisible(false).setActive(false);
+            }
+
+
+
+            levelObjects = [];
             for(let i=0; i<levelTexts.length; i++){
                 let rows=4, proportions=[5, 0, 2, 8];
-                if(levelCurrent==i){
+                if(gameSettings.currentLevel==i){
                     rows=3;
                     proportions=[1, 0, 2];
                 }
-                levelObjects[i] = this.rexUI.add.gridSizer({
+                levelObjects[i] = _scene.rexUI.add.gridSizer({
                     height : config.height*0.65,
                     width : config.width*0.58,
                     column: 1,
@@ -1810,58 +1835,35 @@ class MainScreen extends Phaser.Scene {
                     space: { column: 0, row: 0, top: config.height*0.3 },
                     name: i  // Search this name to get table back
                 })
-                    .addBackground(this.add.sprite(0, 0, "Door"+(i+1)).setDepth(1.1), 
-                        { expand: false })
-                    .add(this.add.text(0, 0, levelTexts[i], {
-                        fontFamily: 'font1',
-                        fontSize: '65px',
-                        color: "black",
-                        align: "center"
-                    }).setDepth(1.2), { 
-                        expand: false, 
-                    })
-                    .add(this.rexUI.add.roundRectangle(0, 0, config.width*0.58, 0, 0, 0x000000).setDepth(1.2), 
+                    .addBackground(levelDoorObjects[i], { expand: false })
+                    .add(levelTextObjects[i], { expand: false, })
+                    .add(_scene.rexUI.add.roundRectangle(0, 0, config.width*0.58, 0, 0, 0x000000).setDepth(1.2), 
                         { expand: false }, {align: 'center'});
-                if(levelCurrent==i){
-                    // let button = this.rexUI.add.gridSizer({});
-                    levelObjects[i].add(this.add.sprite(0, 0, "openLevelButton").setDepth(1.2), { 
-                        expand: false, 
-                    });
-                }else if(levelCurrent>i){
-                    levelObjects[i].add(this.add.text(0, 0, "Пройдено", {
-                        fontFamily: 'font1',
-                        fontSize: '55px',
-                        color: "black",
-                        align: "center"
-                    }).setDepth(1.2), { padding : { top : config.height*0.1, bottom: config.height*0.02 }, expand: false, })
-                    .add(this.add.sprite(0, 0, "mediumCheck").setDepth(1.2), 
-                        { expand: false, });
+                if(gameSettings.currentLevel==i){
+                    let button = _scene.rexUI.add.overlapSizer({})
+                        .add(levelEnterButton, 'bg', 'center').add(levelEnterText, {align: 'center', expand: false});
+                    levelObjects[i].add(button, { expand: false, });
+                }else if(gameSettings.currentLevel>i){
+                    levelObjects[i].add(_scene.add.text(0, 0, "Пройдено", {
+                                        fontFamily: 'font1',
+                                        fontSize: '55px',
+                                        color: "black",
+                                        align: "center"
+                                    }).setDepth(1.2), { padding : { top : config.height*0.1, bottom: config.height*0.02 }, expand: false, })
+                    .add(_scene.add.sprite(0, 0, "mediumCheck").setDepth(1.2), { expand: false, });
                 }else{
-                    levelObjects[i].add(this.add.text(0, 0, "Заблокировано", {
-                        fontFamily: 'font1',
-                        fontSize: '55px',
-                        color: "black",
-                        align: "center"
-                    }).setDepth(1.2), { padding : { top : config.height*0.1, bottom: config.height*0.02},  expand: false })
-                    .add(this.add.sprite(0, 0, "iconLock").setDepth(1.2), 
-                        { expand: false, });
+                    levelObjects[i].add(_scene.add.text(0, 0, "Заблокировано", {
+                                        fontFamily: 'font1',
+                                        fontSize: '55px',
+                                        color: "black",
+                                        align: "center"
+                                    }).setDepth(1.2), { padding : { top : config.height*0.1, bottom: config.height*0.02},  expand: false })
+                    .add(_scene.add.sprite(0, 0, "iconLock").setDepth(1.2), { expand: false, });
                 }
                     
             }
-            // timur   x : config.width*0.518182,      y : config.height*0.145548
-            // timur_overlay   x : config.width*0.493939,      y : config.height*0.797945
-            // likes   x : config.width*0.224242,      y : config.height*0.496575
-            // gift    x : config.width*0.80303,       y : config.height*0.493151
-            // sq_1    x : config.width*0.924242,      y : config.height*0.501712
-            // this.load.image("openLevelButton", "UI_OpenLevelButton");
-            // this.load.image("iconLock", "Icon_Lock.png");
-            // this.load.image("mediumCheck", "Icon_MediumCheck.png");
 
-
-
- 
-
-            var levelPanel = this.rexUI.add.scrollablePanel({
+            levelPanel = _scene.rexUI.add.scrollablePanel({
                 x : config.width*0.5,
                 y : config.height*0.5,
 
@@ -1870,58 +1872,12 @@ class MainScreen extends Phaser.Scene {
 
                 scrollMode : 1,
 
-                background : this.add.sprite(0, 0, "LevelsBackground").setDepth(1), 
+                background : levelBackground, 
 
                 panel: {
-                    child: createLevels(this),
-                    mask: {
-                        padding: 0,
-                        updateMode: 0
-                    }
+                    child: createLevels(_scene),
                 },
 
-                slider: false,
-
-                scroller: {
-                    threshold: 10,
-                    slidingDeceleration: 5000,
-                    backDeceleration: 2000,
-                },
-
-                clamplChildOY: false,
-
-                header: false,
-                footer: false,
-
-                space: {
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
-
-                    panel: 0,
-                    // panel: {
-                    //    top: 0,
-                    //    bottom: 0,
-                    //    left: 0,
-                    //    right: 0,
-                    //},
-                    header: 0,
-                    footer: 0,
-                },
-
-                expand: {
-                    header: true,
-                    footer: true,
-                },
-
-                align: {
-                    header: 'center',
-                    footer: 'center',
-                },
-
-                // name: '',
-                draggable: false
             }).layout();
 
             function createLevels(scene){
@@ -1945,10 +1901,19 @@ class MainScreen extends Phaser.Scene {
                 return gridSizer;
             }
 
-            var levelsBackButton = this.add.sprite(config.width, config.height, "uiBackButton")
-                .setActive(false).setVisible(false).setDepth(1.1).setInteractive().setOrigin(1, 1);
             levelPanel.setActive(false).setVisible(false);
 
+            // timur   x : config.width*0.518182,      y : config.height*0.145548
+            // timur_overlay   x : config.width*0.493939,      y : config.height*0.797945
+            // likes   x : config.width*0.224242,      y : config.height*0.496575
+            // gift    x : config.width*0.80303,       y : config.height*0.493151
+            // sq_1    x : config.width*0.924242,      y : config.height*0.501712
+            // this.load.image("openLevelButton", "UI_OpenLevelButton");
+            // this.load.image("iconLock", "Icon_Lock.png");
+            // this.load.image("mediumCheck", "Icon_MediumCheck.png");
+
+            var levelsBackButton = this.add.sprite(config.width, config.height, "uiBackButton")
+                .setActive(false).setVisible(false).setDepth(1.1).setInteractive().setOrigin(1, 1);
         } // спавним элементы уровней
 
 
@@ -2241,8 +2206,8 @@ class MainScreen extends Phaser.Scene {
                 spinsBG.setActive(true).setVisible(true);
                 uiBackSpinButton.setActive(true).setVisible(true);
                 uiSC.setActive(true).setVisible(true);
-                uiSC.setX(config.width / 2).setY(config.height * 0.06).setDepth(1.1);
-                goldText0.setActive(true).setVisible(true).setDepth(1.11).setX(config.width / 2).setY(config.height * 0.06);
+                uiSC.setX(config.width / 2).setY(config.height * 0.06).setDepth(1.2);
+                goldText0.setActive(true).setVisible(true).setDepth(1.21).setX(config.width / 2).setY(config.height * 0.06);
                 spinGroup.getChildren().forEach(setAllVisible);
 
                 function setAllVisible(element, index) {
@@ -2440,7 +2405,7 @@ class MainScreen extends Phaser.Scene {
 
                 spinsBG.setInteractive();
                 spinsBG.setActive(true).setVisible(true);
-                uiBackSpinButton.setActive(true).setVisible(true).setDepth(1.11);
+                uiBackSpinButton.setActive(true).setVisible(true).setDepth(2);
                 uiSC.setActive(true).setVisible(true);
 
                 spinGroup.getChildren().forEach(setAllVisible);
@@ -2448,8 +2413,8 @@ class MainScreen extends Phaser.Scene {
                 function setAllVisible(element, index) {
                     element.setActive(true).setVisible(true);
                 };
-                uiSC.setX(config.width / 2).setY(config.height * 0.06).setDepth(1.1);
-                goldText0.setActive(true).setVisible(true).setDepth(1.11).setX(config.width / 2).setY(config.height * 0.06);
+                uiSC.setX(config.width / 2).setY(config.height * 0.06).setDepth(1.2);
+                goldText0.setActive(true).setVisible(true).setDepth(1.21).setX(config.width / 2).setY(config.height * 0.06);
                 closeUI();
             }); //если нажимаем кнопку "play", то открываются спины
 
@@ -2824,11 +2789,109 @@ class MainScreen extends Phaser.Scene {
                     menu.setVisible(false).setVisible(false);
                     uiMenuBar.setActive(false).setVisible(false);
                     
+                    updateLevels();
                     levelsBackButton.setVisible(true).setActive(true);
                     levelPanel.setVisible(true).setActive(true);
                 }); // при нажатии на уровни, переходим к уровням
 
+                function updateLevels(){
+                    levelObjects = [];
+                    for(let i=0; i<levelTexts.length; i++){
+                        let rows=4, proportions=[5, 0, 2, 8];
+                        if(gameSettings.currentLevel==i){
+                            rows=3;
+                            proportions=[1, 0, 2];
+                        }
+                        levelObjects[i] = _scene.rexUI.add.gridSizer({
+                            height : config.height*0.65,
+                            width : config.width*0.58,
+                            column: 1,
+                            row: rows,
+                            rowProportions: proportions,
+                            space: { column: 0, row: 0, top: config.height*0.3 },
+                            name: i  // Search this name to get table back
+                        })
+                            .addBackground(levelDoorObjects[i], { expand: false })
+                            .add(levelTextObjects[i], { expand: false, })
+                            .add(_scene.rexUI.add.roundRectangle(0, 0, config.width*0.58, 0, 0, 0x000000).setDepth(1.2), 
+                                { expand: false }, {align: 'center'});
+                        if(gameSettings.currentLevel==i){
+                            let button = _scene.rexUI.add.overlapSizer({})
+                                .add(levelEnterButton, 'bg', 'center').add(levelEnterText, {align: 'center', expand: false});
+                            levelObjects[i].add(button, { expand: false, });
+                        }else if(gameSettings.currentLevel>i){
+                            levelObjects[i].add(_scene.add.text(0, 0, "Пройдено", {
+                                                fontFamily: 'font1',
+                                                fontSize: '55px',
+                                                color: "black",
+                                                align: "center"
+                                            }).setDepth(1.2), { padding : { top : config.height*0.1, bottom: config.height*0.02 }, expand: false, })
+                            .add(_scene.add.sprite(0, 0, "mediumCheck").setDepth(1.2), { expand: false, });
+                        }else{
+                            levelObjects[i].add(_scene.add.text(0, 0, "Заблокировано", {
+                                                fontFamily: 'font1',
+                                                fontSize: '55px',
+                                                color: "black",
+                                                align: "center"
+                                            }).setDepth(1.2), { padding : { top : config.height*0.1, bottom: config.height*0.02},  expand: false })
+                            .add(_scene.add.sprite(0, 0, "iconLock").setDepth(1.2), { expand: false, });
+                        }
+                            
+                    }
+
+                    levelPanel = _scene.rexUI.add.scrollablePanel({
+                        x : config.width*0.5,
+                        y : config.height*0.5,
+
+                        width : config.width, 
+                        height : config.height,
+
+                        scrollMode : 1,
+
+                        background : levelBackground, 
+
+                        panel: {
+                            child: createLevels(_scene),
+                        },
+
+                    }).layout();
+
+                    function createLevels(scene){
+                        var gridSizer = scene.rexUI.add.gridSizer({
+
+                            column: levelObjects.length,
+                            row: 1,
+                            rowProportions: 1,
+                            space: { column: config.width*0.12, 
+                                    left: config.width*0.21, 
+                                    right: config.width*0.21,
+                                    top: config.height*0.15,
+                                    bottom: config.height*0.2 },
+                            name: "sizer"   // Search this name to get table back
+                        });
+
+                        for(let i=0; i<levelObjects.length; i++){
+                            gridSizer.add(levelObjects[i]);
+                        }
+
+                        return gridSizer;
+                    }
+
+                    levelPanel.setActive(false).setVisible(false);
+
+                } // recreate Levels
+
                 levelsBackButton.on("pointerdown", function () {
+                    levelsBackButton.setVisible(false).setActive(false);
+                    levelPanel.setVisible(false).setActive(false);
+                    openUI();
+                    uiSC.setActive(true).setVisible(true);
+                    goldText0
+                        .setActive(true).setVisible(true);
+                });
+
+                levelEnterButton.on("pointerdown", function () {
+                    gameSettings.currentLevel++;
                     levelsBackButton.setVisible(false).setActive(false);
                     levelPanel.setVisible(false).setActive(false);
                     openUI();
