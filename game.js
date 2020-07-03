@@ -1,13 +1,13 @@
 var gameSettings = {
     currGold: 10000,
     currEnergy: 60,
-    currPage: 0,
+    notificationsAmount: 0,
     currentCraftPage: 0
 }
 
 var config = {
-    width: 1080,
-    height: 1920,
+    width: window.innerWidth,
+    height: window.innerHeight,
     renderer: Phaser.AUTO,
     backgroundColor: 0x000000,
     scene: [LoadingScreen,MainScreen],
