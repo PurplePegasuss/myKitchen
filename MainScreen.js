@@ -829,7 +829,7 @@ class MainScreen extends Phaser.Scene {
             uiGift.setInteractive();
 
             var uiEnergyBar = this.add.sprite(config.width * 0.75, config.height * 0.04, "uiEnergyBar");
-            uiEnergyBar.setActive(false).setVisible(false);
+            uiEnergyBar.setActive(false).setVisible(false).setDepth(1.1);
 
             var uiNotificationsUnderlay = this.add.sprite(config.width / 2, config.height / 2, "uiNotification");
             uiNotificationsUnderlay.setActive(false).setVisible(false);
