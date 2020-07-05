@@ -340,7 +340,7 @@ class MainScreen extends Phaser.Scene {
                 frameWidth: 78,
                 frameHeight: 93,
             });
-            this.load.spritesheet("iconAllert", "assets/Icons/Icon_Sound.png", {
+            this.load.spritesheet("iconNotifications", "assets/Icons/Icon_SmallGift.png", {
                 frameWidth: 86,
                 frameHeight: 86,
             });
@@ -523,9 +523,9 @@ class MainScreen extends Phaser.Scene {
         } // Shop Preload
 
         {
-            this.load.scenePlugin('rexuiplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js', 
+            this.load.scenePlugin('rexuiplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js',
                 'rexUI', 'rexUI');
-            
+
             this.load.image("LevelsBackground", "assets/Objects/Object_LevelsBackground.png");
             this.load.image("Door1", "assets/Objects/Object_BasicDoor.png");
             this.load.image("Door2", "assets/Objects/Object_RussianDoor.png");
@@ -542,34 +542,37 @@ class MainScreen extends Phaser.Scene {
     create() {
 
         {
+            var scaleCoeff = Math.min(config.width / 1080, config.height / 1920);
+
             var unfixedWall = this.add.sprite(0, 0, "unfixedWall");
-            unfixedWall.setOrigin(0, 0);
+            unfixedWall.setOrigin(0, 0).setScale(unfixedWall.scale * scaleCoeff);
 
             var fixedWall = this.add.sprite(0, 0, "fixedWall");
             fixedWall.setOrigin(0, 0);
-            fixedWall.setActive(false).setVisible(false);
+            fixedWall.setActive(false).setVisible(false).setScale(fixedWall.scale * scaleCoeff);
 
             var floor = this.add.sprite(0, config.height * 0.55, "floor");
-            floor.setOrigin(0, 0);
+            floor.setOrigin(0, 0).setScale(floor.scale * scaleCoeff);
 
             var unfixedWindow = this.add.sprite(config.width * 0.25, config.height * 0.23, "unfixedWindow");
+            unfixedWindow.setScale(unfixedWindow.scale * scaleCoeff);
 
             var fixedWindow = this.add.sprite(config.width * 0.25, config.height * 0.23, "fixedWindow");
-            fixedWindow.setActive(false).setVisible(false);
+            fixedWindow.setActive(false).setVisible(false).setScale(fixedWindow.scale * scaleCoeff);
 
 
             var unfixedKitchen = this.add.sprite(0, 0, "unfixedKitchen");
-            unfixedKitchen.setOrigin(0, 0);
+            unfixedKitchen.setOrigin(0, 0).setScale(unfixedKitchen.scale * scaleCoeff);
 
             var fixedKitchen = this.add.sprite(0, 0, "fixedKitchen");
             fixedKitchen.setOrigin(0, 0);
-            fixedKitchen.setActive(false).setVisible(false);
+            fixedKitchen.setActive(false).setVisible(false).setScale(fixedKitchen.scale * scaleCoeff);
 
             var unfixedTable = this.add.sprite(config.width * 0.5, config.height * 0.78, "unfixedTable");
-
+            unfixedTable.setScale(unfixedTable.scale * scaleCoeff);
 
             var fixedTable = this.add.sprite(config.width * 0.5, config.height * 0.78, "fixedTable");
-            fixedTable.setActive(false).setVisible(false);
+            fixedTable.setActive(false).setVisible(false).setScale(fixedTable.scale * scaleCoeff);
 
             //building smoke objects
             var buildingSmokeTable1, buildingSmokeTable2, buildingSmokeTable3, buildingSmokeTable4, buildingSmokeTable5,
@@ -762,28 +765,28 @@ class MainScreen extends Phaser.Scene {
                 optsArr = buildingSmokes.table.optsArr;
             for (i = 0; i < arr.length; i++) {
                 arr[i] = this.add.sprite(optsArr[i].x, optsArr[i].y, "building");
-                arr[i].setActive(false).setVisible(false).setScale(optsArr[i].scale);
+                arr[i].setActive(false).setVisible(false).setScale(optsArr[i].scale * scaleCoeff);
             }
 
             //wall
             arr = buildingSmokes.wall.objArr, optsArr = buildingSmokes.wall.optsArr;
             for (i = 0; i < arr.length; i++) {
                 arr[i] = this.add.sprite(optsArr[i].x, optsArr[i].y, "building");
-                arr[i].setActive(false).setVisible(false).setScale(optsArr[i].scale);
+                arr[i].setActive(false).setVisible(false).setScale(optsArr[i].scale * scaleCoeff);
             }
 
             //kitchen
             arr = buildingSmokes.kitchen.objArr, optsArr = buildingSmokes.kitchen.optsArr;
             for (i = 0; i < arr.length; i++) {
                 arr[i] = this.add.sprite(optsArr[i].x, optsArr[i].y, "building");
-                arr[i].setActive(false).setVisible(false).setScale(optsArr[i].scale);
+                arr[i].setActive(false).setVisible(false).setScale(optsArr[i].scale * scaleCoeff);
             }
 
             //window
             arr = buildingSmokes.window.objArr, optsArr = buildingSmokes.window.optsArr;
             for (i = 0; i < arr.length; i++) {
                 arr[i] = this.add.sprite(optsArr[i].x, optsArr[i].y, "building");
-                arr[i].setActive(false).setVisible(false).setScale(optsArr[i].scale);
+                arr[i].setActive(false).setVisible(false).setScale(optsArr[i].scale * scaleCoeff);
             }
 
             this.anims.create({
@@ -799,7 +802,7 @@ class MainScreen extends Phaser.Scene {
         {
 
             var uiSC = this.add.sprite(config.width * 0.22, config.height * 0.04, "uiSC");
-            uiSC.setInteractive();
+            uiSC.setInteractive().setScale(uiSC.scale * scaleCoeff);
 
             var initialSCX = uiSC.x;
             var initialSCY = uiSC.y;
@@ -811,10 +814,10 @@ class MainScreen extends Phaser.Scene {
             });
 
             var goldText0 = this.goldText;
-            goldText0.setOrigin(0.5);
+            goldText0.setOrigin(0.5).setScale(goldText0.scale * scaleCoeff);
 
             var uiPlay = this.add.sprite(config.width / 2, config.height * 0.93, "uiPlay");
-            uiPlay.setInteractive();
+            uiPlay.setInteractive().setScale(uiPlay.scale * scaleCoeff);
 
             this.playText = this.add.text(config.width / 2, config.height * 0.93, "Играть!", {
                 fontFamily: 'font1',
@@ -823,20 +826,20 @@ class MainScreen extends Phaser.Scene {
             });
 
             var playText0 = this.playText;
-            playText0.setActive(true).setVisible(true).setOrigin(0.5);
+            playText0.setActive(true).setVisible(true).setOrigin(0.5).setScale(playText0.scale * scaleCoeff);
 
             var uiGift = this.add.sprite(config.width * 0.1, config.height * 0.15, "uiGift");
-            uiGift.setInteractive();
+            uiGift.setInteractive().setScale(uiGift.scale * scaleCoeff);
 
             var uiEnergyBar = this.add.sprite(config.width * 0.75, config.height * 0.04, "uiEnergyBar");
-            uiEnergyBar.setActive(false).setVisible(false).setDepth(1.1);
+            uiEnergyBar.setActive(false).setVisible(false).setDepth(1.1).setScale(uiEnergyBar.scale * scaleCoeff);
 
             var uiNotificationsUnderlay = this.add.sprite(config.width / 2, config.height / 2, "uiNotification");
-            uiNotificationsUnderlay.setActive(false).setVisible(false);
+            uiNotificationsUnderlay.setActive(false).setVisible(false).setScale(uiNotificationsUnderlay.scale * scaleCoeff);
 
             var uiNotificationsBackButton = this.add.sprite(config.width * 0.9, config.height * 0.95, "uiBackButton");
             uiNotificationsBackButton.setInteractive();
-            uiNotificationsBackButton.setActive(false).setVisible(false);
+            uiNotificationsBackButton.setActive(false).setVisible(false).setScale(uiNotificationsBackButton.scale * scaleCoeff);
 
             var giftJSON = [
                 {
@@ -871,10 +874,10 @@ class MainScreen extends Phaser.Scene {
             var distanceBetweenNotifications = 200;
             for (var i = 0; i < giftJSON.length; i++) {
                 eval(`var ${"notificationPanel"+i} = this.add.sprite(notificationsX,notificationsY,"uiFriendNotification"); notificationPanelsSprites.push(${"notificationPanel"+i});
-                ${"notificationPanel"+i}.setActive(false).setVisible(false);`);
+                ${"notificationPanel"+i}.setActive(false).setVisible(false).setScale( ${"notificationPanel"+i}.scale * scaleCoeff);`);
                 eval(`var ${"collectGift"+i} = this.add.sprite(notificationsX+config.width*0.2,notificationsY,"uiGiftCollect");
                 collectGiftSprites.push(${"collectGift"+i});
-                ${"collectGift"+i}.setInteractive().setActive(false).setVisible(false);`);
+                ${"collectGift"+i}.setInteractive().setActive(false).setVisible(false).setScale( ${"collectGift"+i}.scale * scaleCoeff);`);
                 if (giftJSON[i]["Type"] == "take") {
                     eval(`var ${"senderText"+i} = this.add.text(notificationsX-config.width*0.3,notificationsY-config.height * 0.027, giftJSON[i]["Sender"]+"\\nприслал подарок",{
                         fontFamily: 'font1',
@@ -882,14 +885,14 @@ class MainScreen extends Phaser.Scene {
                         color: "white",
                     });
                 senderTextSprites.push(${"senderText"+i});
-                ${"senderText"+i}.setActive(false).setVisible(false);`);
+                ${"senderText"+i}.setActive(false).setVisible(false).setScale(${"senderText"+i}.scale * scaleCoeff);`);
                     eval(`var ${"typeText"+i} = this.add.text(notificationsX+config.width*0.11,notificationsY-config.height * 0.012,"Забрать",{
                         fontFamily: 'font1',
                         fontSize: '44px',
                         color: "white",
                     });
                 typeTextSprites.push(${"typeText"+i});
-                ${"typeText"+i}.setActive(false).setVisible(false);`);
+                ${"typeText"+i}.setActive(false).setVisible(false).setScale(${"typeText"+i}.scale * scaleCoeff);`);
                 } else if (giftJSON[i]["Type"] == "send") {
                     eval(`var ${"senderText"+i} = this.add.text(notificationsX-config.width*0.3,notificationsY-config.height * 0.027, giftJSON[i]["Sender"]+"\\nпросит помощи!",{
                         fontFamily: 'font1',
@@ -897,7 +900,7 @@ class MainScreen extends Phaser.Scene {
                         color: "white",
                     });
                 senderTextSprites.push(${"senderText"+i});
-                ${"senderText"+i}.setActive(false).setVisible(false);`);
+                ${"senderText"+i}.setActive(false).setVisible(false).setScale(${"senderText"+i}.scale * scaleCoeff);`);
                     eval(`var ${"typeText"+i} = this.add.text(notificationsX+config.width*0.11,notificationsY-config.height * 0.012,"Отправить",{
                         fontFamily: 'font1',
                         fontSize: '35px',
@@ -905,18 +908,20 @@ class MainScreen extends Phaser.Scene {
                         
                 });
                 typeTextSprites.push(${"typeText"+i});
-                ${"typeText"+i}.setActive(false).setVisible(false);`);
+                ${"typeText"+i}.setActive(false).setVisible(false).setScale(${"typeText"+i}.scale * scaleCoeff);`);
                 };
                 notificationsY += distanceBetweenNotifications;
             };
 
 
             var uiNotificationsCounter = this.add.sprite(config.width * 0.17, config.height * 0.182, "uiNotificationsCounter");
+            uiNotificationsCounter.setScale(uiNotificationsCounter.scale * scaleCoeff);
             var uiNotificationsCounterText = this.add.text(config.width * 0.155, config.height * 0.168, giftJSON.length, {
                 fontFamily: 'font1',
                 fontSize: '50px',
                 color: "white"
             });
+            uiNotificationsCounterText.setScale(uiNotificationsCounterText.scale * scaleCoeff);
 
 
             for (let i = 0; i < giftJSON.length; i++) {
@@ -939,7 +944,7 @@ class MainScreen extends Phaser.Scene {
                     }
                     if (uiNotificationsCounterText.text > 1) {
                         uiNotificationsCounterText.setText(uiNotificationsCounterText.text - 1);
-                    }else {
+                    } else {
                         uiNotificationsCounter.destroy();
                         uiNotificationsCounterText.destroy();
                     }
@@ -949,54 +954,53 @@ class MainScreen extends Phaser.Scene {
 
 
             var uiMenu = this.add.sprite(config.width * 0.89, config.height * 0.06, "uiMenu");
-            uiMenu.setInteractive();
+            uiMenu.setInteractive().setScale(uiMenu.scale * scaleCoeff);
 
             var uiCraft = this.add.sprite(config.width * 0.875, config.height * 0.93, "uiCraft");
-            uiCraft.setInteractive();
+            uiCraft.setInteractive().setScale(uiCraft.scale * scaleCoeff);
 
             var uiUpgrades = this.physics.add.sprite(config.width * 0.125, config.height * 0.93, "uiUpgrades");
-            uiUpgrades.setInteractive();
+            uiUpgrades.setInteractive().setScale(uiUpgrades.scale * scaleCoeff);
 
             var uiCloseButton = this.physics.add.sprite(config.width / 2, config.height * 0.93, "uiCloseButton");
             uiCloseButton.setInteractive();
-            uiCloseButton.setActive(false).setVisible(false);
+            uiCloseButton.setActive(false).setVisible(false).setScale(uiCloseButton.scale * scaleCoeff);
 
             var uiLikes = this.add.sprite(config.width * 0.63, config.height * 0.04, "uiLikes");
-            uiLikes.setInteractive();
+            uiLikes.setInteractive().setScale(uiLikes.scale * scaleCoeff);
 
             var uiBackSpinButton = this.add.sprite(config.width * 0.9, config.height * 0.95, "uiBackButton");
             uiBackSpinButton.setInteractive();
-            uiBackSpinButton.setActive(false).setVisible(false).setDepth(2);
+            uiBackSpinButton.setActive(false).setVisible(false).setDepth(2).setScale(uiBackSpinButton.scale * scaleCoeff);
 
-            
+
 
             var uiMenuBar = this.add.sprite(config.width * 0.85, config.height / 2, "uiMenuBar");
-            uiMenuBar.setScale(3.6);
             uiMenuBar.setInteractive();
-            uiMenuBar.setActive(false).setVisible(false);
+            uiMenuBar.setActive(false).setVisible(false).setScale(3.6 * scaleCoeff);
 
             var touchBar = this.add.sprite(0, config.height / 2, "uiMenuBar");
             touchBar.setScale(2.6, 4);
-            touchBar.setActive(false).setVisible(false);
-            touchBar.setInteractive();
+            touchBar.setInteractive().setActive(false).setVisible(false).setScale(2.6 * (config.width / 1080), 4 * (config.height / 1920));
         } // спавним UI
 
         {
             var craftBG = this.add.sprite(config.width / 2, config.height * 0.45, "uiMenuBar");
-            craftBG.setScale(6);
+            craftBG.setScale(6 * scaleCoeff);
 
             var craftBar = this.add.sprite(config.width / 2, config.height * 0.51, "craftBar");
+            craftBar.setScale(craftBar.scale * scaleCoeff);
 
             var leftArrow = this.add.sprite(config.width / 18, config.height / 2 + 50, "leftArrow");
-            leftArrow.setInteractive();
+            leftArrow.setInteractive().setScale(leftArrow.scale * scaleCoeff);
 
             var rightArrow = this.add.sprite(config.width * 17 / 18, config.height / 2 + 50, "rightArrow");
-            rightArrow.setInteractive();
+            rightArrow.setInteractive().setScale(rightArrow.scale * scaleCoeff);
 
 
             var uiBackCraftButton = this.add.sprite(config.width * 0.9, config.height * 0.95, "uiBackButton");
             uiBackCraftButton.setInteractive();
-            uiBackCraftButton.setActive(false).setVisible(false);
+            uiBackCraftButton.setActive(false).setVisible(false).setScale(uiBackCraftButton.scale * scaleCoeff);
 
             var recipesArr = [
                 ""
@@ -1076,22 +1080,22 @@ class MainScreen extends Phaser.Scene {
 
         {
             var spinsBG = this.add.sprite(config.width / 2, config.height / 2, "spinsBG");
-            spinsBG.setActive(false).setVisible(false);
+            spinsBG.setActive(false).setVisible(false).setScale(spinsBG.scale * scaleCoeff);
 
             var fridgeRear = this.add.sprite(config.width * 0.48, config.height * 0.555, "fridgeRear");
-            fridgeRear.setActive(false).setVisible(false);
+            fridgeRear.setActive(false).setVisible(false).setScale(fridgeRear.scale * scaleCoeff);
 
             var fridgeShadow = this.add.sprite(config.width / 2, config.height * 0.23, "fridgeShadow");
-            fridgeShadow.setActive(false).setVisible(false).setDepth(1.05);
+            fridgeShadow.setActive(false).setVisible(false).setDepth(1.05).setScale(fridgeShadow.scale * scaleCoeff);
 
             var fridgeFrame = this.add.sprite(config.width / 2, config.height / 2, "fridgeFrame");
-            fridgeFrame.setActive(false).setVisible(false).setDepth(1.07);
+            fridgeFrame.setActive(false).setVisible(false).setDepth(1.07).setScale(fridgeFrame.scale * scaleCoeff);
 
             // var fridgeDoor = this.add.sprite(config.width * 1.02, config.height * 0.55, "fridgeDoor");
             // fridgeDoor.setActive(false).setVisible(false).setInteractive().setDepth(1.08);
 
             var slammingFridgeDoorObject = this.add.sprite(config.width * 0.655, config.height * 0.54, "slammingFridgeDoor")
-            slammingFridgeDoorObject.setActive(false).setVisible(false).setInteractive().setDepth(1.19); //Depth to be higher than spinButton
+            slammingFridgeDoorObject.setActive(false).setVisible(false).setInteractive().setDepth(1.19).setScale(slammingFridgeDoorObject.scale * scaleCoeff);; //Depth to be higher than spinButton
 
             var flag = false;
 
@@ -1126,13 +1130,13 @@ class MainScreen extends Phaser.Scene {
             });
 
             var spinButton = this.add.sprite(config.width * 0.45, config.height * 0.9, "spinButton");
-            spinButton.setActive(false).setVisible(false).setFrame(0).setDepth(1.1);
+            spinButton.setActive(false).setVisible(false).setFrame(0).setDepth(1.1).setScale(spinButton.scale * scaleCoeff);
 
             var energyBar = this.add.sprite(config.width * 0.47, config.height * 0.77, "energyBar");
-            energyBar.setActive(false).setVisible(false).setDepth(1.1);
+            energyBar.setActive(false).setVisible(false).setDepth(1.1).setScale(energyBar.scale * scaleCoeff);
 
             var energyIcon = this.add.sprite(config.width * 0.42, config.height * 0.765, "iconEnergy");
-            energyIcon.setScale(0.6).setActive(false).setVisible(false).setDepth(1.1);
+            energyIcon.setScale(0.6).setActive(false).setVisible(false).setDepth(1.1).setScale(energyIcon.scale * scaleCoeff);
 
             this.energyText = this.add.text(energyBar.x, energyBar.y * 0.97, gameSettings.currEnergy, {
                 fontFamily: 'font1',
@@ -1143,47 +1147,47 @@ class MainScreen extends Phaser.Scene {
 
             var energyText0 = this.energyText;
             energyText0.setInteractive();
-            energyText0.setActive(false).setVisible(false).setDepth(1.1);
+            energyText0.setActive(false).setVisible(false).setDepth(1.1).setScale(energyText0.scale * scaleCoeff);
             var firstRowParameter, secondRowParameter, thirdRowParameter;
 
             {
 
                 var firstSlot1 = this.add.sprite(config.width * 0.27, config.height * 0.2, "randomPrize", "SC");
-                firstSlot1.setActive(false).setVisible(false);
+                firstSlot1.setActive(false).setVisible(false).setScale(firstSlot1.scale * scaleCoeff);
                 var secondSlot1 = this.add.sprite(config.width * 0.27, config.height * 0.2, "randomPrize", "challenge");
-                secondSlot1.setActive(false).setVisible(false);
+                secondSlot1.setActive(false).setVisible(false).setScale(secondSlot1.scale * scaleCoeff);
                 var thirdSlot1 = this.add.sprite(config.width * 0.27, config.height * 0.2, "randomPrize", "challenge");
-                thirdSlot1.setActive(false).setVisible(false);
+                thirdSlot1.setActive(false).setVisible(false).setScale(thirdSlot1.scale * scaleCoeff);
 
                 var firstSlot2 = this.add.sprite(config.width * 0.45, config.height * 0.2, "randomPrize", "SC");
-                firstSlot2.setActive(false).setVisible(false);
+                firstSlot2.setActive(false).setVisible(false).setScale(firstSlot2.scale * scaleCoeff);
                 var secondSlot2 = this.add.sprite(config.width * 0.45, config.height * 0.2, "randomPrize", "challenge");
-                secondSlot2.setActive(false).setVisible(false);
+                secondSlot2.setActive(false).setVisible(false).setScale(secondSlot2.scale * scaleCoeff);
                 var thirdSlot2 = this.add.sprite(config.width * 0.45, config.height * 0.2, "randomPrize", "challenge");
-                thirdSlot2.setActive(false).setVisible(false);
+                thirdSlot2.setActive(false).setVisible(false).setScale(thirdSlot2.scale * scaleCoeff);
 
                 var firstSlot3 = this.add.sprite(config.width * 0.63, config.height * 0.2, "randomPrize", "SC");
-                firstSlot3.setActive(false).setVisible(false);
+                firstSlot3.setActive(false).setVisible(false).setScale(firstSlot3.scale * scaleCoeff);
                 var secondSlot3 = this.add.sprite(config.width * 0.63, config.height * 0.2, "randomPrize", "challenge");
-                secondSlot3.setActive(false).setVisible(false);
+                secondSlot3.setActive(false).setVisible(false).setScale(secondSlot3.scale * scaleCoeff);
                 var thirdSlot3 = this.add.sprite(config.width * 0.63, config.height * 0.2, "randomPrize", "challenge");
-                thirdSlot3.setActive(false).setVisible(false);
+                thirdSlot3.setActive(false).setVisible(false).setScale(thirdSlot3.scale * scaleCoeff);
 
 
                 var firstSlotB1 = this.add.sprite(config.width * 0.27, config.height * 0.01, "randomPrizeSequence");
-                firstSlotB1.setActive(false).setVisible(false);
+                firstSlotB1.setActive(false).setVisible(false).setScale(firstSlotB1.scale * scaleCoeff);
                 var secondSlotB1 = this.add.sprite(config.width * 0.27, config.height * 0.01, "randomPrizeSequence");
-                secondSlotB1.setActive(false).setVisible(false);
+                secondSlotB1.setActive(false).setVisible(false).setScale(secondSlotB1.scale * scaleCoeff);
 
                 var firstSlotB2 = this.add.sprite(config.width * 0.45, config.height * 0.01, "randomPrizeSequence");
-                firstSlotB2.setActive(false).setVisible(false);
+                firstSlotB2.setActive(false).setVisible(false).setScale(firstSlotB2.scale * scaleCoeff);
                 var secondSlotB2 = this.add.sprite(config.width * 0.45, config.height * 0.01, "randomPrizeSequence");
-                secondSlotB2.setActive(false).setVisible(false);
+                secondSlotB2.setActive(false).setVisible(false).setScale(secondSlotB2.scale * scaleCoeff);
 
                 var firstSlotB3 = this.add.sprite(config.width * 0.63, config.height * 0.01, "randomPrizeSequence");
-                firstSlotB3.setActive(false).setVisible(false);
+                firstSlotB3.setActive(false).setVisible(false).setScale(firstSlotB3.scale * scaleCoeff);
                 var secondSlotB3 = this.add.sprite(config.width * 0.63, config.height * 0.01, "randomPrizeSequence");
-                secondSlotB3.setActive(false).setVisible(false);
+                secondSlotB3.setActive(false).setVisible(false).setScale(secondSlotB3.scale * scaleCoeff);
 
                 var firstSlotT5 = this.tweens.add({
                     paused: true,
@@ -1341,73 +1345,74 @@ class MainScreen extends Phaser.Scene {
 
             var uiFixUpgradeGeneral = this.add.sprite(config.width * 0.5, config.height * 0.72, "uiFixUpgrade");
             var uiFixUpgradeScale = 1.2;
-            uiFixUpgradeGeneral.setScale(uiFixUpgradeScale).setInteractive().setActive(false).setVisible(false);
+            uiFixUpgradeGeneral.setInteractive().setActive(false).setVisible(false).setScale(uiFixUpgradeScale * scaleCoeff);
             var uiTextGeneral = this.add.text(uiFixUpgradeGeneral.x + 24 * uiFixUpgradeScale, uiFixUpgradeGeneral.y - 76 * uiFixUpgradeScale, 0, {
                 font: '108px font1',
                 color: 'brown'
             });
-            uiTextGeneral.setInteractive().setActive(false).setVisible(false);
+            uiTextGeneral.setInteractive().setActive(false).setVisible(false).setScale(uiTextGeneral.scale * scaleCoeff);
             uiTextGeneral.setOrigin(0.5, 0.5);
 
         } //спавним элементы экрана улучшений
 
         {
-            var iconSlotMachine = this.add.sprite(config.width * 0.55, 230, "iconSlotMachine");
-            var playMenuText = this.add.text(config.width * 0.6, 200, "Играть!", {
+            var distanceBetweenMenuBars = config.height * 0.11111;
+            var iconSlotMachine = this.add.sprite(config.width * 0.45, distanceBetweenMenuBars, "iconSlotMachine");
+            var playMenuText = this.add.text(config.width * 0.5, distanceBetweenMenuBars, "Играть!", {
                 fontFamily: 'font1',
                 fontSize: '64px',
                 color: "brown"
-            });
-            var iconEnegry = this.add.sprite(config.width * 0.55, 453, "iconEnergy");
-            var buyMenuText = this.add.text(config.width * 0.6, 400, "Купить\nмонеты/энергию", {
+            }).setOrigin(0,0.5);
+            var iconEnegry = this.add.sprite(config.width * 0.45, 2 * distanceBetweenMenuBars, "iconEnergy");
+            var buyMenuText = this.add.text(config.width * 0.5, 2 * distanceBetweenMenuBars, "Купить монеты\nи энергию", {
+                fontFamily: 'font1',
+                fontSize: '55px',
+                color: "brown"
+            }).setOrigin(0,0.5);
+            var iconFix = this.add.sprite(config.width * 0.45, 3 * distanceBetweenMenuBars, "iconRepair");
+            var fixMenuText = this.add.text(config.width * 0.5, 3 * distanceBetweenMenuBars, "Ремонт", {
                 fontFamily: 'font1',
                 fontSize: '64px',
                 color: "brown"
-            });
-            var iconFix = this.add.sprite(config.width * 0.55, 623, "iconRepair");
-            var fixMenuText = this.add.text(config.width * 0.6, 600, "Ремонт", {
+            }).setOrigin(0,0.5);
+            var iconNotifications = this.add.sprite(config.width * 0.45, 4 * distanceBetweenMenuBars, "iconNotifications");
+            var notificationsMenuText = this.add.text(config.width * 0.5, 4 * distanceBetweenMenuBars, "Уведомления", {
                 fontFamily: 'font1',
                 fontSize: '64px',
                 color: "brown"
-            });
-            var iconAllert = this.add.sprite(config.width * 0.55, 830, "iconAllert");
-            var announceMenuText = this.add.text(config.width * 0.6, 800, "Уведомления\n", {
+            }).setOrigin(0,0.5);
+            var iconDoor = this.add.sprite(config.width * 0.45, 5 * distanceBetweenMenuBars, "iconDoor");
+            var levelsMenuText = this.add.text(config.width * 0.5, 5 * distanceBetweenMenuBars, "Уровни", {
                 fontFamily: 'font1',
                 fontSize: '64px',
                 color: "brown"
-            });
-            var iconDoor = this.add.sprite(config.width * 0.55, 1030, "iconDoor");
-            var levelsMenuText = this.add.text(config.width * 0.6, 1000, "Уровни\n", {
+            }).setOrigin(0,0.5);
+            var iconTrophy = this.add.sprite(config.width * 0.45, 6 * distanceBetweenMenuBars, "iconTrophy");
+            var ratingMenuText = this.add.text(config.width * 0.5, 6 * distanceBetweenMenuBars, "Рейтинг", {
                 fontFamily: 'font1',
                 fontSize: '64px',
                 color: "brown"
-            });
-            var iconTrophy = this.add.sprite(config.width * 0.55, 1230, "iconTrophy");
-            var ratingMenuText = this.add.text(config.width * 0.6, 1200, "Рейтинг\n", {
+            }).setOrigin(0,0.5);
+            var iconFriends = this.add.sprite(config.width * 0.45, 7 * distanceBetweenMenuBars, "iconFriends");
+            var friendsMenuText = this.add.text(config.width * 0.5, 7 * distanceBetweenMenuBars, "Позвать друзей", {
                 fontFamily: 'font1',
                 fontSize: '64px',
                 color: "brown"
-            });
-            var iconFriends = this.add.sprite(config.width * 0.55, 1430, "iconFriends");
-            var friendsMenuText = this.add.text(config.width * 0.6, 1400, "Позвать друзей\n", {
+            }).setOrigin(0,0.5);
+            var iconSettings = this.add.sprite(config.width * 0.45, 8 * distanceBetweenMenuBars, "iconSettings");
+            var settingsMenuText = this.add.text(config.width * 0.5, 8 * distanceBetweenMenuBars, "Настройки", {
                 fontFamily: 'font1',
                 fontSize: '64px',
                 color: "brown"
-            });
-            var iconSettings = this.add.sprite(config.width * 0.55, 1625, "iconSettings");
-            var settingsMenuText = this.add.text(config.width * 0.6, 1600, "Настройки\n", {
-                fontFamily: 'font1',
-                fontSize: '64px',
-                color: "brown"
-            });
+            }).setOrigin(0,0.5);
             var menu = this.add.group([iconSlotMachine,
                                             playMenuText,
                                             iconEnegry,
                                             buyMenuText,
                                             iconFix,
                                             fixMenuText,
-                                            iconAllert,
-                                            announceMenuText,
+                                            iconNotifications,
+                                            notificationsMenuText,
                                             iconDoor,
                                             levelsMenuText,
                                             iconTrophy,
@@ -1422,23 +1427,22 @@ class MainScreen extends Phaser.Scene {
 
             function setAllInteractive(element, index) {
                 element.setInteractive();
+                element.setScale(element.scale * scaleCoeff);
             }
         } // спавним элементы меню
 
         {
-
-
             var opponentAvatar = this.add.sprite(config.width * 0.14, config.height * 0.07, "opponentAvatar");
-            opponentAvatar.setActive(false).setVisible(false).setDepth(1.2);
+            opponentAvatar.setActive(false).setVisible(false).setDepth(1.2).setScale(opponentAvatar.scale * scaleCoeff);
 
             var opponentUnderlay = this.add.sprite(config.width * 0.435, config.height * 0.07, "opponentUnderlay");
-            opponentUnderlay.setActive(false).setVisible(false).setDepth(1.1);
+            opponentUnderlay.setActive(false).setVisible(false).setDepth(1.1).setScale(opponentUnderlay.scale * scaleCoeff);
 
             var challengeMediumGift = this.add.sprite(config.width * 0.1, config.height * 0.53, "mediumGift");
-            challengeMediumGift.setActive(false).setVisible(false).setDepth(1.1);
+            challengeMediumGift.setActive(false).setVisible(false).setDepth(1.1).setScale(challengeMediumGift.scale * scaleCoeff);
 
             var challengeBG = this.add.sprite(config.width * 0.5, config.height * 0.5, "challengeBG");
-            challengeBG.setActive(false).setVisible(false).setDepth(1);
+            challengeBG.setActive(false).setVisible(false).setDepth(1).setScale(challengeBG.scale * scaleCoeff);
 
             var tiles = [];
             var indicators = [];
@@ -1456,22 +1460,22 @@ class MainScreen extends Phaser.Scene {
             for (i = 0; i < 9; i++) {
                 //opponent tiles
                 tiles[i] = this.add.sprite(config.width * (tileX + tileDX * (i % 3)), config.height * (tileY1 + tileDY * (i - i % 3) / 3), "squareTile");
-                tiles[i].setActive(false).setVisible(false).setDepth(1.1).setInteractive();
+                tiles[i].setActive(false).setVisible(false).setDepth(1.1).setInteractive().setScale(tiles[i].scale * scaleCoeff);
 
                 //oppenent progress
                 indicators[i] = this.add.sprite(config.width * (indX + indDX * i), config.height * indY1, "progressOffIndicator");
-                indicators[i].setActive(false).setVisible(false).setDepth(1.1);
+                indicators[i].setActive(false).setVisible(false).setDepth(1.1).setInteractive().setScale(indicators[i].scale * scaleCoeff);
                 indicators[i + 18] = this.add.sprite(config.width * (indX + indDX * i), config.height * indY1, "progressOnIndicator");
-                indicators[i + 18].setActive(false).setVisible(false).setDepth(1.2);
+                indicators[i + 18].setActive(false).setVisible(false).setDepth(1.2).setInteractive().setScale(indicators[i + 18].scale * scaleCoeff);
 
                 //player tiles
                 tiles[i + 9] = this.add.sprite(config.width * (tileX + tileDX * (i % 3)), config.height * (tileY2 + tileDY * (i - i % 3) / 3), "squareTile");
-                tiles[i + 9].setActive(true).setVisible(false).setDepth(1.1).setInteractive();
+                tiles[i + 9].setActive(true).setVisible(false).setDepth(1.1).setInteractive().setScale(tiles[i + 9].scale * scaleCoeff);
                 //player progress
                 indicators[i + 9] = this.add.sprite(config.width * (indX + indDX * i), config.height * indY2, "progressOffIndicator");
-                indicators[i + 9].setActive(false).setVisible(false).setDepth(1.1);
+                indicators[i + 9].setActive(false).setVisible(false).setDepth(1.1).setScale(indicators[i + 9].scale * scaleCoeff);
                 indicators[i + 27] = this.add.sprite(config.width * (indX + indDX * i), config.height * indY2, "progressOnIndicator");
-                indicators[i + 27].setActive(false).setVisible(false).setDepth(1.2);
+                indicators[i + 27].setActive(false).setVisible(false).setDepth(1.2).setScale(indicators[i + 27].scale * scaleCoeff);
             }
 
             var challengeTileTexts = [];
@@ -1482,14 +1486,14 @@ class MainScreen extends Phaser.Scene {
                     color: "white",
                     align: "center"
                 });
-                challengeTileTexts[i].setActive(false).setVisible(false).setDepth(1.2).setOrigin(0.5, 0.5);
+                challengeTileTexts[i].setActive(false).setVisible(false).setDepth(1.2).setOrigin(0.5, 0.5).setScale(challengeTileTexts[i].scale * scaleCoeff);
                 challengeTileTexts[i + 9] = this.add.text(0, 0, i + 1, {
                     fontFamily: 'font1',
                     fontSize: '108px',
                     color: "white",
                     align: "center"
                 });
-                challengeTileTexts[i + 9].setActive(false).setVisible(false).setDepth(1.2).setOrigin(0.5, 0.5);
+                challengeTileTexts[i + 9].setActive(false).setVisible(false).setDepth(1.2).setOrigin(0.5, 0.5).setScale(challengeTileTexts[i + 9].scale * scaleCoeff);
             }
 
             var challengeObjects = [opponentAvatar, opponentUnderlay, challengeMediumGift, challengeBG];
@@ -1498,16 +1502,16 @@ class MainScreen extends Phaser.Scene {
             Array.prototype.push.apply(challengeObjects, challengeTileTexts);
 
             var consolationPrizeUnderlay = this.add.sprite(config.width * 0.5, config.height * 0.58, "consolationPrizeUnderlay");
-            consolationPrizeUnderlay.setActive(false).setVisible(false).setDepth(1.3);
+            consolationPrizeUnderlay.setActive(false).setVisible(false).setDepth(1.3).setScale(consolationPrizeUnderlay.scale * scaleCoeff);
 
             var consolationPrizeButton = this.add.sprite(config.width * 0.5, config.height * 0.73, "consolationPrizeButton");
-            consolationPrizeButton.setActive(false).setVisible(false).setDepth(1.3).setInteractive();
+            consolationPrizeButton.setActive(false).setVisible(false).setDepth(1.3).setInteractive().setScale(consolationPrizeButton.scale * scaleCoeff);
 
             var challengeDefeatBG = this.add.sprite(config.width * 0.5, config.height * 0.5, "challengeDefeatBG");
-            challengeDefeatBG.setActive(false).setVisible(false).setDepth(1.1);
+            challengeDefeatBG.setActive(false).setVisible(false).setDepth(1.1).setScale(challengeDefeatBG.scale * scaleCoeff);
 
             var defeatUnderlay = this.add.sprite(config.width * 0.5, config.height * 0.47, "defeatUnderlay");
-            defeatUnderlay.setActive(false).setVisible(false).setDepth(1.2);
+            defeatUnderlay.setActive(false).setVisible(false).setDepth(1.2).setScale(defeatUnderlay.scale * scaleCoeff);
 
             var defeatText1 = this.add.text(defeatUnderlay.x, defeatUnderlay.y - defeatUnderlay.height * 0.4, "Поражение", {
                 fontFamily: 'font1',
@@ -1515,7 +1519,7 @@ class MainScreen extends Phaser.Scene {
                 color: "white",
                 align: "center"
             });
-            defeatText1.setActive(false).setVisible(false).setDepth(1.4).setOrigin(0.5, 0.5);
+            defeatText1.setActive(false).setVisible(false).setDepth(1.4).setOrigin(0.5, 0.5).setScale(defeatText1.scale * scaleCoeff);
 
             var defeatText2 = this.add.text(defeatUnderlay.x, defeatUnderlay.y - defeatUnderlay.height * 0.21, "Не переживайте,\nв следующий раз\nточно получится!", {
                 fontFamily: 'font1',
@@ -1523,7 +1527,7 @@ class MainScreen extends Phaser.Scene {
                 color: "white",
                 align: "justify"
             });
-            defeatText2.setActive(false).setVisible(false).setDepth(1.4).setOrigin(0.5, 0.5);
+            defeatText2.setActive(false).setVisible(false).setDepth(1.4).setOrigin(0.5, 0.5).setScale(defeatText2.scale * scaleCoeff);
 
             var defeatText3 = this.add.text(defeatUnderlay.x, defeatUnderlay.y - defeatUnderlay.height * 0.02, "Вот. держите:", {
                 fontFamily: 'font1',
@@ -1531,7 +1535,7 @@ class MainScreen extends Phaser.Scene {
                 color: "white",
                 align: "center"
             });
-            defeatText3.setActive(false).setVisible(false).setDepth(1.4).setOrigin(0.5, 0.5);
+            defeatText3.setActive(false).setVisible(false).setDepth(1.4).setOrigin(0.5, 0.5).setScale(defeatText3.scale * scaleCoeff);
 
             var defeatTextMoney = this.add.text(consolationPrizeUnderlay.x, consolationPrizeUnderlay.y, 400, {
                 fontFamily: 'font1',
@@ -1539,7 +1543,7 @@ class MainScreen extends Phaser.Scene {
                 color: "white",
                 align: "center"
             });
-            defeatTextMoney.setActive(false).setVisible(false).setDepth(1.4).setOrigin(0.5, 0.5);
+            defeatTextMoney.setActive(false).setVisible(false).setDepth(1.4).setOrigin(0.5, 0.5).setScale(defeatTextMoney.scale * scaleCoeff);
 
             var defeatTextButton = this.add.text(consolationPrizeButton.x, consolationPrizeButton.y, "Забрать", {
                 fontFamily: 'font1',
@@ -1547,22 +1551,22 @@ class MainScreen extends Phaser.Scene {
                 color: "white",
                 align: "center"
             });
-            defeatTextButton.setActive(false).setVisible(false).setDepth(1.4).setOrigin(0.5, 0.5);
+            defeatTextButton.setActive(false).setVisible(false).setDepth(1.4).setOrigin(0.5, 0.5).setScale(defeatTextButton.scale * scaleCoeff);
 
             var challengeDefeatObjects = [consolationPrizeUnderlay, consolationPrizeButton, challengeDefeatBG, defeatUnderlay,
                                             defeatText1, defeatText2, defeatText3, defeatTextMoney, defeatTextButton];
 
             var largeGift = this.add.sprite(config.width * 0.5, config.height * 0.36, "largeGift");
-            largeGift.setActive(false).setVisible(false).setDepth(1.3);
+            largeGift.setActive(false).setVisible(false).setDepth(1.3).setScale(largeGift.scale * scaleCoeff);
 
             var victoryButton = this.add.sprite(config.width * 0.5, config.height * 0.7, "victoryButton");
-            victoryButton.setActive(false).setVisible(false).setDepth(1.4).setInteractive();
+            victoryButton.setActive(false).setVisible(false).setDepth(1.4).setInteractive().setScale(victoryButton.scale * scaleCoeff);
 
             var giftBackground = this.add.sprite(config.width * 0.5, config.height * 0.5, "giftBackground");
-            giftBackground.setActive(false).setVisible(false).setDepth(1.1);
+            giftBackground.setActive(false).setVisible(false).setDepth(1.1).setScale(giftBackground.scale * scaleCoeff);
 
             var rays = this.add.sprite(config.width * 0.5, config.height * 0.36, "rays");
-            rays.setActive(false).setVisible(false).setDepth(1.2);
+            rays.setActive(false).setVisible(false).setDepth(1.2).setScale(rays.scale * scaleCoeff);
 
             var victoryTextButton = this.add.text(victoryButton.x, victoryButton.y, "Победа", {
                 fontFamily: 'font1',
@@ -1570,7 +1574,7 @@ class MainScreen extends Phaser.Scene {
                 color: "white",
                 align: "center"
             });
-            victoryTextButton.setActive(false).setVisible(false).setDepth(1.5).setOrigin(0.5, 0.5);
+            victoryTextButton.setActive(false).setVisible(false).setDepth(1.5).setOrigin(0.5, 0.5).setScale(victoryTextButton.scale * scaleCoeff);
 
             var challengeVictoryObjects = [largeGift, victoryButton, giftBackground, rays, victoryTextButton];
 
@@ -1634,132 +1638,157 @@ class MainScreen extends Phaser.Scene {
             settingsBackButton.setActive(false).setVisible(false).setDepth(1.1).setOrigin(1.0, 1.0).setInteractive();
 
             var settingsObjects = [settingsUnderlay, soundIcon, musicIcon, settingsIcon, musicText, soundText, settingsText, settingsID, soundToggleOn, soundToggleOff, musicToggleOn, musicToggleOff, settingsBackButton];
+
+            settingsObjects.forEach(setScale);
+
+            function setScale(element, index) {
+                element.setScale(element.scale * scaleCoeff);
+            };
+
         } // спавним элементы настроек
 
         {
-            var shopGoodOpts = [{"quantity":25, "price":20}, {"quantity":70, "price":50}, {"quantity":200, "price":140},
-                            {"quantity":5000, "price":20}, {"quantity":20000, "price":50}, {"quantity":100000, "price":140}];
+            var shopGoodOpts = [{
+                    "quantity": 25,
+                    "price": 20
+                }, {
+                    "quantity": 70,
+                    "price": 50
+                }, {
+                    "quantity": 200,
+                    "price": 140
+                },
+                {
+                    "quantity": 5000,
+                    "price": 20
+                }, {
+                    "quantity": 20000,
+                    "price": 50
+                }, {
+                    "quantity": 100000,
+                    "price": 140
+                }];
 
             // var energyIndicator = this.add.sprite(config.width*0.75, config.height*0.06, "EnergyIndicator");
             // energyIndicator.setActive(false).setVisible(false).setDepth(4.2).setOrigin(0.5, 0.5);
 
             var uiBackShopButton = this.add.sprite(config.width, config.height, "uiBackButton");
             uiBackShopButton.setInteractive();
-            uiBackShopButton.setActive(false).setVisible(false).setDepth(5).setOrigin(1.0, 1.0);
+            uiBackShopButton.setActive(false).setVisible(false).setDepth(5).setOrigin(1.0, 1.0).setScale(uiBackShopButton.scale * scaleCoeff);
 
-            var shopBG = this.add.sprite(config.width*0.5, config.height*0.5, "challengeDefeatBG");
-            shopBG.setActive(false).setVisible(false).setDepth(4.1).setOrigin(0.5, 0.5).setInteractive();
+            var shopBG = this.add.sprite(config.width * 0.5, config.height * 0.5, "challengeDefeatBG");
+            shopBG.setActive(false).setVisible(false).setDepth(4.1).setOrigin(0.5, 0.5).setInteractive().setScale(shopBG.scale * scaleCoeff);
 
-            var energyText = this.add.text(config.width*0.5, config.height*0.15, "Энергия", {
-                                            fontFamily: 'font1',
-                                            fontSize: '90px',
-                                            color: "black",
-                                            align: "center"
-                                        });
-            energyText.setActive(false).setVisible(false).setDepth(4.2).setOrigin(0.5, 0.5);
-            var moneyText = this.add.text(config.width*0.5, config.height*0.51, "Монеты", {
-                                            fontFamily: 'font1',
-                                            fontSize: '90px',
-                                            color: "black",
-                                            align: "center"
-                                        });
-            moneyText.setActive(false).setVisible(false).setDepth(4.2).setOrigin(0.5, 0.5);
+            var energyText = this.add.text(config.width * 0.5, config.height * 0.15, "Энергия", {
+                fontFamily: 'font1',
+                fontSize: '90px',
+                color: "black",
+                align: "center"
+            });
+            energyText.setActive(false).setVisible(false).setDepth(4.2).setOrigin(0.5, 0.5).setScale(energyText.scale * scaleCoeff);
+            var moneyText = this.add.text(config.width * 0.5, config.height * 0.51, "Монеты", {
+                fontFamily: 'font1',
+                fontSize: '90px',
+                color: "black",
+                align: "center"
+            });
+            moneyText.setActive(false).setVisible(false).setDepth(4.2).setOrigin(0.5, 0.5).setScale(moneyText.scale * scaleCoeff);
 
             var i;
 
-            var goodUnderlays=[];
-            
-            for(i=-1; i<=1; i++){
-                goodUnderlays[i+1]=this.add.sprite(config.width*0.5+i*config.width*0.3, energyText.y+config.height*0.18, "GoodUnderlay");
-                goodUnderlays[i+1].setActive(false).setVisible(false).setDepth(4.2).setOrigin(0.5, 0.5).setInteractive();
+            var goodUnderlays = [];
+
+            for (i = -1; i <= 1; i++) {
+                goodUnderlays[i + 1] = this.add.sprite(config.width * 0.5 + i * config.width * 0.3, energyText.y + config.height * 0.18, "GoodUnderlay");
+                goodUnderlays[i + 1].setActive(false).setVisible(false).setDepth(4.2).setOrigin(0.5, 0.5).setInteractive().setScale(goodUnderlays[i + 1].scale * scaleCoeff);
             }
-            for(i=-1; i<=1; i++){
-                goodUnderlays[i+4]=this.add.sprite(config.width*0.5+i*config.width*0.3, moneyText.y+config.height*0.18, "GoodUnderlay");
-                goodUnderlays[i+4].setActive(false).setVisible(false).setDepth(4.2).setOrigin(0.5, 0.5).setInteractive();
+            for (i = -1; i <= 1; i++) {
+                goodUnderlays[i + 4] = this.add.sprite(config.width * 0.5 + i * config.width * 0.3, moneyText.y + config.height * 0.18, "GoodUnderlay");
+                goodUnderlays[i + 4].setActive(false).setVisible(false).setDepth(4.2).setOrigin(0.5, 0.5).setInteractive().setScale(goodUnderlays[i + 4].scale * scaleCoeff);
             }
 
             var shopEnergies = [];
-            i=0;
-            shopEnergies[0]=this.add.sprite(goodUnderlays[i].x, goodUnderlays[i].y, "EnergyGlow");
+            i = 0;
+            shopEnergies[0] = this.add.sprite(goodUnderlays[i].x, goodUnderlays[i].y, "EnergyGlow");
 
-            i=1;
-            shopEnergies[1]=this.add.sprite(goodUnderlays[i].x-goodUnderlays[i].width*0.1,
-                                            goodUnderlays[i].y-goodUnderlays[i].height*0.07, "EnergyGlow");
-            shopEnergies[2]=this.add.sprite(goodUnderlays[i].x,
-                                            goodUnderlays[i].y+goodUnderlays[i].height*0.05, "EnergyGlow");
-            shopEnergies[3]=this.add.sprite(goodUnderlays[i].x+goodUnderlays[i].width*0.12,
-                                            goodUnderlays[i].y-goodUnderlays[i].height*0.045, "EnergyGlow");
+            i = 1;
+            shopEnergies[1] = this.add.sprite(goodUnderlays[i].x - goodUnderlays[i].width * 0.1,
+                goodUnderlays[i].y - goodUnderlays[i].height * 0.07, "EnergyGlow");
+            shopEnergies[2] = this.add.sprite(goodUnderlays[i].x,
+                goodUnderlays[i].y + goodUnderlays[i].height * 0.05, "EnergyGlow");
+            shopEnergies[3] = this.add.sprite(goodUnderlays[i].x + goodUnderlays[i].width * 0.12,
+                goodUnderlays[i].y - goodUnderlays[i].height * 0.045, "EnergyGlow");
 
-            i=2;
-            shopEnergies[4]=this.add.sprite(goodUnderlays[i].x-goodUnderlays[i].width*0.17,
-                                            goodUnderlays[i].y, "EnergyGlow");
-            shopEnergies[5]=this.add.sprite(goodUnderlays[i].x-goodUnderlays[i].width*0.085,
-                                            goodUnderlays[i].y-goodUnderlays[i].height*0.1, "EnergyGlow");
-            shopEnergies[6]=this.add.sprite(goodUnderlays[i].x,
-                                            goodUnderlays[i].y+goodUnderlays[i].height*0.02, "EnergyGlow");
-            shopEnergies[7]=this.add.sprite(goodUnderlays[i].x+goodUnderlays[i].width*0.17,
-                                            goodUnderlays[i].y-goodUnderlays[i].height*0.02, "EnergyGlow");
-            shopEnergies[8]=this.add.sprite(goodUnderlays[i].x+goodUnderlays[i].width*0.085,
-                                            goodUnderlays[i].y-goodUnderlays[i].height*0.08, "EnergyGlow");
+            i = 2;
+            shopEnergies[4] = this.add.sprite(goodUnderlays[i].x - goodUnderlays[i].width * 0.17,
+                goodUnderlays[i].y, "EnergyGlow");
+            shopEnergies[5] = this.add.sprite(goodUnderlays[i].x - goodUnderlays[i].width * 0.085,
+                goodUnderlays[i].y - goodUnderlays[i].height * 0.1, "EnergyGlow");
+            shopEnergies[6] = this.add.sprite(goodUnderlays[i].x,
+                goodUnderlays[i].y + goodUnderlays[i].height * 0.02, "EnergyGlow");
+            shopEnergies[7] = this.add.sprite(goodUnderlays[i].x + goodUnderlays[i].width * 0.17,
+                goodUnderlays[i].y - goodUnderlays[i].height * 0.02, "EnergyGlow");
+            shopEnergies[8] = this.add.sprite(goodUnderlays[i].x + goodUnderlays[i].width * 0.085,
+                goodUnderlays[i].y - goodUnderlays[i].height * 0.08, "EnergyGlow");
 
-            for(i=0; i<9; i++){
-                shopEnergies[i].setActive(false).setVisible(false).setDepth(4.3+0.1*i);
+            for (i = 0; i < 9; i++) {
+                shopEnergies[i].setActive(false).setVisible(false).setDepth(4.3 + 0.1 * i).setScale(shopEnergies[i].scale * scaleCoeff);
             }
 
 
             var shopCoins = [];
-            i=3;
-            shopCoins[0]=this.add.sprite(goodUnderlays[i].x, goodUnderlays[i].y, "CoinGlow");
+            i = 3;
+            shopCoins[0] = this.add.sprite(goodUnderlays[i].x, goodUnderlays[i].y, "CoinGlow");
 
-            i=4;
-            shopCoins[1]=this.add.sprite(goodUnderlays[i].x,
-                                            goodUnderlays[i].y-goodUnderlays[i].height*0.1, "CoinGlow");
-            shopCoins[2]=this.add.sprite(goodUnderlays[i].x+goodUnderlays[i].width*0.13,
-                                            goodUnderlays[i].y, "CoinGlow");
-            shopCoins[3]=this.add.sprite(goodUnderlays[i].x-goodUnderlays[i].width*0.06,
-                                            goodUnderlays[i].y+goodUnderlays[i].height*0.04, "CoinGlow");
+            i = 4;
+            shopCoins[1] = this.add.sprite(goodUnderlays[i].x,
+                goodUnderlays[i].y - goodUnderlays[i].height * 0.1, "CoinGlow");
+            shopCoins[2] = this.add.sprite(goodUnderlays[i].x + goodUnderlays[i].width * 0.13,
+                goodUnderlays[i].y, "CoinGlow");
+            shopCoins[3] = this.add.sprite(goodUnderlays[i].x - goodUnderlays[i].width * 0.06,
+                goodUnderlays[i].y + goodUnderlays[i].height * 0.04, "CoinGlow");
 
-            i=5;
-            shopCoins[4]=this.add.sprite(goodUnderlays[i].x-goodUnderlays[i].width*0.12,
-                                            goodUnderlays[i].y-goodUnderlays[i].height*0.13, "CoinGlow");
-            shopCoins[5]=this.add.sprite(goodUnderlays[i].x-goodUnderlays[i].width*0.2,
-                                            goodUnderlays[i].y, "CoinGlow");
-            shopCoins[6]=this.add.sprite(goodUnderlays[i].x+goodUnderlays[i].width*0.08,
-                                            goodUnderlays[i].y-goodUnderlays[i].height*0.12, "CoinGlow");
-            shopCoins[7]=this.add.sprite(goodUnderlays[i].x+goodUnderlays[i].width*0.18,
-                                            goodUnderlays[i].y-goodUnderlays[i].height*0.03, "CoinGlow");
-            shopCoins[8]=this.add.sprite(goodUnderlays[i].x,
-                                            goodUnderlays[i].y, "CoinGlow");
-            
-            for(i=0; i<9; i++){
-                shopCoins[i].setActive(false).setVisible(false).setDepth(4.3+0.1*i);
+            i = 5;
+            shopCoins[4] = this.add.sprite(goodUnderlays[i].x - goodUnderlays[i].width * 0.12,
+                goodUnderlays[i].y - goodUnderlays[i].height * 0.13, "CoinGlow");
+            shopCoins[5] = this.add.sprite(goodUnderlays[i].x - goodUnderlays[i].width * 0.2,
+                goodUnderlays[i].y, "CoinGlow");
+            shopCoins[6] = this.add.sprite(goodUnderlays[i].x + goodUnderlays[i].width * 0.08,
+                goodUnderlays[i].y - goodUnderlays[i].height * 0.12, "CoinGlow");
+            shopCoins[7] = this.add.sprite(goodUnderlays[i].x + goodUnderlays[i].width * 0.18,
+                goodUnderlays[i].y - goodUnderlays[i].height * 0.03, "CoinGlow");
+            shopCoins[8] = this.add.sprite(goodUnderlays[i].x,
+                goodUnderlays[i].y, "CoinGlow");
+
+            for (i = 0; i < 9; i++) {
+                shopCoins[i].setActive(false).setVisible(false).setDepth(4.3 + 0.1 * i).setScale(shopCoins[i].scale * scaleCoeff);
             }
 
             var shopQuantityTexts = [];
             var shopPrices = [];
             var shopNames = [];
-            for(i=0; i<6; i++){
-                shopQuantityTexts[i]=this.add.text(goodUnderlays[i].x, goodUnderlays[i].y-goodUnderlays[i].height*0.33, 0, {
-                                            fontFamily: 'font1',
-                                            fontSize: '50px',
-                                            color: "black",
-                                            align: "center"
-                                        });
-                shopQuantityTexts[i].setActive(false).setVisible(false).setDepth(4.3).setOrigin(0.5, 0.5);
-                shopPrices[i]=this.add.text(goodUnderlays[i].x, goodUnderlays[i].y+goodUnderlays[i].height*0.25, 0, {
-                                            fontFamily: 'font1',
-                                            fontSize: '40px',
-                                            color: "black",
-                                            align: "center"
-                                        });
-                shopPrices[i].setActive(false).setVisible(false).setDepth(4.3).setOrigin(0.5, 0.5);
-                shopNames[i]=this.add.text(goodUnderlays[i].x, goodUnderlays[i].y+goodUnderlays[i].height*0.36, "голосов", {
-                                            fontFamily: 'font1',
-                                            fontSize: '40px',
-                                            color: "black",
-                                            align: "center"
-                                        });
-                shopNames[i].setActive(false).setVisible(false).setDepth(4.3).setOrigin(0.5, 0.5);
+            for (i = 0; i < 6; i++) {
+                shopQuantityTexts[i] = this.add.text(goodUnderlays[i].x, goodUnderlays[i].y - goodUnderlays[i].height * 0.33, 0, {
+                    fontFamily: 'font1',
+                    fontSize: '50px',
+                    color: "black",
+                    align: "center"
+                });
+                shopQuantityTexts[i].setActive(false).setVisible(false).setDepth(4.3).setOrigin(0.5, 0.5).setScale(shopQuantityTexts[i].scale * scaleCoeff);
+                shopPrices[i] = this.add.text(goodUnderlays[i].x, goodUnderlays[i].y + goodUnderlays[i].height * 0.25, 0, {
+                    fontFamily: 'font1',
+                    fontSize: '40px',
+                    color: "black",
+                    align: "center"
+                });
+                shopPrices[i].setActive(false).setVisible(false).setDepth(4.3).setOrigin(0.5, 0.5).setScale(shopPrices[i].scale * scaleCoeff);
+                shopNames[i] = this.add.text(goodUnderlays[i].x, goodUnderlays[i].y + goodUnderlays[i].height * 0.36, "голосов", {
+                    fontFamily: 'font1',
+                    fontSize: '40px',
+                    color: "black",
+                    align: "center"
+                });
+                shopNames[i].setActive(false).setVisible(false).setDepth(4.3).setOrigin(0.5, 0.5).setScale(shopNames[i].scale * scaleCoeff);
             }
 
             this.anims.create({
@@ -1778,7 +1807,7 @@ class MainScreen extends Phaser.Scene {
                 }),
                 repeat: -1
             });
-        
+
             var shopObjects = [uiBackShopButton, shopBG, energyText, moneyText];
             Array.prototype.push.apply(shopObjects, goodUnderlays);
             Array.prototype.push.apply(shopObjects, shopEnergies);
@@ -1789,39 +1818,44 @@ class MainScreen extends Phaser.Scene {
         } // спавним элементы магазина
 
         {
-            var levelTexts=["Базовая\nкухня", "Русская\nкухня"/*, "Украинская\nкухня", "Новогодняя\nкухня"*/];
+            var levelTexts = ["Базовая\nкухня", "Русская\nкухня" /*, "Украинская\nкухня", "Новогодняя\nкухня"*/ ];
             var _scene = this;
             var levelObjects;
             var levelPanel;
             var levelTextObjects = [];
             var levelDoorObjects = [];
-            
+
             var levelEnterText = this.add.text(0, 0, "Зайти", {
-                                    fontFamily: 'font1',
-                                    fontSize: '70px',
-                                    color: "white",
-                                    align: "center"
-                                }).setDepth(1.3).setVisible(false).setActive(false);
+                fontFamily: 'font1',
+                fontSize: '70px',
+                color: "white",
+                align: "center"
+            }).setDepth(1.3).setVisible(false).setActive(false);
+            levelEnterText.setScale(levelEnterText.scale * scaleCoeff);
             var levelEnterButton = this.add.sprite(0, 0, "openLevelButton").setDepth(1.2).setInteractive().setVisible(false).setActive(false);
+            levelEnterButton.setScale(levelEnterButton.scale * scaleCoeff);
 
-            var levelBackground =  this.add.sprite(0, 0, "LevelsBackground").setDepth(1).setVisible(false).setActive(false);
+            var levelBackground = this.add.sprite(0, 0, "LevelsBackground").setDepth(1).setVisible(false).setActive(false);
+            levelBackground.setScale(levelBackground.scale * scaleCoeff);
 
-            
 
-            for(let i=0; i<levelTexts.length; i++){
+
+            for (let i = 0; i < levelTexts.length; i++) {
                 levelTextObjects[i] = this.add.text(0, 0, levelTexts[i], {
-                                        fontFamily: 'font1',
-                                        fontSize: '65px',
-                                        color: "black",
-                                        align: "center"
-                                    }).setDepth(1.2).setVisible(false).setActive(false);
-                levelDoorObjects[i] = this.add.sprite(0, 0, "Door"+(i+1)).setDepth(1.1).setVisible(false).setActive(false);
+                    fontFamily: 'font1',
+                    fontSize: '65px',
+                    color: "black",
+                    align: "center"
+                }).setDepth(1.2).setVisible(false).setActive(false);
+                levelTextObjects[i].setScale(levelTextObjects[i].scale * scaleCoeff);
+                levelDoorObjects[i] = this.add.sprite(0, 0, "Door" + (i + 1)).setDepth(1.1).setVisible(false).setActive(false);
+                levelDoorObjects[i].setScale(levelDoorObjects[i].scale * scaleCoeff);
             }
 
 
 
             levelObjects = [];
-            
+
             // timur   x : config.width*0.518182,      y : config.height*0.145548
             // timur_overlay   x : config.width*0.493939,      y : config.height*0.797945
             // likes   x : config.width*0.224242,      y : config.height*0.496575
@@ -1833,6 +1867,7 @@ class MainScreen extends Phaser.Scene {
 
             var levelsBackButton = this.add.sprite(config.width, config.height, "uiBackButton")
                 .setActive(false).setVisible(false).setDepth(1.1).setInteractive().setOrigin(1, 1);
+            levelsBackButton.setScale(levelsBackButton.scale * scaleCoeff);
         } // спавним элементы уровней
 
 
@@ -2407,66 +2442,88 @@ class MainScreen extends Phaser.Scene {
             }); // при нажатии на кнопку назад - закрываем либо спины, либо магазин
 
             var prevUIScOpts, prevUIScTextOpts, prevEnergyTextOpts, prevEnergyOpts;
-            uiSC.on("pointerdown", function openShop(){
+            uiSC.on("pointerdown", function openShop() {
                 let i;
-                for(i=0; i<shopObjects.length; i++){
+                for (i = 0; i < shopObjects.length; i++) {
                     shopObjects[i].setActive(true).setVisible(true);
                 }
 
-                for(i=0; i<6; i++){
-                    shopQuantityTexts[i].text=shopGoodOpts[i].quantity;
-                    shopQuantityTexts[i].setFontSize(70-(shopQuantityTexts[i].text.length*3.5));
-                    shopPrices[i].text=shopGoodOpts[i].price;
+                for (i = 0; i < 6; i++) {
+                    shopQuantityTexts[i].text = shopGoodOpts[i].quantity;
+                    shopQuantityTexts[i].setFontSize(70 - (shopQuantityTexts[i].text.length * 3.5));
+                    shopPrices[i].text = shopGoodOpts[i].price;
                     var p = shopGoodOpts[i].price;
-                    if(p%10==1&&p%100!=11){
-                        shopNames[i].text="голос";
-                    }else if(p%10<5&&p%10>1&&Math.round(p%100/10)!=1){
-                        shopNames[i].text="голоса";
-                    }else{
-                        shopNames[i].text="голосов";
+                    if (p % 10 == 1 && p % 100 != 11) {
+                        shopNames[i].text = "голос";
+                    } else if (p % 10 < 5 && p % 10 > 1 && Math.round(p % 100 / 10) != 1) {
+                        shopNames[i].text = "голоса";
+                    } else {
+                        shopNames[i].text = "голосов";
                     }
                 }
-                for(i=0; i<9; i++){
+                for (i = 0; i < 9; i++) {
                     shopCoins[i].play("coinGlow");
                     shopEnergies[i].play("energyGlow");
                 }
-                prevUIScOpts={"x":uiSC.x, "y":uiSC.y, "depth":uiSC.depth, "visibility":uiSC.active};
-                prevUIScTextOpts={"x":goldText0.x, "y":goldText0.y, "depth":goldText0.depth, "visibility":goldText0.active};
+                prevUIScOpts = {
+                    "x": uiSC.x,
+                    "y": uiSC.y,
+                    "depth": uiSC.depth,
+                    "visibility": uiSC.active
+                };
+                prevUIScTextOpts = {
+                    "x": goldText0.x,
+                    "y": goldText0.y,
+                    "depth": goldText0.depth,
+                    "visibility": goldText0.active
+                };
 
-                prevEnergyOpts={"x":uiEnergyBar.x, "y":uiEnergyBar.y, "depth":uiEnergyBar.depth, "visibility":uiEnergyBar.active};
-                prevEnergyTextOpts={"x":energyText0.x, "y":energyText0.y, "depth":energyText0.depth, "visibility":energyText0.active,
-                                    "origin": [energyText0.originX, energyText0.originY], "color":energyText0.style.color, "fontFamily":energyText0.style.fontFamily};
+                prevEnergyOpts = {
+                    "x": uiEnergyBar.x,
+                    "y": uiEnergyBar.y,
+                    "depth": uiEnergyBar.depth,
+                    "visibility": uiEnergyBar.active
+                };
+                prevEnergyTextOpts = {
+                    "x": energyText0.x,
+                    "y": energyText0.y,
+                    "depth": energyText0.depth,
+                    "visibility": energyText0.active,
+                    "origin": [energyText0.originX, energyText0.originY],
+                    "color": energyText0.style.color,
+                    "fontFamily": energyText0.style.fontFamily
+                };
                 uiSC.disableInteractive();
                 uiSC.setDepth(4.2);
                 uiSC.setActive(true).setVisible(true);
-                uiSC.x=config.width*0.36;
-                uiSC.y=config.height*0.06;
+                uiSC.x = config.width * 0.36;
+                uiSC.y = config.height * 0.06;
 
                 uiEnergyBar.setActive(true).setVisible(true).setDepth(4.2);
 
-                uiEnergyBar.x=config.width*0.75;
-                uiEnergyBar.y=config.height*0.06;
-                
+                uiEnergyBar.x = config.width * 0.75;
+                uiEnergyBar.y = config.height * 0.06;
+
 
                 goldText0.setActive(true).setVisible(true);
                 goldText0.setDepth(4.3);
                 goldText0.setX(uiSC.x).setY(uiSC.y);
 
-                energyText0.x=uiEnergyBar.x;
-                energyText0.y=uiEnergyBar.y;
+                energyText0.x = uiEnergyBar.x;
+                energyText0.y = uiEnergyBar.y;
                 energyText0.setDepth(4.3);
                 energyText0.setActive(true).setVisible(true);
                 energyText0.setFontFamily("font1");
                 energyText0.setColor("white");
                 energyText0.setOrigin(0.25, 0.5);
 
-                
-                
+
+
             }); // при нажатии на голду открываем магазин 
 
             uiBackShopButton.on("pointerdown", function closeShop() {
                 var i;
-                for(i=0; i<shopObjects.length; i++){
+                for (i = 0; i < shopObjects.length; i++) {
                     shopObjects[i].setActive(false).setVisible(false);
                 }
                 uiSC.setX(prevUIScOpts.x).setY(prevUIScOpts.y);
@@ -2566,53 +2623,92 @@ class MainScreen extends Phaser.Scene {
                     closeOrOpenUpgrades(true);
                 }); // при нажатии на Ремонт в меню переходим в ремонт
 
+                notificationsMenuText.on("pointerdown", function openNotifications() {
+                    uiGift.setActive(false).setVisible(false);
+                    uiNotificationsUnderlay.setActive(true).setVisible(true);
+                    uiNotificationsBackButton.setActive(true).setVisible(true);
+                    closeUI();
+                    uiSC.setX(config.width * 0.30);
+                    goldText0.setX(config.width * 0.33);
+                    uiEnergyBar.setActive(true).setVisible(true);
+                    energyText0.setVisible(true).setPosition(config.width * 0.73, config.height * 0.02).setColor("white");
+                    for (let i = 0; i < giftJSON.length; i++) {
+                        notificationPanelsSprites[i].setActive(true).setVisible(true);
+                        collectGiftSprites[i].setActive(true).setVisible(true);
+                        senderTextSprites[i].setActive(true).setVisible(true);
+                        typeTextSprites[i].setActive(true).setVisible(true);
+                    };
+                    closeMenuActions();
+                })
                 buyMenuText.on("pointerdown", function openShop() {
                     let i;
-                    for(i=0; i<shopObjects.length; i++){
+                    for (i = 0; i < shopObjects.length; i++) {
                         shopObjects[i].setActive(true).setVisible(true);
                     }
 
-                    for(i=0; i<6; i++){
-                        shopQuantityTexts[i].text=shopGoodOpts[i].quantity;
-                        shopQuantityTexts[i].setFontSize(70-(shopQuantityTexts[i].text.length*3.5));
-                        shopPrices[i].text=shopGoodOpts[i].price;
+                    for (i = 0; i < 6; i++) {
+                        shopQuantityTexts[i].text = shopGoodOpts[i].quantity;
+                        shopQuantityTexts[i].setFontSize(70 - (shopQuantityTexts[i].text.length * 3.5));
+                        shopPrices[i].text = shopGoodOpts[i].price;
                         var p = shopGoodOpts[i].price;
-                        if(p%10==1&&p%100!=11){
-                            shopNames[i].text="голос";
-                        }else if(p%10<5&&p%10>1&&Math.round(p%100/10)!=1){
-                            shopNames[i].text="голоса";
-                        }else{
-                            shopNames[i].text="голосов";
+                        if (p % 10 == 1 && p % 100 != 11) {
+                            shopNames[i].text = "голос";
+                        } else if (p % 10 < 5 && p % 10 > 1 && Math.round(p % 100 / 10) != 1) {
+                            shopNames[i].text = "голоса";
+                        } else {
+                            shopNames[i].text = "голосов";
                         }
                     }
-                    for(i=0; i<9; i++){
+                    for (i = 0; i < 9; i++) {
                         shopCoins[i].play("coinGlow");
                         shopEnergies[i].play("energyGlow");
                     }
-                    prevUIScOpts={"x":uiSC.x, "y":uiSC.y, "depth":uiSC.depth, "visibility":uiSC.active};
-                    prevUIScTextOpts={"x":goldText0.x, "y":goldText0.y, "depth":goldText0.depth, "visibility":goldText0.active};
+                    prevUIScOpts = {
+                        "x": uiSC.x,
+                        "y": uiSC.y,
+                        "depth": uiSC.depth,
+                        "visibility": uiSC.active
+                    };
+                    prevUIScTextOpts = {
+                        "x": goldText0.x,
+                        "y": goldText0.y,
+                        "depth": goldText0.depth,
+                        "visibility": goldText0.active
+                    };
 
-                    prevEnergyOpts={"x":uiEnergyBar.x, "y":uiEnergyBar.y, "depth":uiEnergyBar.depth, "visibility":uiEnergyBar.active};
-                    prevEnergyTextOpts={"x":energyText0.x, "y":energyText0.y, "depth":energyText0.depth, "visibility":energyText0.active,
-                                        "origin": [energyText0.originX, energyText0.originY], "color":energyText0.style.color, "fontFamily":energyText0.style.fontFamily};
+                    prevEnergyOpts = {
+                        "x": uiEnergyBar.x,
+                        "y": uiEnergyBar.y,
+                        "depth": uiEnergyBar.depth,
+                        "visibility": uiEnergyBar.active
+                    };
+                    prevEnergyTextOpts = {
+                        "x": energyText0.x,
+                        "y": energyText0.y,
+                        "depth": energyText0.depth,
+                        "visibility": energyText0.active,
+                        "origin": [energyText0.originX, energyText0.originY],
+                        "color": energyText0.style.color,
+                        "fontFamily": energyText0.style.fontFamily
+                    };
                     uiSC.disableInteractive();
                     uiSC.setDepth(4.2);
                     uiSC.setActive(true).setVisible(true);
-                    uiSC.x=config.width*0.36;
-                    uiSC.y=config.height*0.06;
+                    uiSC.x = config.width * 0.36;
+                    uiSC.y = config.height * 0.06;
 
                     uiEnergyBar.setActive(true).setVisible(true).setDepth(4.2);
 
-                    uiEnergyBar.x=config.width*0.75;
-                    uiEnergyBar.y=config.height*0.06;
-                    
+                    uiEnergyBar.x = config.width * 0.75;
+                    uiEnergyBar.y = config.height * 0.06;
+
 
                     goldText0.setActive(true).setVisible(true);
                     goldText0.setDepth(4.3);
                     goldText0.setX(uiSC.x).setY(uiSC.y);
 
-                    energyText0.x=uiEnergyBar.x;
-                    energyText0.y=uiEnergyBar.y;
+                    energyText0.x = uiEnergyBar.x;
+                    energyText0.y = uiEnergyBar.y;
                     energyText0.setDepth(4.3);
                     energyText0.setActive(true).setVisible(true);
                     energyText0.setFontFamily("font1");
@@ -2621,10 +2717,19 @@ class MainScreen extends Phaser.Scene {
                 }); // При нажатии на купить переходим в покупку
 
                 playMenuText.on("pointerdown", function openSpins() {
-                    spinsStub.setActive(true).setVisible(true);
-                    spinsStub.setDepth(2);
-                    uiBackSpinButton.setActive(true).setVisible(true);
-                    uiBackSpinButton.setDepth(2);
+
+                    spinsBG.setInteractive();
+                    spinsBG.setActive(true).setVisible(true);
+                    uiBackSpinButton.setActive(true).setVisible(true).setDepth(2);
+                    uiSC.setActive(true).setVisible(true);
+
+                    spinGroup.getChildren().forEach(setAllVisible);
+
+                    function setAllVisible(element, index) {
+                        element.setActive(true).setVisible(true);
+                    };
+                    uiSC.setX(config.width / 2).setY(config.height * 0.06).setDepth(1.2);
+                    goldText0.setActive(true).setVisible(true).setDepth(1.21).setX(config.width / 2).setY(config.height * 0.06);
                     closeMenuActions();
                 }) // При нажатии на "Играть" в меню переходим в слот машину
                 function closeMenuActions() {
@@ -2707,67 +2812,100 @@ class MainScreen extends Phaser.Scene {
                     closeUI();
                     menu.setVisible(false).setVisible(false);
                     uiMenuBar.setActive(false).setVisible(false);
-                    
+
                     updateLevels();
                     levelsBackButton.setVisible(true).setActive(true);
                     levelPanel.setVisible(true).setActive(true);
                 }); // при нажатии на уровни, переходим к уровням
 
-                function updateLevels(){
+                function updateLevels() {
                     levelObjects = [];
-                    for(let i=0; i<levelTexts.length; i++){
-                        let rows=4, proportions=[5, 0, 2, 8];
-                        if(gameSettings.currentLevel==i){
-                            rows=3;
-                            proportions=[1, 0, 2];
+                    for (let i = 0; i < levelTexts.length; i++) {
+                        let rows = 4,
+                            proportions = [5, 0, 2, 8];
+                        if (gameSettings.currentLevel == i) {
+                            rows = 3;
+                            proportions = [1, 0, 2];
                         }
                         levelObjects[i] = _scene.rexUI.add.gridSizer({
-                            height : config.height*0.65,
-                            width : config.width*0.58,
-                            column: 1,
-                            row: rows,
-                            rowProportions: proportions,
-                            space: { column: 0, row: 0, top: config.height*0.3 },
-                            name: i  // Search this name to get table back
-                        })
-                            .addBackground(levelDoorObjects[i], { expand: false })
-                            .add(levelTextObjects[i], { expand: false, })
-                            .add(_scene.rexUI.add.roundRectangle(0, 0, config.width*0.58, 0, 0, 0x000000).setDepth(1.2), 
-                                { expand: false }, {align: 'center'});
-                        if(gameSettings.currentLevel==i){
+                                height: config.height * 0.65,
+                                width: config.width * 0.58,
+                                column: 1,
+                                row: rows,
+                                rowProportions: proportions,
+                                space: {
+                                    column: 0,
+                                    row: 0,
+                                    top: config.height * 0.3
+                                },
+                                name: i // Search this name to get table back
+                            })
+                            .addBackground(levelDoorObjects[i], {
+                                expand: false
+                            })
+                            .add(levelTextObjects[i], {
+                                expand: false,
+                            })
+                            .add(_scene.rexUI.add.roundRectangle(0, 0, config.width * 0.58, 0, 0, 0x000000).setDepth(1.2), {
+                                expand: false
+                            }, {
+                                align: 'center'
+                            });
+                        if (gameSettings.currentLevel == i) {
                             let button = _scene.rexUI.add.overlapSizer({})
-                                .add(levelEnterButton, 'bg', 'center').add(levelEnterText, {align: 'center', expand: false});
-                            levelObjects[i].add(button, { expand: false, });
-                        }else if(gameSettings.currentLevel>i){
+                                .add(levelEnterButton, 'bg', 'center').add(levelEnterText, {
+                                    align: 'center',
+                                    expand: false
+                                });
+                            levelObjects[i].add(button, {
+                                expand: false,
+                            });
+                        } else if (gameSettings.currentLevel > i) {
                             levelObjects[i].add(_scene.add.text(0, 0, "Пройдено", {
-                                                fontFamily: 'font1',
-                                                fontSize: '55px',
-                                                color: "black",
-                                                align: "center"
-                                            }).setDepth(1.2), { padding : { top : config.height*0.1, bottom: config.height*0.02 }, expand: false, })
-                            .add(_scene.add.sprite(0, 0, "mediumCheck").setDepth(1.2), { expand: false, });
-                        }else{
+                                    fontFamily: 'font1',
+                                    fontSize: '55px',
+                                    color: "black",
+                                    align: "center"
+                                }).setDepth(1.2), {
+                                    padding: {
+                                        top: config.height * 0.1,
+                                        bottom: config.height * 0.02
+                                    },
+                                    expand: false,
+                                })
+                                .add(_scene.add.sprite(0, 0, "mediumCheck").setDepth(1.2), {
+                                    expand: false,
+                                });
+                        } else {
                             levelObjects[i].add(_scene.add.text(0, 0, "Заблокировано", {
-                                                fontFamily: 'font1',
-                                                fontSize: '55px',
-                                                color: "black",
-                                                align: "center"
-                                            }).setDepth(1.2), { padding : { top : config.height*0.1, bottom: config.height*0.02},  expand: false })
-                            .add(_scene.add.sprite(0, 0, "iconLock").setDepth(1.2), { expand: false, });
+                                    fontFamily: 'font1',
+                                    fontSize: '55px',
+                                    color: "black",
+                                    align: "center"
+                                }).setDepth(1.2), {
+                                    padding: {
+                                        top: config.height * 0.1,
+                                        bottom: config.height * 0.02
+                                    },
+                                    expand: false
+                                })
+                                .add(_scene.add.sprite(0, 0, "iconLock").setDepth(1.2), {
+                                    expand: false,
+                                });
                         }
-                            
+
                     }
 
                     levelPanel = _scene.rexUI.add.scrollablePanel({
-                        x : config.width*0.5,
-                        y : config.height*0.5,
+                        x: config.width * 0.5,
+                        y: config.height * 0.5,
 
-                        width : config.width, 
-                        height : config.height,
+                        width: config.width,
+                        height: config.height,
 
-                        scrollMode : 1,
+                        scrollMode: 1,
 
-                        background : levelBackground.setVisible(true).setActive(true), 
+                        background: levelBackground.setVisible(true).setActive(true),
 
                         panel: {
                             child: createLevels(_scene),
@@ -2775,21 +2913,23 @@ class MainScreen extends Phaser.Scene {
 
                     }).layout();
 
-                    function createLevels(scene){
+                    function createLevels(scene) {
                         var gridSizer = scene.rexUI.add.gridSizer({
 
                             column: levelObjects.length,
                             row: 1,
                             rowProportions: 1,
-                            space: { column: config.width*0.12, 
-                                    left: config.width*0.21, 
-                                    right: config.width*0.21,
-                                    top: config.height*0.15,
-                                    bottom: config.height*0.2 },
-                            name: "sizer"   // Search this name to get table back
+                            space: {
+                                column: config.width * 0.12,
+                                left: config.width * 0.21,
+                                right: config.width * 0.21,
+                                top: config.height * 0.15,
+                                bottom: config.height * 0.2
+                            },
+                            name: "sizer" // Search this name to get table back
                         });
 
-                        for(let i=0; i<levelObjects.length; i++){
+                        for (let i = 0; i < levelObjects.length; i++) {
                             gridSizer.add(levelObjects[i]);
                         }
 
@@ -2818,9 +2958,6 @@ class MainScreen extends Phaser.Scene {
                     goldText0
                         .setActive(true).setVisible(true);
                 });
-
-
-
 
             } // взаимодействия на экране меню
 
@@ -2911,21 +3048,33 @@ class MainScreen extends Phaser.Scene {
             } // взаимодействия на экране крафтов
 
             {
-                goodUnderlays[0].on("pointerdown", function(){shopBuy(0)});
-                goodUnderlays[1].on("pointerdown", function(){shopBuy(1)});
-                goodUnderlays[2].on("pointerdown", function(){shopBuy(2)});
+                goodUnderlays[0].on("pointerdown", function () {
+                    shopBuy(0)
+                });
+                goodUnderlays[1].on("pointerdown", function () {
+                    shopBuy(1)
+                });
+                goodUnderlays[2].on("pointerdown", function () {
+                    shopBuy(2)
+                });
 
-                goodUnderlays[3].on("pointerdown", function(){shopBuy(3)});
-                goodUnderlays[4].on("pointerdown", function(){shopBuy(4)});
-                goodUnderlays[5].on("pointerdown", function(){shopBuy(5)});
+                goodUnderlays[3].on("pointerdown", function () {
+                    shopBuy(3)
+                });
+                goodUnderlays[4].on("pointerdown", function () {
+                    shopBuy(4)
+                });
+                goodUnderlays[5].on("pointerdown", function () {
+                    shopBuy(5)
+                });
 
-                function shopBuy(idx){
-                    if(idx<3){
+                function shopBuy(idx) {
+                    if (idx < 3) {
                         //energy
-                        gameSettings.currEnergy+=parseInt(shopQuantityTexts[idx].text);
-                    }else{
+                        gameSettings.currEnergy += parseInt(shopQuantityTexts[idx].text);
+                    } else {
                         // money
-                        gameSettings.currGold+=parseInt(shopQuantityTexts[idx].text);
+                        gameSettings.currGold += parseInt(shopQuantityTexts[idx].text);
                     }
                 }
             } // взамодействия магазина
