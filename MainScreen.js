@@ -1777,8 +1777,7 @@ class MainScreen extends Phaser.Scene {
             });
 
             function randomFrame(firstSlot, secondSlot, thirdSlot, argument) {
-                // let a = Math.random();
-                var a = 0.8;
+                let a = Math.random();
                 if (a < 0.15) {
                     firstSlot.setFrame("energy");
                     secondSlot.setFrame("gift");
