@@ -575,219 +575,70 @@ class MainScreen extends Phaser.Scene {
             fixedTable.setActive(false).setVisible(false).setScale(fixedTable.scale * scaleCoeff);
 
             //building smoke objects
-            var buildingSmokeTable1, buildingSmokeTable2, buildingSmokeTable3, buildingSmokeTable4, buildingSmokeTable5,
-                buildingSmokeTable6, buildingSmokeTable7, buildingSmokeTable8;
+            var buildingSmokesTable = [];
+            var buildingSmokesWall = [];
+            var buildingSmokesKitchen = [];
+            var buildingSmokesWindow = [];
+            let scaleSmoke = 1.3;
+            let smokeObjectDimension = 210*scaleSmoke*scaleCoeff, objWidth = unfixedTable.displayWidth, objHeight = unfixedTable.displayHeight, 
+                objX = unfixedTable.x-unfixedTable.originX*objWidth, objY = unfixedTable.y-unfixedTable.originY*objHeight, 
+                w = Math.ceil(objWidth/smokeObjectDimension), h = Math.ceil(objHeight/smokeObjectDimension);
+            for(let i=0; i<w; i++){
+                for(let j=0; j<h; j++){
+                    let idx=j+i*h;
+                    buildingSmokesTable[idx] = this.add.sprite(objX+(objWidth-(w-1)*smokeObjectDimension)/2+i*smokeObjectDimension, 
+                        objY+(objHeight-(h-1)*smokeObjectDimension)/2+j*smokeObjectDimension, "building");
+                    buildingSmokesTable[idx].setActive(false).setVisible(false).setScale(scaleSmoke)
+                        .setScale(buildingSmokesTable[idx].scale * scaleCoeff);
+                }
+            }
 
-            var buildingSmokeWall1, buildingSmokeWall2, buildingSmokeWall3, buildingSmokeWall4, buildingSmokeWall5, buildingSmokeWall6,
-                buildingSmokeWall7, buildingSmokeWall8, buildingSmokeWall9, buildingSmokeWall10, buildingSmokeWall11, buildingSmokeWall12;
+            objWidth = unfixedWall.displayWidth, objHeight = unfixedWall.displayHeight, 
+                objX = unfixedWall.x-unfixedWall.originX*objWidth, objY = unfixedWall.y-unfixedWall.originY*objHeight, 
+                w = Math.ceil(objWidth/smokeObjectDimension), h = Math.ceil(objHeight/smokeObjectDimension);   
+            for(let i=0; i<w; i++){
+                for(let j=0; j<h; j++){
+                    let idx=j+i*h;
+                    buildingSmokesWall[idx] = this.add.sprite(objX+(objWidth-(w-1)*smokeObjectDimension)/2+i*smokeObjectDimension, 
+                        objY+(objHeight-(h-1)*smokeObjectDimension)/2+j*smokeObjectDimension, "building");
+                    buildingSmokesWall[idx].setActive(false).setVisible(false).setScale(scaleSmoke)
+                        .setScale(buildingSmokesWall[idx].scale * scaleCoeff);
+                }
+            }
 
-            var buildingSmokeKitchen1, buildingSmokeKitchen2, buildingSmokeKitchen3, buildingSmokeKitchen4, buildingSmokeKitchen5,
-                buildingSmokeKitchen6, buildingSmokeKitchen7, buildingSmokeKitchen8;
+            objWidth = unfixedKitchen.displayWidth, objHeight = unfixedKitchen.displayHeight, 
+                objX = unfixedKitchen.x-unfixedKitchen.originX*objWidth, objY = unfixedKitchen.y-unfixedKitchen.originY*objHeight, 
+                w = Math.ceil(objWidth/smokeObjectDimension), h = Math.ceil(objHeight/smokeObjectDimension);
+            for(let i=0; i<w; i++){
+                for(let j=0; j<h; j++){
+                    let idx=j+i*h;
+                    buildingSmokesKitchen[idx] = this.add.sprite(objX+(objWidth-(w-1)*smokeObjectDimension)/2+i*smokeObjectDimension, 
+                        objY+(objHeight-(h-1)*smokeObjectDimension)/2+j*smokeObjectDimension, "building");
+                    buildingSmokesKitchen[idx].setActive(false).setVisible(false).setScale(scaleSmoke)
+                        .setScale(buildingSmokesKitchen[idx].scale * scaleCoeff);
+                }
+            }
 
-            var buildingSmokeWindow1, buildingSmokeWindow2, buildingSmokeWindow3;
+            objWidth = unfixedWindow.displayWidth, objHeight = unfixedWindow.displayHeight, 
+                objX = unfixedWindow.x-unfixedWindow.originX*objWidth, objY = unfixedWindow.y-unfixedWindow.originY*objHeight, 
+                w = Math.ceil(objWidth/smokeObjectDimension), h = Math.ceil(objHeight/smokeObjectDimension);
+            for(let i=0; i<w; i++){
+                for(let j=0; j<h; j++){
+                    let idx=j+i*h;
+                    buildingSmokesWindow[idx] = this.add.sprite(objX+(objWidth-(w-1)*smokeObjectDimension)/2+i*smokeObjectDimension, 
+                        objY+(objHeight-(h-1)*smokeObjectDimension)/2+j*smokeObjectDimension, "building");
+                    buildingSmokesWindow[idx].setActive(false).setVisible(false).setScale(scaleSmoke)
+                        .setScale(buildingSmokesWindow[idx].scale * scaleCoeff);
+                }
+            }
+
 
             var buildingSmokes = {
-                "wall": {
-                    "objArr": [buildingSmokeWall1, buildingSmokeWall2, buildingSmokeWall3, buildingSmokeWall4, buildingSmokeWall5, buildingSmokeWall6,
-                                buildingSmokeWall7, buildingSmokeWall8, buildingSmokeWall9, buildingSmokeWall10, buildingSmokeWall11, buildingSmokeWall12],
-                    "optsArr": [{
-                            "x": config.width * 0.03,
-                            "y": config.height * 0.04,
-                            "scale": 1.6
-                        },
-                        {
-                            "x": config.width * 0.29,
-                            "y": config.height * 0.064,
-                            "scale": 1.5
-                        },
-                        {
-                            "x": config.width * 0.59,
-                            "y": config.height * 0.02,
-                            "scale": 1.6
-                        },
-                        {
-                            "x": config.width * 0.92,
-                            "y": config.height * 0.02,
-                            "scale": 1
-                        },
-                        {
-                            "x": config.width * (-0.145),
-                            "y": config.height * 0.2,
-                            "scale": 1.6
-                        },
-                        {
-                            "x": config.width * 0.6,
-                            "y": config.height * 0.16,
-                            "scale": 1
-                        },
-                        {
-                            "x": config.width * 1.08,
-                            "y": config.height * 0.13,
-                            "scale": 1.6
-                        },
-                        {
-                            "x": config.width * 0.03,
-                            "y": config.height * 0.335,
-                            "scale": 0.7
-                        },
-                        {
-                            "x": config.width * 0.24,
-                            "y": config.height * 0.35,
-                            "scale": 0.7
-                        },
-                        {
-                            "x": config.width * 0.42,
-                            "y": config.height * 0.35,
-                            "scale": 0.7
-                        },
-                        {
-                            "x": config.width * 0.61,
-                            "y": config.height * 0.29,
-                            "scale": 1.2
-                        },
-                        {
-                            "x": config.width * 0.91,
-                            "y": config.height * 0.31,
-                            "scale": 1.2
-                        }]
-                },
-                "window": {
-                    "objArr": [buildingSmokeWindow1, buildingSmokeWindow2, buildingSmokeWindow3],
-                    "optsArr": [{
-                            "x": config.width * 0.13,
-                            "y": config.height * 0.22,
-                            "scale": 1.6
-                        },
-                        {
-                            "x": config.width * 0.38,
-                            "y": config.height * 0.17,
-                            "scale": 1
-                        },
-                        {
-                            "x": config.width * 0.38,
-                            "y": config.height * 0.29,
-                            "scale": 0.7
-                        }]
-                },
-                "kitchen": {
-                    "objArr": [buildingSmokeKitchen1, buildingSmokeKitchen2, buildingSmokeKitchen3, buildingSmokeKitchen4, buildingSmokeKitchen5,
-                                buildingSmokeKitchen6, buildingSmokeKitchen7, buildingSmokeKitchen8],
-                    "optsArr": [{
-                            "x": config.width * 0.78,
-                            "y": config.height * 0.156,
-                            "scale": 1.7
-                        },
-                        {
-                            "x": config.width * 0.095,
-                            "y": config.height * 0.38,
-                            "scale": 1
-                        },
-                        {
-                            "x": config.width * 0.29,
-                            "y": config.height * 0.4,
-                            "scale": 0.7
-                        },
-                        {
-                            "x": config.width * 0.66,
-                            "y": config.height * 0.4,
-                            "scale": 0.7
-                        },
-                        {
-                            "x": config.width * 0.1,
-                            "y": config.height * 0.534,
-                            "scale": 1.6
-                        },
-                        {
-                            "x": config.width * 0.5,
-                            "y": config.height * 0.47,
-                            "scale": 1.6
-                        },
-                        {
-                            "x": config.width * 0.87,
-                            "y": config.height * 0.47,
-                            "scale": 1.6
-                        },
-                        {
-                            "x": config.width * 0.93,
-                            "y": config.height * 0.6,
-                            "scale": 0.7
-                        }]
-                },
-                "table": {
-                    "objArr": [buildingSmokeTable1, buildingSmokeTable2, buildingSmokeTable3, buildingSmokeTable4, buildingSmokeTable5,
-                                buildingSmokeTable6, buildingSmokeTable7, buildingSmokeTable8],
-                    "optsArr": [{
-                            "x": config.width * 0.28,
-                            "y": config.height * 0.66,
-                            "scale": 1.7
-                        },
-                        {
-                            "x": config.width * 0.66,
-                            "y": config.height * 0.64,
-                            "scale": 1.7
-                        },
-                        {
-                            "x": config.width * 0.13,
-                            "y": config.height * 0.83,
-                            "scale": 1.7
-                        },
-                        {
-                            "x": config.width * 0.5,
-                            "y": config.height * 0.81,
-                            "scale": 1.7
-                        },
-                        {
-                            "x": config.width * 0.86,
-                            "y": config.height * 0.81,
-                            "scale": 1.7
-                        },
-                        {
-                            "x": config.width * 0.8,
-                            "y": config.height * 0.98,
-                            "scale": 1.7
-                        },
-                        {
-                            "x": config.width * 0.36,
-                            "y": config.height * 0.98,
-                            "scale": 1.7
-                        },
-                        {
-                            "x": config.width * 0.05,
-                            "y": config.height * 0.95,
-                            "scale": 1.7
-                        }]
-                }
+                "wall": buildingSmokesWall,
+                "window": buildingSmokesWindow,
+                "kitchen": buildingSmokesKitchen,
+                "table": buildingSmokesTable
             };
-
-            var i;
-            //table
-            var arr = buildingSmokes.table.objArr,
-                optsArr = buildingSmokes.table.optsArr;
-            for (i = 0; i < arr.length; i++) {
-                arr[i] = this.add.sprite(optsArr[i].x, optsArr[i].y, "building");
-                arr[i].setActive(false).setVisible(false).setScale(optsArr[i].scale * scaleCoeff);
-            }
-
-            //wall
-            arr = buildingSmokes.wall.objArr, optsArr = buildingSmokes.wall.optsArr;
-            for (i = 0; i < arr.length; i++) {
-                arr[i] = this.add.sprite(optsArr[i].x, optsArr[i].y, "building");
-                arr[i].setActive(false).setVisible(false).setScale(optsArr[i].scale * scaleCoeff);
-            }
-
-            //kitchen
-            arr = buildingSmokes.kitchen.objArr, optsArr = buildingSmokes.kitchen.optsArr;
-            for (i = 0; i < arr.length; i++) {
-                arr[i] = this.add.sprite(optsArr[i].x, optsArr[i].y, "building");
-                arr[i].setActive(false).setVisible(false).setScale(optsArr[i].scale * scaleCoeff);
-            }
-
-            //window
-            arr = buildingSmokes.window.objArr, optsArr = buildingSmokes.window.optsArr;
-            for (i = 0; i < arr.length; i++) {
-                arr[i] = this.add.sprite(optsArr[i].x, optsArr[i].y, "building");
-                arr[i].setActive(false).setVisible(false).setScale(optsArr[i].scale * scaleCoeff);
-            }
 
             this.anims.create({
                 key: "buildingSmoke",
@@ -871,7 +722,7 @@ class MainScreen extends Phaser.Scene {
             var collectGiftSprites = [];
             var senderTextSprites = [];
             var typeTextSprites = [];
-            var distanceBetweenNotifications = 200;
+            var distanceBetweenNotifications = 200*scaleCoeff;
             for (var i = 0; i < giftJSON.length; i++) {
                 eval(`var ${"notificationPanel"+i} = this.add.sprite(notificationsX,notificationsY,"uiFriendNotification"); notificationPanelsSprites.push(${"notificationPanel"+i});
                 ${"notificationPanel"+i}.setActive(false).setVisible(false).setScale( ${"notificationPanel"+i}.scale * scaleCoeff);`);
@@ -1346,7 +1197,7 @@ class MainScreen extends Phaser.Scene {
             var uiFixUpgradeGeneral = this.add.sprite(config.width * 0.5, config.height * 0.72, "uiFixUpgrade");
             var uiFixUpgradeScale = 1.2;
             uiFixUpgradeGeneral.setInteractive().setActive(false).setVisible(false).setScale(uiFixUpgradeScale * scaleCoeff);
-            var uiTextGeneral = this.add.text(uiFixUpgradeGeneral.x + 24 * uiFixUpgradeScale, uiFixUpgradeGeneral.y - 76 * uiFixUpgradeScale, 0, {
+            var uiTextGeneral = this.add.text(uiFixUpgradeGeneral.x + 24 * uiFixUpgradeScale*scaleCoeff, uiFixUpgradeGeneral.y - 76 * uiFixUpgradeScale*scaleCoeff, 0, {
                 font: '108px font1',
                 color: 'brown'
             });
@@ -1513,7 +1364,7 @@ class MainScreen extends Phaser.Scene {
             var defeatUnderlay = this.add.sprite(config.width * 0.5, config.height * 0.47, "defeatUnderlay");
             defeatUnderlay.setActive(false).setVisible(false).setDepth(1.2).setScale(defeatUnderlay.scale * scaleCoeff);
 
-            var defeatText1 = this.add.text(defeatUnderlay.x, defeatUnderlay.y - defeatUnderlay.height * 0.4, "Поражение", {
+            var defeatText1 = this.add.text(defeatUnderlay.x, defeatUnderlay.y - defeatUnderlay.displayHeight * 0.4, "Поражение", {
                 fontFamily: 'font1',
                 fontSize: '110px',
                 color: "white",
@@ -1521,7 +1372,7 @@ class MainScreen extends Phaser.Scene {
             });
             defeatText1.setActive(false).setVisible(false).setDepth(1.4).setOrigin(0.5, 0.5).setScale(defeatText1.scale * scaleCoeff);
 
-            var defeatText2 = this.add.text(defeatUnderlay.x, defeatUnderlay.y - defeatUnderlay.height * 0.21, "Не переживайте,\nв следующий раз\nточно получится!", {
+            var defeatText2 = this.add.text(defeatUnderlay.x, defeatUnderlay.y - defeatUnderlay.displayHeight * 0.21, "Не переживайте,\nв следующий раз\nточно получится!", {
                 fontFamily: 'font1',
                 fontSize: '80px',
                 color: "white",
@@ -1529,7 +1380,7 @@ class MainScreen extends Phaser.Scene {
             });
             defeatText2.setActive(false).setVisible(false).setDepth(1.4).setOrigin(0.5, 0.5).setScale(defeatText2.scale * scaleCoeff);
 
-            var defeatText3 = this.add.text(defeatUnderlay.x, defeatUnderlay.y - defeatUnderlay.height * 0.02, "Вот. держите:", {
+            var defeatText3 = this.add.text(defeatUnderlay.x, defeatUnderlay.y - defeatUnderlay.displayHeight * 0.02, "Вот. держите:", {
                 fontFamily: 'font1',
                 fontSize: '90px',
                 color: "white",
@@ -1583,41 +1434,47 @@ class MainScreen extends Phaser.Scene {
         {
 
             var settingsUnderlay = this.add.sprite(config.width * 0.5, config.height * 0.45, "SettingsUnderlay");
-            var soundIcon = this.add.sprite(settingsUnderlay.x - settingsUnderlay.width * 0.28, settingsUnderlay.y - settingsUnderlay.height * 0.05, "Icon_Sound");
-            var musicIcon = this.add.sprite(settingsUnderlay.x - settingsUnderlay.width * 0.28, settingsUnderlay.y + settingsUnderlay.height * 0.15, "Icon_Music");
+            settingsUnderlay.setScale(settingsUnderlay.scale*scaleCoeff);
+            var soundIcon = this.add.sprite(settingsUnderlay.x - settingsUnderlay.displayWidth * 0.28, settingsUnderlay.y - settingsUnderlay.displayHeight * 0.05, "Icon_Sound");
+            soundIcon.setScale(soundIcon.scale*scaleCoeff);
+            var musicIcon = this.add.sprite(settingsUnderlay.x - settingsUnderlay.displayWidth * 0.28, settingsUnderlay.y + settingsUnderlay.displayHeight * 0.15, "Icon_Music");
+            musicIcon.setScale(musicIcon.scale*scaleCoeff);
 
 
+            var settingsIcon = this.add.sprite(settingsUnderlay.x - settingsUnderlay.displayWidth * 0.3, settingsUnderlay.y - settingsUnderlay.displayHeight * 0.35, "iconSettings");
+            settingsIcon.setScale(settingsIcon.scale*scaleCoeff);
 
-            var settingsIcon = this.add.sprite(settingsUnderlay.x - settingsUnderlay.width * 0.3, settingsUnderlay.y - settingsUnderlay.height * 0.35, "iconSettings");
-
-
-            var musicText = this.add.text(musicIcon.x + settingsUnderlay.width * 0.05, musicIcon.y, "Музыка", {
+            var musicText = this.add.text(musicIcon.x + settingsUnderlay.displayWidth * 0.05, musicIcon.y, "Музыка", {
                 fontFamily: 'font1',
                 fontSize: '70px',
                 color: "black",
                 align: "left"
             });
-            var soundText = this.add.text(soundIcon.x + settingsUnderlay.width * 0.05, soundIcon.y, "Звуки", {
+            musicText.setScale(musicText.scale*scaleCoeff);
+            var soundText = this.add.text(soundIcon.x + settingsUnderlay.displayWidth * 0.05, soundIcon.y, "Звуки", {
                 fontFamily: 'font1',
                 fontSize: '70px',
                 color: "black",
                 align: "left"
             });
-            var settingsText = this.add.text(settingsIcon.x + settingsIcon.width * 0.75, settingsIcon.y, "Настройки", {
+            soundText.setScale(soundText.scale*scaleCoeff);
+            var settingsText = this.add.text(settingsIcon.x + settingsIcon.displayWidth * 0.75, settingsIcon.y, "Настройки", {
                 fontFamily: 'font1',
                 fontSize: '90px',
                 color: "black",
                 align: "center"
             });
-            var settingsID = this.add.text(settingsUnderlay.x, settingsUnderlay.y + settingsUnderlay.height * 0.4, "Ваш ID: 12324552", {
+            settingsText.setScale(settingsText.scale*scaleCoeff);
+            var settingsID = this.add.text(settingsUnderlay.x, settingsUnderlay.y + settingsUnderlay.displayHeight * 0.4, "Ваш ID: 12324552", {
                 fontFamily: 'font1',
                 fontSize: '48px',
                 color: "#78781e",
                 align: "center"
             });
-            var soundToggleOn = this.add.sprite(settingsUnderlay.x + settingsUnderlay.width * 0.3, soundIcon.y, "ToggleOn");
+            settingsID.setScale(settingsID.scale*scaleCoeff);
+            var soundToggleOn = this.add.sprite(settingsUnderlay.x + settingsUnderlay.displayWidth * 0.3, soundIcon.y, "ToggleOn");
             var soundToggleOff = this.add.sprite(soundToggleOn.x, soundToggleOn.y, "ToggleOff");
-            var musicToggleOn = this.add.sprite(settingsUnderlay.x + settingsUnderlay.width * 0.3, musicIcon.y, "ToggleOn");
+            var musicToggleOn = this.add.sprite(settingsUnderlay.x + settingsUnderlay.displayWidth * 0.3, musicIcon.y, "ToggleOn");
             var musicToggleOff = this.add.sprite(musicToggleOn.x, musicToggleOn.y, "ToggleOff");
             var settingsBackButton = this.add.sprite(config.width, config.height, "uiBackButton");
 
@@ -1631,19 +1488,13 @@ class MainScreen extends Phaser.Scene {
             soundText.setActive(false).setVisible(false).setDepth(1.1).setOrigin(0.0, 0.5);
             settingsText.setActive(false).setVisible(false).setDepth(1.1).setOrigin(0.0, 0.5);
 
-            soundToggleOn.setActive(false).setVisible(false).setDepth(1.2).setOrigin(0.5, 0.5).setInteractive();
-            soundToggleOff.setActive(false).setVisible(false).setDepth(1.1).setOrigin(0.5, 0.5).setInteractive();
-            musicToggleOn.setActive(false).setVisible(false).setDepth(1.2).setOrigin(0.5, 0.5).setInteractive();
-            musicToggleOff.setActive(false).setVisible(false).setDepth(1.1).setOrigin(0.5, 0.5).setInteractive();
-            settingsBackButton.setActive(false).setVisible(false).setDepth(1.1).setOrigin(1.0, 1.0).setInteractive();
+            soundToggleOn.setActive(false).setVisible(false).setDepth(1.2).setOrigin(0.5, 0.5).setInteractive().setScale(soundToggleOn.scale*scaleCoeff);
+            soundToggleOff.setActive(false).setVisible(false).setDepth(1.1).setOrigin(0.5, 0.5).setInteractive().setScale(soundToggleOff.scale*scaleCoeff);
+            musicToggleOn.setActive(false).setVisible(false).setDepth(1.2).setOrigin(0.5, 0.5).setInteractive().setScale(musicToggleOn.scale*scaleCoeff);
+            musicToggleOff.setActive(false).setVisible(false).setDepth(1.1).setOrigin(0.5, 0.5).setInteractive().setScale(musicToggleOff.scale*scaleCoeff);
+            settingsBackButton.setActive(false).setVisible(false).setDepth(1.1).setOrigin(1.0, 1.0).setInteractive().setScale(settingsBackButton.scale*scaleCoeff);
 
             var settingsObjects = [settingsUnderlay, soundIcon, musicIcon, settingsIcon, musicText, soundText, settingsText, settingsID, soundToggleOn, soundToggleOff, musicToggleOn, musicToggleOff, settingsBackButton];
-
-            settingsObjects.forEach(setScale);
-
-            function setScale(element, index) {
-                element.setScale(element.scale * scaleCoeff);
-            };
 
         } // спавним элементы настроек
 
@@ -1712,24 +1563,24 @@ class MainScreen extends Phaser.Scene {
             shopEnergies[0] = this.add.sprite(goodUnderlays[i].x, goodUnderlays[i].y, "EnergyGlow");
 
             i = 1;
-            shopEnergies[1] = this.add.sprite(goodUnderlays[i].x - goodUnderlays[i].width * 0.1,
-                goodUnderlays[i].y - goodUnderlays[i].height * 0.07, "EnergyGlow");
+            shopEnergies[1] = this.add.sprite(goodUnderlays[i].x - goodUnderlays[i].displayWidth * 0.1,
+                goodUnderlays[i].y - goodUnderlays[i].displayHeight * 0.07, "EnergyGlow");
             shopEnergies[2] = this.add.sprite(goodUnderlays[i].x,
-                goodUnderlays[i].y + goodUnderlays[i].height * 0.05, "EnergyGlow");
-            shopEnergies[3] = this.add.sprite(goodUnderlays[i].x + goodUnderlays[i].width * 0.12,
-                goodUnderlays[i].y - goodUnderlays[i].height * 0.045, "EnergyGlow");
+                goodUnderlays[i].y + goodUnderlays[i].displayHeight * 0.05, "EnergyGlow");
+            shopEnergies[3] = this.add.sprite(goodUnderlays[i].x + goodUnderlays[i].displayWidth * 0.12,
+                goodUnderlays[i].y - goodUnderlays[i].displayHeight * 0.045, "EnergyGlow");
 
             i = 2;
-            shopEnergies[4] = this.add.sprite(goodUnderlays[i].x - goodUnderlays[i].width * 0.17,
+            shopEnergies[4] = this.add.sprite(goodUnderlays[i].x - goodUnderlays[i].displayWidth * 0.17,
                 goodUnderlays[i].y, "EnergyGlow");
-            shopEnergies[5] = this.add.sprite(goodUnderlays[i].x - goodUnderlays[i].width * 0.085,
-                goodUnderlays[i].y - goodUnderlays[i].height * 0.1, "EnergyGlow");
+            shopEnergies[5] = this.add.sprite(goodUnderlays[i].x - goodUnderlays[i].displayWidth * 0.085,
+                goodUnderlays[i].y - goodUnderlays[i].displayHeight * 0.1, "EnergyGlow");
             shopEnergies[6] = this.add.sprite(goodUnderlays[i].x,
-                goodUnderlays[i].y + goodUnderlays[i].height * 0.02, "EnergyGlow");
-            shopEnergies[7] = this.add.sprite(goodUnderlays[i].x + goodUnderlays[i].width * 0.17,
-                goodUnderlays[i].y - goodUnderlays[i].height * 0.02, "EnergyGlow");
-            shopEnergies[8] = this.add.sprite(goodUnderlays[i].x + goodUnderlays[i].width * 0.085,
-                goodUnderlays[i].y - goodUnderlays[i].height * 0.08, "EnergyGlow");
+                goodUnderlays[i].y + goodUnderlays[i].displayHeight * 0.02, "EnergyGlow");
+            shopEnergies[7] = this.add.sprite(goodUnderlays[i].x + goodUnderlays[i].displayWidth * 0.17,
+                goodUnderlays[i].y - goodUnderlays[i].displayHeight * 0.02, "EnergyGlow");
+            shopEnergies[8] = this.add.sprite(goodUnderlays[i].x + goodUnderlays[i].displayWidth * 0.085,
+                goodUnderlays[i].y - goodUnderlays[i].displayHeight * 0.08, "EnergyGlow");
 
             for (i = 0; i < 9; i++) {
                 shopEnergies[i].setActive(false).setVisible(false).setDepth(4.3 + 0.1 * i).setScale(shopEnergies[i].scale * scaleCoeff);
@@ -1742,21 +1593,21 @@ class MainScreen extends Phaser.Scene {
 
             i = 4;
             shopCoins[1] = this.add.sprite(goodUnderlays[i].x,
-                goodUnderlays[i].y - goodUnderlays[i].height * 0.1, "CoinGlow");
-            shopCoins[2] = this.add.sprite(goodUnderlays[i].x + goodUnderlays[i].width * 0.13,
+                goodUnderlays[i].y - goodUnderlays[i].displayHeight * 0.1, "CoinGlow");
+            shopCoins[2] = this.add.sprite(goodUnderlays[i].x + goodUnderlays[i].displayWidth * 0.13,
                 goodUnderlays[i].y, "CoinGlow");
-            shopCoins[3] = this.add.sprite(goodUnderlays[i].x - goodUnderlays[i].width * 0.06,
-                goodUnderlays[i].y + goodUnderlays[i].height * 0.04, "CoinGlow");
+            shopCoins[3] = this.add.sprite(goodUnderlays[i].x - goodUnderlays[i].displayWidth * 0.06,
+                goodUnderlays[i].y + goodUnderlays[i].displayHeight * 0.04, "CoinGlow");
 
             i = 5;
-            shopCoins[4] = this.add.sprite(goodUnderlays[i].x - goodUnderlays[i].width * 0.12,
-                goodUnderlays[i].y - goodUnderlays[i].height * 0.13, "CoinGlow");
-            shopCoins[5] = this.add.sprite(goodUnderlays[i].x - goodUnderlays[i].width * 0.2,
+            shopCoins[4] = this.add.sprite(goodUnderlays[i].x - goodUnderlays[i].displayWidth * 0.12,
+                goodUnderlays[i].y - goodUnderlays[i].displayHeight * 0.13, "CoinGlow");
+            shopCoins[5] = this.add.sprite(goodUnderlays[i].x - goodUnderlays[i].displayWidth * 0.2,
                 goodUnderlays[i].y, "CoinGlow");
-            shopCoins[6] = this.add.sprite(goodUnderlays[i].x + goodUnderlays[i].width * 0.08,
-                goodUnderlays[i].y - goodUnderlays[i].height * 0.12, "CoinGlow");
-            shopCoins[7] = this.add.sprite(goodUnderlays[i].x + goodUnderlays[i].width * 0.18,
-                goodUnderlays[i].y - goodUnderlays[i].height * 0.03, "CoinGlow");
+            shopCoins[6] = this.add.sprite(goodUnderlays[i].x + goodUnderlays[i].displayWidth * 0.08,
+                goodUnderlays[i].y - goodUnderlays[i].displayHeight * 0.12, "CoinGlow");
+            shopCoins[7] = this.add.sprite(goodUnderlays[i].x + goodUnderlays[i].displayWidth * 0.18,
+                goodUnderlays[i].y - goodUnderlays[i].displayHeight * 0.03, "CoinGlow");
             shopCoins[8] = this.add.sprite(goodUnderlays[i].x,
                 goodUnderlays[i].y, "CoinGlow");
 
@@ -1768,21 +1619,21 @@ class MainScreen extends Phaser.Scene {
             var shopPrices = [];
             var shopNames = [];
             for (i = 0; i < 6; i++) {
-                shopQuantityTexts[i] = this.add.text(goodUnderlays[i].x, goodUnderlays[i].y - goodUnderlays[i].height * 0.33, 0, {
+                shopQuantityTexts[i] = this.add.text(goodUnderlays[i].x, goodUnderlays[i].y - goodUnderlays[i].displayHeight * 0.33, 0, {
                     fontFamily: 'font1',
                     fontSize: '50px',
                     color: "black",
                     align: "center"
                 });
                 shopQuantityTexts[i].setActive(false).setVisible(false).setDepth(4.3).setOrigin(0.5, 0.5).setScale(shopQuantityTexts[i].scale * scaleCoeff);
-                shopPrices[i] = this.add.text(goodUnderlays[i].x, goodUnderlays[i].y + goodUnderlays[i].height * 0.25, 0, {
+                shopPrices[i] = this.add.text(goodUnderlays[i].x, goodUnderlays[i].y + goodUnderlays[i].displayHeight * 0.25, 0, {
                     fontFamily: 'font1',
                     fontSize: '40px',
                     color: "black",
                     align: "center"
                 });
                 shopPrices[i].setActive(false).setVisible(false).setDepth(4.3).setOrigin(0.5, 0.5).setScale(shopPrices[i].scale * scaleCoeff);
-                shopNames[i] = this.add.text(goodUnderlays[i].x, goodUnderlays[i].y + goodUnderlays[i].height * 0.36, "голосов", {
+                shopNames[i] = this.add.text(goodUnderlays[i].x, goodUnderlays[i].y + goodUnderlays[i].displayHeight * 0.36, "голосов", {
                     fontFamily: 'font1',
                     fontSize: '40px',
                     color: "black",
@@ -1880,8 +1731,8 @@ class MainScreen extends Phaser.Scene {
 
                 downX = pointer.x;
                 downY = pointer.y;
-                if (downX <= (spinButton.x + spinButton.width / 2) && downX >= (spinButton.x - spinButton.width / 2) &&
-                    downY <= (spinButton.y + spinButton.height / 2) && downY >= (spinButton.y - spinButton.height / 2)) {
+                if (downX <= (spinButton.x + spinButton.displayWidth / 2) && downX >= (spinButton.x - spinButton.displayWidth / 2) &&
+                    downY <= (spinButton.y + spinButton.displayHeight / 2) && downY >= (spinButton.y - spinButton.displayHeight / 2)) {
                     buttonFlag = true;
                     firstClick = true;
                     spinButton.play("pressed");
@@ -2284,10 +2135,10 @@ class MainScreen extends Phaser.Scene {
                     "Window": fixedWindow,
                 },
                 "buildingSmokes": {
-                    "Table": buildingSmokes.table.objArr,
-                    "Wall": buildingSmokes.wall.objArr,
-                    "Kitchen": buildingSmokes.kitchen.objArr,
-                    "Window": buildingSmokes.window.objArr,
+                    "Table": buildingSmokes.table,
+                    "Wall": buildingSmokes.wall,
+                    "Kitchen": buildingSmokes.kitchen,
+                    "Window": buildingSmokes.window,
                 }
             }; // для взаимодействия с объектами кухни
             function getNextCost(text) {
@@ -2828,7 +2679,7 @@ class MainScreen extends Phaser.Scene {
                             proportions = [1, 0, 2];
                         }
                         levelObjects[i] = _scene.rexUI.add.gridSizer({
-                                height: config.height * 0.65,
+                                width: config.height * 0.65,
                                 width: config.width * 0.58,
                                 column: 1,
                                 row: rows,
@@ -2866,14 +2717,14 @@ class MainScreen extends Phaser.Scene {
                                     fontSize: '55px',
                                     color: "black",
                                     align: "center"
-                                }).setDepth(1.2), {
+                                }).setDepth(1.2).setScale(scaleCoeff), {
                                     padding: {
                                         top: config.height * 0.1,
                                         bottom: config.height * 0.02
                                     },
                                     expand: false,
                                 })
-                                .add(_scene.add.sprite(0, 0, "mediumCheck").setDepth(1.2), {
+                                .add(_scene.add.sprite(0, 0, "mediumCheck").setDepth(1.2).setScale(scaleCoeff), {
                                     expand: false,
                                 });
                         } else {
@@ -2882,14 +2733,14 @@ class MainScreen extends Phaser.Scene {
                                     fontSize: '55px',
                                     color: "black",
                                     align: "center"
-                                }).setDepth(1.2), {
+                                }).setDepth(1.2).setScale(scaleCoeff), {
                                     padding: {
                                         top: config.height * 0.1,
                                         bottom: config.height * 0.02
                                     },
                                     expand: false
                                 })
-                                .add(_scene.add.sprite(0, 0, "iconLock").setDepth(1.2), {
+                                .add(_scene.add.sprite(0, 0, "iconLock").setDepth(1.2).setScale(scaleCoeff), {
                                     expand: false,
                                 });
                         }
@@ -3024,15 +2875,15 @@ class MainScreen extends Phaser.Scene {
                     uiSC.setDepth(1);
                     goldText0
                         .setDepth(1.1);
-                    uiSC.setX(uiSC.x + 280);
+                    uiSC.setX(uiSC.x + 280*scaleCoeff);
                     goldText0
                         .setX(goldText0
-                            .x + 280);
+                            .x + 280*scaleCoeff);
                     for (var subRecipe in recipes[currCraftPage]) { // проходимся по всем подрецептам
                         for (var i = 1; i <= subRecipe["numberOfSteps"]; i++) { // итератор для прохожденеия по шагам подрецептов
                             eval("var ${i} = this.add.sprite(${stepX*0.5}, ${stepY}, 'StepPictureUnderlay');");
                             eval("check${i}.setDepth(2).setVisible(true);")
-                            stepY += 200;
+                            stepY += 200*scaleCoeff;
                         }
                     }
                 });
@@ -3040,10 +2891,10 @@ class MainScreen extends Phaser.Scene {
                 uiBackCraftButton.on("pointerdown", function closeCraft() {
                     openUI();
                     craftGroup.setVisible(false);
-                    uiSC.setX(uiSC.x - 280);
+                    uiSC.setX(uiSC.x - 280*scaleCoeff);
                     goldText0
                         .setX(goldText0
-                            .x - 280);
+                            .x - 280*scaleCoeff);
                 });
             } // взаимодействия на экране крафтов
 
