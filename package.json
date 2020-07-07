@@ -1,0 +1,26 @@
+{
+  "name": "mykitchen",
+  "version": "1.0.8",
+  "description": "Our VK-Project about cooking and upgrading your kitchen.",
+  "main": "FixScreen.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PurplePegasuss/myKitchen.git"
+  },
+  "keywords": [
+    "myKitchen",
+    "fridge",
+    "VK",
+    "vkontakte",
+    "game"
+  ],
+  "author": "Kirill Glinskiy & Ruslan Sahibgareev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PurplePegasuss/myKitchen/issues"
+  },
+  "homepage": "https://github.com/PurplePegasuss/myKitchen#readme"
+}
