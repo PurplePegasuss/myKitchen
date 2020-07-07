@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/PurplePegasuss/myKitchen/issues"
   },
-  "homepage": "https://github.com/PurplePegasuss/myKitchen#readme"
+  "homepage": "https://github.com/PurplePegasuss/myKitchen#readme",
+  "dependencies": {
+    "@vkontakte/vk-bridge": "^2.2.3"
+  }
 }
