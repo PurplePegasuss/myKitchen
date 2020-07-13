@@ -542,37 +542,41 @@ class MainScreen extends Phaser.Scene {
     create() {
 
         {
+            
+            var scaleCoeffX = config.width / 1080, scaleCoeffY = config.height / 1920;
             var scaleCoeff = Math.min(config.width / 1080, config.height / 1920);
+            var initialWidth = 1080*scaleCoeff;
+            var initialHeight = 1920*scaleCoeff;
 
             var unfixedWall = this.add.sprite(0, 0, "unfixedWall");
-            unfixedWall.setOrigin(0, 0).setScale(unfixedWall.scale * scaleCoeff);
+            unfixedWall.setOrigin(0, 0).setScale(scaleCoeffX, scaleCoeffY);
 
             var fixedWall = this.add.sprite(0, 0, "fixedWall");
             fixedWall.setOrigin(0, 0);
-            fixedWall.setActive(false).setVisible(false).setScale(fixedWall.scale * scaleCoeff);
+            fixedWall.setActive(false).setVisible(false).setScale(scaleCoeffX, scaleCoeffY);
 
             var floor = this.add.sprite(0, config.height * 0.55, "floor");
-            floor.setOrigin(0, 0).setScale(floor.scale * scaleCoeff);
+            floor.setOrigin(0, 0).setScale(scaleCoeffX, scaleCoeffY);
 
             var unfixedWindow = this.add.sprite(config.width * 0.25, config.height * 0.23, "unfixedWindow");
-            unfixedWindow.setScale(unfixedWindow.scale * scaleCoeff);
+            unfixedWindow.setScale(scaleCoeffX, scaleCoeffY);
 
             var fixedWindow = this.add.sprite(config.width * 0.25, config.height * 0.23, "fixedWindow");
-            fixedWindow.setActive(false).setVisible(false).setScale(fixedWindow.scale * scaleCoeff);
+            fixedWindow.setActive(false).setVisible(false).setScale(scaleCoeffX, scaleCoeffY);
 
 
             var unfixedKitchen = this.add.sprite(0, 0, "unfixedKitchen");
-            unfixedKitchen.setOrigin(0, 0).setScale(unfixedKitchen.scale * scaleCoeff);
+            unfixedKitchen.setOrigin(0, 0).setScale(scaleCoeffX, scaleCoeffY);
 
             var fixedKitchen = this.add.sprite(0, 0, "fixedKitchen");
             fixedKitchen.setOrigin(0, 0);
-            fixedKitchen.setActive(false).setVisible(false).setScale(fixedKitchen.scale * scaleCoeff);
+            fixedKitchen.setActive(false).setVisible(false).setScale(scaleCoeffX, scaleCoeffY);
 
             var unfixedTable = this.add.sprite(config.width * 0.5, config.height * 0.78, "unfixedTable");
-            unfixedTable.setScale(unfixedTable.scale * scaleCoeff);
+            unfixedTable.setScale(scaleCoeffX, scaleCoeffY);
 
             var fixedTable = this.add.sprite(config.width * 0.5, config.height * 0.78, "fixedTable");
-            fixedTable.setActive(false).setVisible(false).setScale(fixedTable.scale * scaleCoeff);
+            fixedTable.setActive(false).setVisible(false).setScale(scaleCoeffX, scaleCoeffY);
 
             //building smoke objects
             var buildingSmokesTable = [];
@@ -652,7 +656,8 @@ class MainScreen extends Phaser.Scene {
 
         {
 
-            var uiSC = this.add.sprite(config.width * 0.22, config.height * 0.04, "uiSC");
+            // var uiSC = this.add.sprite(config.width * 0.22, config.height * 0.04, "uiSC");
+            var uiSC = this.add.sprite(config.width * 0.5-initialWidth*0.28, initialHeight * 0.04, "uiSC");
             uiSC.setInteractive().setScale(uiSC.scale * scaleCoeff);
 
             var initialSCX = uiSC.x;
@@ -667,10 +672,12 @@ class MainScreen extends Phaser.Scene {
             var goldText0 = this.goldText;
             goldText0.setOrigin(0.5).setScale(goldText0.scale * scaleCoeff);
 
-            var uiPlay = this.add.sprite(config.width / 2, config.height * 0.93, "uiPlay");
+            // var uiPlay = this.add.sprite(config.width / 2, config.height * 0.93, "uiPlay");
+            var uiPlay = this.add.sprite(config.width / 2, config.height-initialHeight * 0.07, "uiPlay");
             uiPlay.setInteractive().setScale(uiPlay.scale * scaleCoeff);
 
-            this.playText = this.add.text(config.width / 2, config.height * 0.93, "Играть!", {
+            // this.playText = this.add.text(config.width / 2, config.height * 0.93, "Играть!", {
+            this.playText = this.add.text(config.width / 2, config.height-initialHeight * 0.07, "Играть!", {
                 fontFamily: 'font1',
                 fontSize: '80px',
                 color: "brown"
@@ -679,18 +686,20 @@ class MainScreen extends Phaser.Scene {
             var playText0 = this.playText;
             playText0.setActive(true).setVisible(true).setOrigin(0.5).setScale(playText0.scale * scaleCoeff);
 
-            var uiGift = this.add.sprite(config.width * 0.1, config.height * 0.15, "uiGift");
+            // var uiGift = this.add.sprite(config.width * 0.1, config.height * 0.15, "uiGift");
+            var uiGift = this.add.sprite(initialWidth * 0.1, config.height * 0.15, "uiGift");
             uiGift.setInteractive().setScale(uiGift.scale * scaleCoeff);
 
-            var uiEnergyBar = this.add.sprite(config.width * 0.75, config.height * 0.04, "uiEnergyBar");
+            // var uiEnergyBar = this.add.sprite(config.width * 0.75, config.height * 0.04, "uiEnergyBar");
+            var uiEnergyBar = this.add.sprite(config.width*0.5+initialWidth * 0.25, initialHeight * 0.04, "uiEnergyBar");
             uiEnergyBar.setActive(false).setVisible(false).setDepth(1.1).setScale(uiEnergyBar.scale * scaleCoeff);
 
             var uiNotificationsUnderlay = this.add.sprite(config.width / 2, config.height / 2, "uiNotification");
             uiNotificationsUnderlay.setActive(false).setVisible(false).setScale(uiNotificationsUnderlay.scale * scaleCoeff);
 
-            var uiNotificationsBackButton = this.add.sprite(config.width * 0.9, config.height * 0.95, "uiBackButton");
+            var uiNotificationsBackButton = this.add.sprite(config.width, config.height, "uiBackButton");
             uiNotificationsBackButton.setInteractive();
-            uiNotificationsBackButton.setActive(false).setVisible(false).setScale(uiNotificationsBackButton.scale * scaleCoeff);
+            uiNotificationsBackButton.setActive(false).setVisible(false).setScale(uiNotificationsBackButton.scale * scaleCoeff).setOrigin(1,1);
 
             var giftJSON = [
                 {
@@ -726,18 +735,20 @@ class MainScreen extends Phaser.Scene {
             for (var i = 0; i < giftJSON.length; i++) {
                 eval(`var ${"notificationPanel"+i} = this.add.sprite(notificationsX,notificationsY,"uiFriendNotification"); notificationPanelsSprites.push(${"notificationPanel"+i});
                 ${"notificationPanel"+i}.setActive(false).setVisible(false).setScale( ${"notificationPanel"+i}.scale * scaleCoeff);`);
-                eval(`var ${"collectGift"+i} = this.add.sprite(notificationsX+config.width*0.2,notificationsY,"uiGiftCollect");
+                eval(`var ${"collectGift"+i} = this.add.sprite(notificationsX+initialWidth*0.2,notificationsY,"uiGiftCollect");
                 collectGiftSprites.push(${"collectGift"+i});
                 ${"collectGift"+i}.setInteractive().setActive(false).setVisible(false).setScale( ${"collectGift"+i}.scale * scaleCoeff);`);
                 if (giftJSON[i]["Type"] == "take") {
-                    eval(`var ${"senderText"+i} = this.add.text(notificationsX-config.width*0.3,notificationsY-config.height * 0.027, giftJSON[i]["Sender"]+"\\nприслал подарок",{
+                    // eval(`var ${"senderText"+i} = this.add.text(notificationsX-config.width*0.3,notificationsY-config.height * 0.027, giftJSON[i]["Sender"]+"\\nприслал подарок",{
+                    eval(`var ${"senderText"+i} = this.add.text(notificationsX-initialWidth*0.3,notificationsY-initialHeight * 0.027, giftJSON[i]["Sender"]+"\\nприслал подарок",{
                         fontFamily: 'font1',
                         fontSize: '44px',
                         color: "white",
                     });
                 senderTextSprites.push(${"senderText"+i});
                 ${"senderText"+i}.setActive(false).setVisible(false).setScale(${"senderText"+i}.scale * scaleCoeff);`);
-                    eval(`var ${"typeText"+i} = this.add.text(notificationsX+config.width*0.11,notificationsY-config.height * 0.012,"Забрать",{
+                    // eval(`var ${"typeText"+i} = this.add.text(notificationsX+config.width*0.11,notificationsY-config.height * 0.012,"Забрать",{
+                    eval(`var ${"typeText"+i} = this.add.text(notificationsX+initialWidth*0.11,notificationsY-initialHeight * 0.012,"Забрать",{
                         fontFamily: 'font1',
                         fontSize: '44px',
                         color: "white",
@@ -745,14 +756,16 @@ class MainScreen extends Phaser.Scene {
                 typeTextSprites.push(${"typeText"+i});
                 ${"typeText"+i}.setActive(false).setVisible(false).setScale(${"typeText"+i}.scale * scaleCoeff);`);
                 } else if (giftJSON[i]["Type"] == "send") {
-                    eval(`var ${"senderText"+i} = this.add.text(notificationsX-config.width*0.3,notificationsY-config.height * 0.027, giftJSON[i]["Sender"]+"\\nпросит помощи!",{
+                    // eval(`var ${"senderText"+i} = this.add.text(notificationsX-config.width*0.3,notificationsY-config.height * 0.027, giftJSON[i]["Sender"]+"\\nпросит помощи!",{
+                    eval(`var ${"senderText"+i} = this.add.text(notificationsX-initialWidth*0.3,notificationsY-initialHeight * 0.027, giftJSON[i]["Sender"]+"\\nпросит помощи!",{
                         fontFamily: 'font1',
                         fontSize: '44px',
                         color: "white",
                     });
                 senderTextSprites.push(${"senderText"+i});
                 ${"senderText"+i}.setActive(false).setVisible(false).setScale(${"senderText"+i}.scale * scaleCoeff);`);
-                    eval(`var ${"typeText"+i} = this.add.text(notificationsX+config.width*0.11,notificationsY-config.height * 0.012,"Отправить",{
+                    // eval(`var ${"typeText"+i} = this.add.text(notificationsX+config.width*0.11,notificationsY-config.height * 0.012,"Отправить",{
+                    eval(`var ${"typeText"+i} = this.add.text(notificationsX+initialWidth*0.11,notificationsY-initialHeight * 0.012,"Отправить",{
                         fontFamily: 'font1',
                         fontSize: '35px',
                         color: "white"
@@ -765,14 +778,16 @@ class MainScreen extends Phaser.Scene {
             };
 
 
-            var uiNotificationsCounter = this.add.sprite(config.width * 0.17, config.height * 0.182, "uiNotificationsCounter");
+            // var uiNotificationsCounter = this.add.sprite(config.width * 0.17, config.height * 0.182, "uiNotificationsCounter");
+            var uiNotificationsCounter = this.add.sprite(uiGift.x+initialWidth * 0.07, uiGift.y+initialHeight * 0.032, "uiNotificationsCounter");
             uiNotificationsCounter.setScale(uiNotificationsCounter.scale * scaleCoeff);
-            var uiNotificationsCounterText = this.add.text(config.width * 0.155, config.height * 0.168, giftJSON.length, {
+            // var uiNotificationsCounterText = this.add.text(config.width * 0.155, config.height * 0.168, giftJSON.length, {
+            var uiNotificationsCounterText = this.add.text(uiNotificationsCounter.x, uiNotificationsCounter.y, giftJSON.length, {
                 fontFamily: 'font1',
                 fontSize: '50px',
                 color: "white"
             });
-            uiNotificationsCounterText.setScale(uiNotificationsCounterText.scale * scaleCoeff);
+            uiNotificationsCounterText.setScale(uiNotificationsCounterText.scale * scaleCoeff).setOrigin(0.5, 0.5);
 
 
             for (let i = 0; i < giftJSON.length; i++) {
@@ -804,53 +819,63 @@ class MainScreen extends Phaser.Scene {
 
 
 
-            var uiMenu = this.add.sprite(config.width * 0.89, config.height * 0.06, "uiMenu");
+            // var uiMenu = this.add.sprite(config.width * 0.89, config.height * 0.06, "uiMenu");
+            var uiMenu = this.add.sprite(config.width-initialWidth * 0.11, initialHeight * 0.06, "uiMenu");
             uiMenu.setInteractive().setScale(uiMenu.scale * scaleCoeff);
 
-            var uiCraft = this.add.sprite(config.width * 0.875, config.height * 0.93, "uiCraft");
+            // var uiCraft = this.add.sprite(config.width * 0.875, config.height * 0.93, "uiCraft");
+            var uiCraft = this.add.sprite(config.width*0.5+initialWidth * 0.375, config.height-initialHeight * 0.07, "uiCraft");
             uiCraft.setInteractive().setScale(uiCraft.scale * scaleCoeff);
 
-            var uiUpgrades = this.physics.add.sprite(config.width * 0.125, config.height * 0.93, "uiUpgrades");
+            // var uiUpgrades = this.physics.add.sprite(config.width * 0.125, config.height * 0.93, "uiUpgrades");
+            var uiUpgrades = this.physics.add.sprite(config.width*0.5-initialWidth * 0.375, config.height-initialHeight * 0.07, "uiUpgrades");
             uiUpgrades.setInteractive().setScale(uiUpgrades.scale * scaleCoeff);
 
-            var uiCloseButton = this.physics.add.sprite(config.width / 2, config.height * 0.93, "uiCloseButton");
+            // var uiCloseButton = this.physics.add.sprite(config.width / 2, config.height * 0.93, "uiCloseButton");
+            var uiCloseButton = this.physics.add.sprite(config.width / 2, config.height-initialHeight * 0.07, "uiCloseButton");
             uiCloseButton.setInteractive();
             uiCloseButton.setActive(false).setVisible(false).setScale(uiCloseButton.scale * scaleCoeff);
 
-            var uiLikes = this.add.sprite(config.width * 0.63, config.height * 0.04, "uiLikes");
+            // var uiLikes = this.add.sprite(config.width * 0.63, config.height * 0.04, "uiLikes");
+            var uiLikes = this.add.sprite(config.width*0.5+initialWidth * 0.13, initialHeight * 0.04, "uiLikes");
             uiLikes.setInteractive().setScale(uiLikes.scale * scaleCoeff);
 
-            var uiBackSpinButton = this.add.sprite(config.width * 0.9, config.height * 0.95, "uiBackButton");
-            uiBackSpinButton.setInteractive();
+            var uiBackSpinButton = this.add.sprite(config.width, config.height, "uiBackButton");
+            // var uiBackSpinButton = this.add.sprite(config.width * 0.9, config.height * 0.95, "uiBackButton");
+            uiBackSpinButton.setInteractive().setOrigin(1, 1);
             uiBackSpinButton.setActive(false).setVisible(false).setDepth(2).setScale(uiBackSpinButton.scale * scaleCoeff);
 
 
 
             var uiMenuBar = this.add.sprite(config.width * 0.85, config.height / 2, "uiMenuBar");
             uiMenuBar.setInteractive();
-            uiMenuBar.setActive(false).setVisible(false).setScale(3.6 * scaleCoeff);
+            uiMenuBar.setActive(false).setVisible(false).setScale(3.6*scaleCoeffX, 3.6*scaleCoeffY);
 
             var touchBar = this.add.sprite(0, config.height / 2, "uiMenuBar");
             touchBar.setScale(2.6, 4);
-            touchBar.setInteractive().setActive(false).setVisible(false).setScale(2.6 * (config.width / 1080), 4 * (config.height / 1920));
+            touchBar.setInteractive().setActive(false).setVisible(false).setScale(2.6 * scaleCoeffX, 4 * scaleCoeffY);
         } // спавним UI
 
         {
-            var craftBG = this.add.sprite(config.width / 2, config.height * 0.45, "uiMenuBar");
-            craftBG.setScale(6 * scaleCoeff);
+            // var craftBG = this.add.sprite(config.width / 2, config.height*0.45, "uiMenuBar");
+            var craftBG = this.add.sprite(config.width / 2, config.height*0.5-initialHeight * 0.05, "uiMenuBar");
+            craftBG.setScale(scaleCoeffX, scaleCoeffY);
 
-            var craftBar = this.add.sprite(config.width / 2, config.height * 0.51, "craftBar");
+            // var craftBar = this.add.sprite(config.width / 2, config.height * 0.51, "craftBar");
+            var craftBar = this.add.sprite(config.width / 2, config.height * 0.5+initialHeight*0.01, "craftBar");
             craftBar.setScale(craftBar.scale * scaleCoeff);
 
-            var leftArrow = this.add.sprite(config.width / 18, config.height / 2 + 50, "leftArrow");
+            // var leftArrow = this.add.sprite(config.width / 18, config.height / 2 + 50, "leftArrow");
+            var leftArrow = this.add.sprite(config.width*0.5-8/18*initialWidth, config.height / 2 + 50, "leftArrow");
             leftArrow.setInteractive().setScale(leftArrow.scale * scaleCoeff);
 
-            var rightArrow = this.add.sprite(config.width * 17 / 18, config.height / 2 + 50, "rightArrow");
+            // var rightArrow = this.add.sprite(config.width * 17 / 18, config.height / 2 + 50, "rightArrow");
+            var rightArrow = this.add.sprite(config.width*0.5+ 8 / 18 * initialWidth, config.height / 2 + 50, "rightArrow");
             rightArrow.setInteractive().setScale(rightArrow.scale * scaleCoeff);
 
 
-            var uiBackCraftButton = this.add.sprite(config.width * 0.9, config.height * 0.95, "uiBackButton");
-            uiBackCraftButton.setInteractive();
+            var uiBackCraftButton = this.add.sprite(config.width, config.height, "uiBackButton");
+            uiBackCraftButton.setInteractive().setOrigin(1, 1);
             uiBackCraftButton.setActive(false).setVisible(false).setScale(uiBackCraftButton.scale * scaleCoeff);
 
             var recipesArr = [
@@ -931,22 +956,22 @@ class MainScreen extends Phaser.Scene {
 
         {
             var spinsBG = this.add.sprite(config.width / 2, config.height / 2, "spinsBG");
-            spinsBG.setActive(false).setVisible(false).setScale(spinsBG.scale * scaleCoeff);
+            spinsBG.setActive(false).setVisible(false).setScale(scaleCoeffX, scaleCoeffY);
 
             var fridgeRear = this.add.sprite(config.width * 0.48, config.height * 0.555, "fridgeRear");
-            fridgeRear.setActive(false).setVisible(false).setScale(fridgeRear.scale * scaleCoeff);
+            fridgeRear.setActive(false).setVisible(false).setScale(scaleCoeffX, scaleCoeffY);
 
             var fridgeShadow = this.add.sprite(config.width / 2, config.height * 0.23, "fridgeShadow");
-            fridgeShadow.setActive(false).setVisible(false).setDepth(1.05).setScale(fridgeShadow.scale * scaleCoeff);
+            fridgeShadow.setActive(false).setVisible(false).setDepth(1.05).setScale(scaleCoeffX, scaleCoeffY);
 
             var fridgeFrame = this.add.sprite(config.width / 2, config.height / 2, "fridgeFrame");
-            fridgeFrame.setActive(false).setVisible(false).setDepth(1.07).setScale(fridgeFrame.scale * scaleCoeff);
+            fridgeFrame.setActive(false).setVisible(false).setDepth(1.07).setScale(scaleCoeffX, scaleCoeffY);
 
             // var fridgeDoor = this.add.sprite(config.width * 1.02, config.height * 0.55, "fridgeDoor");
             // fridgeDoor.setActive(false).setVisible(false).setInteractive().setDepth(1.08);
 
             var slammingFridgeDoorObject = this.add.sprite(config.width * 0.655, config.height * 0.54, "slammingFridgeDoor")
-            slammingFridgeDoorObject.setActive(false).setVisible(false).setInteractive().setDepth(1.19).setScale(slammingFridgeDoorObject.scale * scaleCoeff);; //Depth to be higher than spinButton
+            slammingFridgeDoorObject.setActive(false).setVisible(false).setInteractive().setDepth(1.19).setScale(scaleCoeffX, scaleCoeffY); //Depth to be higher than spinButton
 
             var flag = false;
 
@@ -986,10 +1011,10 @@ class MainScreen extends Phaser.Scene {
             var energyBar = this.add.sprite(config.width * 0.47, config.height * 0.77, "energyBar");
             energyBar.setActive(false).setVisible(false).setDepth(1.1).setScale(energyBar.scale * scaleCoeff);
 
-            var energyIcon = this.add.sprite(config.width * 0.42, config.height * 0.765, "iconEnergy");
+            var energyIcon = this.add.sprite(config.width*0.47-initialWidth * 0.05, config.height * 0.77, "iconEnergy");
             energyIcon.setScale(0.6).setActive(false).setVisible(false).setDepth(1.1).setScale(energyIcon.scale * scaleCoeff);
 
-            this.energyText = this.add.text(energyBar.x, energyBar.y * 0.97, gameSettings.currEnergy, {
+            this.energyText = this.add.text(energyBar.x, energyBar.y, gameSettings.currEnergy, {
                 fontFamily: 'font1',
                 fontSize: '70px',
                 color: "purple"
@@ -997,7 +1022,7 @@ class MainScreen extends Phaser.Scene {
 
 
             var energyText0 = this.energyText;
-            energyText0.setInteractive();
+            energyText0.setInteractive().setOrigin(0, 0.5);
             energyText0.setActive(false).setVisible(false).setDepth(1.1).setScale(energyText0.scale * scaleCoeff);
             var firstRowParameter, secondRowParameter, thirdRowParameter;
 
@@ -1283,17 +1308,17 @@ class MainScreen extends Phaser.Scene {
         } // спавним элементы меню
 
         {
-            var opponentAvatar = this.add.sprite(config.width * 0.14, config.height * 0.07, "opponentAvatar");
+            var opponentAvatar = this.add.sprite(config.width*0.5-initialWidth * 0.36, initialHeight * 0.07, "opponentAvatar");
             opponentAvatar.setActive(false).setVisible(false).setDepth(1.2).setScale(opponentAvatar.scale * scaleCoeff);
 
-            var opponentUnderlay = this.add.sprite(config.width * 0.435, config.height * 0.07, "opponentUnderlay");
+            var opponentUnderlay = this.add.sprite(config.width*0.5-initialWidth * 0.065, initialHeight * 0.07, "opponentUnderlay");
             opponentUnderlay.setActive(false).setVisible(false).setDepth(1.1).setScale(opponentUnderlay.scale * scaleCoeff);
 
-            var challengeMediumGift = this.add.sprite(config.width * 0.1, config.height * 0.53, "mediumGift");
+            var challengeMediumGift = this.add.sprite(config.width * 0.5-0.4*initialWidth, config.height * 0.53, "mediumGift");
             challengeMediumGift.setActive(false).setVisible(false).setDepth(1.1).setScale(challengeMediumGift.scale * scaleCoeff);
 
             var challengeBG = this.add.sprite(config.width * 0.5, config.height * 0.5, "challengeBG");
-            challengeBG.setActive(false).setVisible(false).setDepth(1).setScale(challengeBG.scale * scaleCoeff);
+            challengeBG.setActive(false).setVisible(false).setDepth(1).setScale(scaleCoeffX, scaleCoeffY);
 
             var tiles = [];
             var indicators = [];
@@ -1310,22 +1335,24 @@ class MainScreen extends Phaser.Scene {
 
             for (i = 0; i < 9; i++) {
                 //opponent tiles
-                tiles[i] = this.add.sprite(config.width * (tileX + tileDX * (i % 3)), config.height * (tileY1 + tileDY * (i - i % 3) / 3), "squareTile");
+                tiles[i] = this.add.sprite(config.width * 0.5-(0.5-(tileX + tileDX * (i % 3)))*initialWidth, 
+                        config.height*0.5-(0.5-(tileY1 + tileDY * (i - i % 3) / 3))*initialHeight, "squareTile");
                 tiles[i].setActive(false).setVisible(false).setDepth(1.1).setInteractive().setScale(tiles[i].scale * scaleCoeff);
 
                 //oppenent progress
-                indicators[i] = this.add.sprite(config.width * (indX + indDX * i), config.height * indY1, "progressOffIndicator");
+                indicators[i] = this.add.sprite(config.width*0.5-(0.5 - (indX + indDX * i))*initialWidth, config.height * indY1, "progressOffIndicator");
                 indicators[i].setActive(false).setVisible(false).setDepth(1.1).setInteractive().setScale(indicators[i].scale * scaleCoeff);
-                indicators[i + 18] = this.add.sprite(config.width * (indX + indDX * i), config.height * indY1, "progressOnIndicator");
+                indicators[i + 18] = this.add.sprite(config.width*0.5-(0.5 - (indX + indDX * i))*initialWidth, config.height * indY1, "progressOnIndicator");
                 indicators[i + 18].setActive(false).setVisible(false).setDepth(1.2).setInteractive().setScale(indicators[i + 18].scale * scaleCoeff);
 
                 //player tiles
-                tiles[i + 9] = this.add.sprite(config.width * (tileX + tileDX * (i % 3)), config.height * (tileY2 + tileDY * (i - i % 3) / 3), "squareTile");
+                tiles[i + 9] = this.add.sprite(config.width*0.5-(0.5- (tileX + tileDX * (i % 3)))*initialWidth, 
+                        config.height*0.5-(0.5 - (tileY2 + tileDY * (i - i % 3) / 3))*initialHeight, "squareTile");
                 tiles[i + 9].setActive(true).setVisible(false).setDepth(1.1).setInteractive().setScale(tiles[i + 9].scale * scaleCoeff);
                 //player progress
-                indicators[i + 9] = this.add.sprite(config.width * (indX + indDX * i), config.height * indY2, "progressOffIndicator");
+                indicators[i + 9] = this.add.sprite(config.width*0.5-(0.5 - (indX + indDX * i))*initialWidth, config.height * indY2, "progressOffIndicator");
                 indicators[i + 9].setActive(false).setVisible(false).setDepth(1.1).setScale(indicators[i + 9].scale * scaleCoeff);
-                indicators[i + 27] = this.add.sprite(config.width * (indX + indDX * i), config.height * indY2, "progressOnIndicator");
+                indicators[i + 27] = this.add.sprite(config.width*0.5-(0.5 - (indX + indDX * i))*initialWidth, config.height * indY2, "progressOnIndicator");
                 indicators[i + 27].setActive(false).setVisible(false).setDepth(1.2).setScale(indicators[i + 27].scale * scaleCoeff);
             }
 
@@ -1352,16 +1379,16 @@ class MainScreen extends Phaser.Scene {
             Array.prototype.push.apply(challengeObjects, indicators);
             Array.prototype.push.apply(challengeObjects, challengeTileTexts);
 
-            var consolationPrizeUnderlay = this.add.sprite(config.width * 0.5, config.height * 0.58, "consolationPrizeUnderlay");
+            var consolationPrizeUnderlay = this.add.sprite(config.width * 0.5, config.height*0.5+initialHeight * 0.08, "consolationPrizeUnderlay");
             consolationPrizeUnderlay.setActive(false).setVisible(false).setDepth(1.3).setScale(consolationPrizeUnderlay.scale * scaleCoeff);
 
-            var consolationPrizeButton = this.add.sprite(config.width * 0.5, config.height * 0.73, "consolationPrizeButton");
+            var consolationPrizeButton = this.add.sprite(config.width * 0.5, config.height*0.5+initialHeight * 0.23, "consolationPrizeButton");
             consolationPrizeButton.setActive(false).setVisible(false).setDepth(1.3).setInteractive().setScale(consolationPrizeButton.scale * scaleCoeff);
 
             var challengeDefeatBG = this.add.sprite(config.width * 0.5, config.height * 0.5, "challengeDefeatBG");
-            challengeDefeatBG.setActive(false).setVisible(false).setDepth(1.1).setScale(challengeDefeatBG.scale * scaleCoeff);
+            challengeDefeatBG.setActive(false).setVisible(false).setDepth(1.1).setScale(scaleCoeffX, scaleCoeffY);
 
-            var defeatUnderlay = this.add.sprite(config.width * 0.5, config.height * 0.47, "defeatUnderlay");
+            var defeatUnderlay = this.add.sprite(config.width * 0.5, config.height*0.5-initialHeight * 0.03, "defeatUnderlay");
             defeatUnderlay.setActive(false).setVisible(false).setDepth(1.2).setScale(defeatUnderlay.scale * scaleCoeff);
 
             var defeatText1 = this.add.text(defeatUnderlay.x, defeatUnderlay.y - defeatUnderlay.displayHeight * 0.4, "Поражение", {
@@ -1407,16 +1434,16 @@ class MainScreen extends Phaser.Scene {
             var challengeDefeatObjects = [consolationPrizeUnderlay, consolationPrizeButton, challengeDefeatBG, defeatUnderlay,
                                             defeatText1, defeatText2, defeatText3, defeatTextMoney, defeatTextButton];
 
-            var largeGift = this.add.sprite(config.width * 0.5, config.height * 0.36, "largeGift");
+            var largeGift = this.add.sprite(config.width * 0.5, config.height*0.5-initialHeight * 0.14, "largeGift");
             largeGift.setActive(false).setVisible(false).setDepth(1.3).setScale(largeGift.scale * scaleCoeff);
 
-            var victoryButton = this.add.sprite(config.width * 0.5, config.height * 0.7, "victoryButton");
+            var victoryButton = this.add.sprite(config.width * 0.5, config.height*0.5+initialHeight * 0.2, "victoryButton");
             victoryButton.setActive(false).setVisible(false).setDepth(1.4).setInteractive().setScale(victoryButton.scale * scaleCoeff);
 
             var giftBackground = this.add.sprite(config.width * 0.5, config.height * 0.5, "giftBackground");
-            giftBackground.setActive(false).setVisible(false).setDepth(1.1).setScale(giftBackground.scale * scaleCoeff);
+            giftBackground.setActive(false).setVisible(false).setDepth(1.1).setScale(scaleCoeffX, scaleCoeffY);
 
-            var rays = this.add.sprite(config.width * 0.5, config.height * 0.36, "rays");
+            var rays = this.add.sprite(config.width * 0.5, config.height*0.5-initialHeight * 0.14, "rays");
             rays.setActive(false).setVisible(false).setDepth(1.2).setScale(rays.scale * scaleCoeff);
 
             var victoryTextButton = this.add.text(victoryButton.x, victoryButton.y, "Победа", {
@@ -1528,7 +1555,7 @@ class MainScreen extends Phaser.Scene {
             uiBackShopButton.setActive(false).setVisible(false).setDepth(5).setOrigin(1.0, 1.0).setScale(uiBackShopButton.scale * scaleCoeff);
 
             var shopBG = this.add.sprite(config.width * 0.5, config.height * 0.5, "challengeDefeatBG");
-            shopBG.setActive(false).setVisible(false).setDepth(4.1).setOrigin(0.5, 0.5).setInteractive().setScale(shopBG.scale * scaleCoeff);
+            shopBG.setActive(false).setVisible(false).setDepth(4.1).setOrigin(0.5, 0.5).setInteractive().setScale(scaleCoeffX, scaleCoeffY);
 
             var energyText = this.add.text(config.width * 0.5, config.height * 0.15, "Энергия", {
                 fontFamily: 'font1',
@@ -1550,11 +1577,11 @@ class MainScreen extends Phaser.Scene {
             var goodUnderlays = [];
 
             for (i = -1; i <= 1; i++) {
-                goodUnderlays[i + 1] = this.add.sprite(config.width * 0.5 + i * config.width * 0.3, energyText.y + config.height * 0.18, "GoodUnderlay");
+                goodUnderlays[i + 1] = this.add.sprite(config.width * 0.5 + i * initialWidth * 0.3, energyText.y + config.height * 0.18, "GoodUnderlay");
                 goodUnderlays[i + 1].setActive(false).setVisible(false).setDepth(4.2).setOrigin(0.5, 0.5).setInteractive().setScale(goodUnderlays[i + 1].scale * scaleCoeff);
             }
             for (i = -1; i <= 1; i++) {
-                goodUnderlays[i + 4] = this.add.sprite(config.width * 0.5 + i * config.width * 0.3, moneyText.y + config.height * 0.18, "GoodUnderlay");
+                goodUnderlays[i + 4] = this.add.sprite(config.width * 0.5 + i * initialWidth * 0.3, moneyText.y + config.height * 0.18, "GoodUnderlay");
                 goodUnderlays[i + 4].setActive(false).setVisible(false).setDepth(4.2).setOrigin(0.5, 0.5).setInteractive().setScale(goodUnderlays[i + 4].scale * scaleCoeff);
             }
 
@@ -1777,7 +1804,8 @@ class MainScreen extends Phaser.Scene {
             });
 
             function randomFrame(firstSlot, secondSlot, thirdSlot, argument) {
-                let a = Math.random();
+                // let a = Math.random();
+                let a = 0.8;
                 if (a < 0.15) {
                     firstSlot.setFrame("energy");
                     secondSlot.setFrame("gift");
@@ -1987,8 +2015,10 @@ class MainScreen extends Phaser.Scene {
                 }
                 challengeCurrentNumber = 0;
                 challengeFillTiles();
-                uiLikes.x = config.width * 0.76;
-                uiLikes.y = config.height * 0.07;
+                // uiLikes.x = config.width * 0.76;
+                uiLikes.x = config.width*0.5+initialWidth * 0.26;
+                // uiLikes.y = config.height * 0.07;
+                uiLikes.y = initialHeight * 0.07;
                 uiLikes.setActive(true).setVisible(true).setDepth(opponentAvatar.depth);
                 startBot();
             }
@@ -2010,8 +2040,8 @@ class MainScreen extends Phaser.Scene {
                 spinsBG.setActive(true).setVisible(true);
                 uiBackSpinButton.setActive(true).setVisible(true);
                 uiSC.setActive(true).setVisible(true);
-                uiSC.setX(config.width / 2).setY(config.height * 0.06).setDepth(1.2);
-                goldText0.setActive(true).setVisible(true).setDepth(1.21).setX(config.width / 2).setY(config.height * 0.06);
+                uiSC.setX(config.width / 2).setY(initialHeight * 0.06).setDepth(1.2);
+                goldText0.setActive(true).setVisible(true).setDepth(1.21).setX(config.width / 2).setY(initialHeight * 0.06);
                 spinGroup.getChildren().forEach(setAllVisible);
 
                 function setAllVisible(element, index) {
@@ -2027,8 +2057,10 @@ class MainScreen extends Phaser.Scene {
                     challengeObjects[i].setActive(false).setVisible(false);
                 }
                 uiLikes.setActive(false).setVisible(false).setDepth(1);
-                uiLikes.x = config.width * 0.63;
-                uiLikes.y = config.height * 0.04;
+                // uiLikes.x = config.width * 0.63;
+                uiLikes.x = config.width * 0.5+initialWidth*0.13;
+                // uiLikes.y = config.height * 0.04;
+                uiLikes.y = initialHeight * 0.04;
                 var arr;
                 if (result) {
                     arr = challengeVictoryObjects;
@@ -2217,8 +2249,8 @@ class MainScreen extends Phaser.Scene {
                 function setAllVisible(element, index) {
                     element.setActive(true).setVisible(true);
                 };
-                uiSC.setX(config.width / 2).setY(config.height * 0.06).setDepth(1.2);
-                goldText0.setActive(true).setVisible(true).setDepth(1.21).setX(config.width / 2).setY(config.height * 0.06);
+                uiSC.setX(config.width / 2).setY(initialHeight * 0.06).setDepth(1.2);
+                goldText0.setActive(true).setVisible(true).setDepth(1.21).setX(config.width / 2).setY(initialHeight * 0.06);
                 closeUI();
             }); //если нажимаем кнопку "play", то открываются спины
 
@@ -2247,10 +2279,10 @@ class MainScreen extends Phaser.Scene {
                 uiNotificationsUnderlay.setActive(true).setVisible(true);
                 uiNotificationsBackButton.setActive(true).setVisible(true);
                 closeUI();
-                uiSC.setX(config.width * 0.30);
-                goldText0.setX(config.width * 0.33);
+                uiSC.setX(config.width*0.5-initialWidth * 0.2);
+                goldText0.setX(config.width*0.5 -initialWidth * 0.17);
                 uiEnergyBar.setActive(true).setVisible(true);
-                energyText0.setVisible(true).setPosition(config.width * 0.73, config.height * 0.02).setColor("white");
+                energyText0.setVisible(true).setPosition(config.width*0.5+initialWidth * 0.23, uiEnergyBar.y).setColor("white");
                 for (let i = 0; i < giftJSON.length; i++) {
                     notificationPanelsSprites[i].setActive(true).setVisible(true);
                     collectGiftSprites[i].setActive(true).setVisible(true);
@@ -2267,7 +2299,7 @@ class MainScreen extends Phaser.Scene {
                 uiSC.setX(initialSCX);
                 goldText0.setX(initialSCX);
                 uiEnergyBar.setActive(false).setVisible(false);
-                energyText0.setVisible(false).setPosition(energyBar.x, energyBar.y * 0.97).setColor("purple");
+                energyText0.setVisible(false).setPosition(energyBar.x, energyBar.y).setColor("purple");
                 for (let i = 0; i < giftJSON.length; i++) {
                     notificationPanelsSprites[i].setActive(false).setVisible(false);
                     collectGiftSprites[i].setActive(false).setVisible(false);
@@ -2346,13 +2378,13 @@ class MainScreen extends Phaser.Scene {
                 uiSC.disableInteractive();
                 uiSC.setDepth(4.2);
                 uiSC.setActive(true).setVisible(true);
-                uiSC.x = config.width * 0.36;
-                uiSC.y = config.height * 0.06;
+                uiSC.x = config.width*0.5-initialWidth * 0.14;
+                uiSC.y = initialHeight * 0.06;
 
                 uiEnergyBar.setActive(true).setVisible(true).setDepth(4.2);
 
-                uiEnergyBar.x = config.width * 0.75;
-                uiEnergyBar.y = config.height * 0.06;
+                uiEnergyBar.x = config.width*0.5+initialWidth* 0.25;
+                uiEnergyBar.y = initialHeight * 0.06;
 
 
                 goldText0.setActive(true).setVisible(true);
@@ -2478,10 +2510,10 @@ class MainScreen extends Phaser.Scene {
                     uiNotificationsUnderlay.setActive(true).setVisible(true);
                     uiNotificationsBackButton.setActive(true).setVisible(true);
                     closeUI();
-                    uiSC.setX(config.width * 0.30);
-                    goldText0.setX(config.width * 0.33);
+                    uiSC.setX(config.width*0.5-initialWidth * 0.20);
+                    goldText0.setX(config.width*0.5-initialWidth * 0.17);
                     uiEnergyBar.setActive(true).setVisible(true);
-                    energyText0.setVisible(true).setPosition(config.width * 0.73, config.height * 0.02).setColor("white");
+                    energyText0.setVisible(true).setPosition(config.width*0.5-initialWidth * 0.23, initialHeight * 0.02).setColor("white");
                     for (let i = 0; i < giftJSON.length; i++) {
                         notificationPanelsSprites[i].setActive(true).setVisible(true);
                         collectGiftSprites[i].setActive(true).setVisible(true);
@@ -2544,13 +2576,13 @@ class MainScreen extends Phaser.Scene {
                     uiSC.disableInteractive();
                     uiSC.setDepth(4.2);
                     uiSC.setActive(true).setVisible(true);
-                    uiSC.x = config.width * 0.36;
-                    uiSC.y = config.height * 0.06;
+                    uiSC.x = config.width*0.5-initialWidth * 0.14;
+                    uiSC.y = initialHeight * 0.06;
 
                     uiEnergyBar.setActive(true).setVisible(true).setDepth(4.2);
 
-                    uiEnergyBar.x = config.width * 0.75;
-                    uiEnergyBar.y = config.height * 0.06;
+                    uiEnergyBar.x = config.width*0.5+initialWidth * 0.25;
+                    uiEnergyBar.y = initialHeight * 0.06;
 
 
                     goldText0.setActive(true).setVisible(true);
@@ -2579,7 +2611,7 @@ class MainScreen extends Phaser.Scene {
                         element.setActive(true).setVisible(true);
                     };
                     uiSC.setX(config.width / 2).setY(config.height * 0.06).setDepth(1.2);
-                    goldText0.setActive(true).setVisible(true).setDepth(1.21).setX(config.width / 2).setY(config.height * 0.06);
+                    goldText0.setActive(true).setVisible(true).setDepth(1.21).setX(config.width / 2).setY(initialHeight * 0.06);
                     closeMenuActions();
                 }) // При нажатии на "Играть" в меню переходим в слот машину
                 function closeMenuActions() {
@@ -2678,15 +2710,15 @@ class MainScreen extends Phaser.Scene {
                             proportions = [1, 0, 2];
                         }
                         levelObjects[i] = _scene.rexUI.add.gridSizer({
-                                width: config.height * 0.65,
-                                width: config.width * 0.58,
+                                height: initialHeight * 0.65,
+                                width: initialWidth * 0.58,
                                 column: 1,
                                 row: rows,
                                 rowProportions: proportions,
                                 space: {
                                     column: 0,
                                     row: 0,
-                                    top: config.height * 0.3
+                                    top: initialHeight * 0.3
                                 },
                                 name: i // Search this name to get table back
                             })
@@ -2696,7 +2728,7 @@ class MainScreen extends Phaser.Scene {
                             .add(levelTextObjects[i], {
                                 expand: false,
                             })
-                            .add(_scene.rexUI.add.roundRectangle(0, 0, config.width * 0.58, 0, 0, 0x000000).setDepth(1.2), {
+                            .add(_scene.rexUI.add.roundRectangle(0, 0, initialWidth * 0.58, 0, 0, 0x000000).setDepth(1.2), {
                                 expand: false
                             }, {
                                 align: 'center'
@@ -2718,8 +2750,8 @@ class MainScreen extends Phaser.Scene {
                                     align: "center"
                                 }).setDepth(1.2).setScale(scaleCoeff), {
                                     padding: {
-                                        top: config.height * 0.1,
-                                        bottom: config.height * 0.02
+                                        top: initialHeight * 0.1,
+                                        bottom: initialHeight * 0.02
                                     },
                                     expand: false,
                                 })
@@ -2734,8 +2766,8 @@ class MainScreen extends Phaser.Scene {
                                     align: "center"
                                 }).setDepth(1.2).setScale(scaleCoeff), {
                                     padding: {
-                                        top: config.height * 0.1,
-                                        bottom: config.height * 0.02
+                                        top: initialHeight * 0.1,
+                                        bottom: initialHeight * 0.02
                                     },
                                     expand: false
                                 })
@@ -2770,11 +2802,11 @@ class MainScreen extends Phaser.Scene {
                             row: 1,
                             rowProportions: 1,
                             space: {
-                                column: config.width * 0.12,
-                                left: config.width * 0.21,
-                                right: config.width * 0.21,
-                                top: config.height * 0.15,
-                                bottom: config.height * 0.2
+                                column: initialWidth * 0.12,
+                                left: config.width*0.5-initialWidth * 0.29,
+                                right: config.width*0.5-initialWidth * 0.29,
+                                top:  config.height * 0.15,
+                                bottom: config.height*0.85-initialHeight*0.65
                             },
                             name: "sizer" // Search this name to get table back
                         });
