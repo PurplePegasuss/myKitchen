@@ -892,7 +892,7 @@ class MainScreen extends Phaser.Scene {
             touchBar.setScale(2.6, 4);
             touchBar.setInteractive().setActive(false).setVisible(false).setScale(2.6 * scaleCoeffX, 4 * scaleCoeffY);
 
-            var spinsTransition = this.add.sprite(config.width * 0.5, config.height * 0.5, "spinsTransition");
+            var spinsTransition = this.add.sprite(config.width * 0.5, config.height * 0.5);
             spinsTransition.setDepth(4);
 
             this.anims.create({
