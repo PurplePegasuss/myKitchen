@@ -2158,7 +2158,6 @@ class MainScreen extends Phaser.Scene {
             //move from spin to challenge
             function moveSpinToChallenge() {
                 flagEndGame = false;
-                firstClick = false;
                 spinsBG.setActive(false).setVisible(false);
                 uiBackSpinButton.setActive(false).setVisible(false);
                 uiSC.setActive(false).setVisible(false);
@@ -2199,8 +2198,6 @@ class MainScreen extends Phaser.Scene {
                 for (i = 0; i < arr.length; i++) {
                     arr[i].setActive(false).setVisible(false);
                 }
-
-                firstClick = false;
                 spinsBG.setActive(true).setVisible(true);
                 uiBackSpinButton.setActive(true).setVisible(true);
                 uiSC.setActive(true).setVisible(true);
