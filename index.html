@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="phaser.min.js"></script>
+    <script type="text/javascript" src="LoadingScreen.js"></script>
+    <script type="text/javascript" src="MainScreen.js"></script>
+    <sript type="text/javascript" src="FixScreen.js"></sript>
+    <script type="text/javascript" src="game.js"></script>
+    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+    <script>
+        vkBridge.send('VKWebAppInit');
+
+    </script>
+</head>
+
+<body>
+    <style media='screen' type='text/css'>
+        @font-face {
+            font-family: font1;
+            src: url('assets/Font/MPLUSRounded1c-Bold.ttf');
+            font-weight: 400;
+            font-weight: normal;
+        }
+
+    </style>
+    <div style="font-family:font1; position:absolute; left:-1000px; visibility:hidden;">.</div>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=unicode">
+</body>
+
+</html>
